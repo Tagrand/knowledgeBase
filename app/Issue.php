@@ -19,4 +19,8 @@ class Issue extends Model
     public function arguments() {
         return $this->belongsToMany(Argument::class);
     }
+
+    public function facts() {
+        return $this->belongsToMany(Fact::class);
+    }
 }
