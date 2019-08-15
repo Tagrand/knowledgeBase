@@ -28,4 +28,97 @@
 6. php artisan make:migration create_whatever_table (useful types - string, text, int, bool)
    php artisan make:model <- remeber to add $guarded = [] property and casts property 
 
+---- Add vue in ---- 
+1. npm install vue vue-router vuex --save
 
+2. Rename welcome.blade.php to app.blade.php.
+
+3. add in a div to attach vue to and a link to the js code
+         <div id="app"></div>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+
+4. in the head add a meta tag - this is to get the csrf token for axios to use. 
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+5. (If using VueRouter) add Route::get('/{any}', function() {return view('app')} )->where('any', '.*'); to your web file.
+   -- this is so you don't end up changing page each time. You can just put it at the bottom and the other routes can remain
+   -- don't forget to change welcome in the home path to app too
+
+6. Change your app.js file to this and remove the bootstrap file (as it contains a load of not that useful stuff - I've moved axios to this file).
+
+    import Vue from 'vue';
+    import Vuex from 'vuex';
+    import App from '@/js/views/App';
+    import Routes from '@/js/routes.js';
+
+    Vue.use(Vuex);
+
+    window._ = require('lodash');
+    window.axios = require('axios');
+
+    window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+    let token = document.head.querySelector('meta[name="csrf-token"]');
+
+    if (token) {
+        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    } else {
+        console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    }
+
+    const app = new Vue({
+        el: '#app',
+        router: Routes,
+        render: h => h(App),
+    });
+
+7. Make folds layouts, pages, stores, views, and delete the example component in the components folder (in js).
+
+8. Make Home.vue for now.
+   
+9. In views, add App.vue. With this
+<template>
+<div>
+   <p> Hello </p>
+   <router-view></router-view>
+</div>   
+</template>
+
+<script>
+export default {};
+</script>
+
+10. In the main directory add this in a new routes.js file
+
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import Home from '@/js/components/Home';
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+      {
+          path: '/',
+          name: 'home',
+          component: Home,
+      },
+    ],
+});
+
+export default router;
+
+11. Then in the webpack file add this 
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            '@': __dirname + '/resources',
+        },
+    },
+})
+
+12. Run npm run watch. And it should all...work...
