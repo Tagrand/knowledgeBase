@@ -1,7 +1,8 @@
-1 - laravel new project
-2 - link to github 
-3 - make the psql database and give a user access. Give that user a password.
-4 - setup DB
+--- Set up laravel with login --- 
+1. - laravel new project
+2. - link to github 
+3. - make the psql database and give a user access. Give that user a password.
+4. - setup DB
     - if on heroku use psql
        database.php - set the default to psql (and do it in your local env)
        
@@ -25,8 +26,9 @@
     php artisan make:auth
     php artisan migrate
 
-6. php artisan make:migration create_whatever_table (useful types - string, text, int, bool)
-   php artisan make:model <- remeber to add $guarded = [] property and casts property 
+6.  php artisan make:model -m (The m will also make a migration)
+    remeber to add $guarded = [] property and casts property 
+    php artisan make:migration create_whatever_table (useful types - string, text, integer, bool)
 
 ---- Add vue in ---- 
 1. npm install vue vue-router vuex --save
@@ -93,7 +95,6 @@ export default {};
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
 import Home from '@/js/components/Home';
 
 Vue.use(VueRouter);

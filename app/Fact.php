@@ -16,4 +16,8 @@ class Fact extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function arguments() {
+        return $this->belongsToMany(Argument::class);
+    }
 }
