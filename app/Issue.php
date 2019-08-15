@@ -11,7 +11,12 @@ class Issue extends Model
     protected $casts = [
         'id' => 'int',
         'name' => 'string',
+        'summary' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function arguments() {
+        return $this->belongsToMany(Argument::class);
+    }
 }

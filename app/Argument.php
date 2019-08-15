@@ -20,4 +20,8 @@ class Argument extends Model
     public function facts() {
         return $this->belongsToMany(Fact::class);
     }
+
+    public function issues() {
+        return $this->belongsToMany(Issue::class);
+    }
 }
