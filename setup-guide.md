@@ -21,4 +21,11 @@
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+5. If you want to add login on the quick 
+    php artisan make:auth
+    php artisan migrate
+
+6. php artisan make:migration create_whatever_table (useful types - string, text, int, bool)
+   php artisan make:model <- remeber to add $guarded = [] property and casts property 
+
 
