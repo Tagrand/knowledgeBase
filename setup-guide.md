@@ -30,6 +30,37 @@
     remeber to add $guarded = [] property and casts property 
     php artisan make:migration create_whatever_table (useful types - string, text, integer, bool)
 
+---- Setup passport ---- 
+
+1. composer require laravel/passport
+
+2. php artisan migrate
+
+3. php artisan passport:install
+
+4. add HasApiToken trait to the User
+
+5. The AuthServiceProvider should look like this
+protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        Passport::routes();
+    }
+
+6. In auth.php  set api driver 'driver' => 'passport',
+
+7. If you're using normal sessions you can do something pretty simple to consume the api. Laravel will let you consume your own api. 
+   You just need to add the \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class to the web middleware in Kernel.php
+
+   this will add a laravel_token cooke to outgoing responses. Which contains a JWT that passport will authenticate API requests from. 
+
+   laravel api has a /user endpoint by default. You can use this to test out if its working.
+
 ---- Add vue in ---- 
 1. npm install vue vue-router vuex --save
 
@@ -40,7 +71,7 @@
 
         <script src="{{ asset('js/app.js') }}"></script>
 
-	if you're using authentification
+	if you're using authentification replace welcome with this.
           @extends('layouts.app')
 
           @section('content')
@@ -62,8 +93,8 @@
 
    Also, in the App.blade.php file, in layouts' you'll see an id='app'. Remove the id or vue will just replace all that.
 
+   Then delete the home.blade.php file
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 
 6. Change your app.js file to this and remove the bootstrap file (as it contains a load of not that useful stuff - I've moved axios to this file).
 
