@@ -1845,6 +1845,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -19470,7 +19472,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Hello\n")])
+  return _c("div", [_vm._v("\n    Howdy\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19496,7 +19498,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("p", [_vm._v(" Hello ")]), _vm._v(" "), _c("router-view")],
+    [
+      _c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")]),
+      _vm._v(" "),
+      _c("router-link", { attrs: { to: "/test" } }, [_vm._v("Home")]),
+      _vm._v(" "),
+      _c("p", [_vm._v(" trying ")]),
+      _vm._v(" "),
+      _c("router-view")
+    ],
     1
   )
 }
@@ -35632,24 +35642,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _js_components_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/js/components/Home */ "./resources/js/components/Home.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_defineProperty({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
     path: '/',
     name: 'home',
     component: _js_components_Home__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    path: '/test',
+    name: 'home',
+    component: _js_components_Home__WEBPACK_IMPORTED_MODULE_2__["default"]
   }]
-}, "routes", [{
-  path: '/test',
-  name: 'home',
-  component: _js_components_Home__WEBPACK_IMPORTED_MODULE_2__["default"]
-}]));
+});
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),

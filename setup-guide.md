@@ -40,12 +40,30 @@
 
         <script src="{{ asset('js/app.js') }}"></script>
 
+	if you're using authentification
+          @extends('layouts.app')
+
+          @section('content')
+            <div id="app"></div>
+            <script src="{{ asset('js/app.js') }}"></script> 
+          @endsection
+
 4. in the head add a meta tag - this is to get the csrf token for axios to use. 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 5. (If using VueRouter) add Route::get('/{any}', function() {return view('app')} )->where('any', '.*'); to your web file.
    -- this is so you don't end up changing page each time. You can just put it at the bottom and the other routes can remain
    -- don't forget to change welcome in the home path to app too
+
+   if you're using authentification too 
+	  Auth::routes();
+	  Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+   Then change the HomeController to return App. 
+
+   Also, in the App.blade.php file, in layouts' you'll see an id='app'. Remove the id or vue will just replace all that.
+
+
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 
 6. Change your app.js file to this and remove the bootstrap file (as it contains a load of not that useful stuff - I've moved axios to this file).
 
@@ -123,3 +141,13 @@ mix.webpackConfig({
 })
 
 12. Run npm run watch. And it should all...work...
+
+---- Mailtrap -----
+
+.env
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=INSERT
+MAIL_PASSWORD=INSERT
+MAIL_ENCRYPTION=tls
