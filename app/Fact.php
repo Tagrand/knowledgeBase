@@ -12,7 +12,6 @@ class Fact extends Model
         'id' => 'int',
         'claim' => 'string',
         'person' => 'string',
-        'source' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

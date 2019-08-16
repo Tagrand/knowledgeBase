@@ -12,7 +12,6 @@ class Argument extends Model
         'id' => 'int',
         'reason' => 'string',
         'person' => 'string',
-        'source' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

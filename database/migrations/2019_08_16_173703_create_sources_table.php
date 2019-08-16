@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArgumentsTable extends Migration
+class CreateSourcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateArgumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('arguments', function (Blueprint $table) {
+        Schema::create('sources', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('reason');
-            $table->string('person')->nullable();
+            $table->text('name')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateArgumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arguments');
+        Schema::dropIfExists('sources');
     }
 }

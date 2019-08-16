@@ -17,7 +17,6 @@ class CreateFactsTable extends Migration
             $table->bigIncrements('id');
             $table->text('claim');
             $table->string('person')->nullable();
-            $table->text('source')->nullable();
             $table->timestamps();
         });
     }
