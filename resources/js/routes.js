@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Home from '@/js/pages/Home';
+import Fact from '@/js/pages/Fact';
 
-import Home from '@/js/components/Home';
 
 Vue.use(VueRouter);
 
@@ -14,9 +15,9 @@ const router = new VueRouter({
       component: Home,
     },
     {
-      path: '/test',
-      name: 'test',
-      component: Home,
+      path: '/fact',
+      name: 'fact',
+      component: Fact,
     },
   ],
 });
