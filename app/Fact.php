@@ -11,6 +11,7 @@ class Fact extends Model
     protected $casts = [
         'id' => 'int',
         'claim' => 'string',
+        'source_id' => 'id',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -21,5 +22,9 @@ class Fact extends Model
 
     public function issues() {
         return $this->belongsToMany(Issue::class);
+    }
+
+    public function source() {
+        return $this->belongsTo(Source::class);
     }
 }
