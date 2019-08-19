@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/js/pages/Home';
-import Source from '@/js/pages/Source';
+import Create from '@/js/pages/Sources/Create';
 
 
 Vue.use(VueRouter);
@@ -15,9 +15,9 @@ const router = new VueRouter({
       component: Home,
     },
     {
-      path: '/source',
-      name: 'source',
-      component: Source,
+      path: '/sources/new',
+      name: 'source.create',
+      component: Create,
     },
   ],
 });
