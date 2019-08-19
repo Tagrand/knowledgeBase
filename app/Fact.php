@@ -11,7 +11,6 @@ class Fact extends Model
     protected $casts = [
         'id' => 'int',
         'claim' => 'string',
-        'person' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

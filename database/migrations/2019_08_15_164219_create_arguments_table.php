@@ -16,7 +16,6 @@ class CreateArgumentsTable extends Migration
         Schema::create('arguments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('reason');
-            $table->string('person')->nullable();
             $table->timestamps();
         });
     }

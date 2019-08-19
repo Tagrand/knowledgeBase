@@ -11,7 +11,6 @@ class Argument extends Model
     protected $casts = [
         'id' => 'int',
         'reason' => 'string',
-        'person' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
