@@ -13,11 +13,21 @@ class CreateArgumentsIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('arguements_issues', function (Blueprint $table) {
+        Schema::create('arguments_issues', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('argument_id')->unsigned();
-            $table->integer('issue_id')->unsigned();
+            $table->unsignedBigInteger('argument_id');
+            $table->unsignedBigInteger('issue_id');
             $table->timestamps();
+
+            $table->foreign('argument_id')
+                  ->references('id')
+                  ->on('arguments')
+                  ->onDelete('cascade');
+
+            $table->foreign('issue_id')
+                  ->references('id')
+                  ->on('issues')
+                  ->onDelete('cascade');
         });
     }
 
@@ -28,6 +38,11 @@ class CreateArgumentsIssuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arguements_issues');
+        Schema::table('arguments_issues', function (Blueprint $table) {
+            $table->dropForeign('arguments_issues_argument_id_foreign');
+            $table->dropForeign('arguments_issues_issue_id_foreign');
+        });
+        
+        Schema::dropIfExists('arguments_issues');
     }
 }
