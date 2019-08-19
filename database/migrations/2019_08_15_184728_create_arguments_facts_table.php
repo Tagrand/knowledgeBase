@@ -44,6 +44,6 @@ class CreateArgumentsFactsTable extends Migration
             $table->dropForeign('arguments_facts_fact_id_foreign');
         });
          
-        Schema::dropIfExists('arguments_issues');
+        Schema::dropIfExists('arguments_facts');
     }
 }
