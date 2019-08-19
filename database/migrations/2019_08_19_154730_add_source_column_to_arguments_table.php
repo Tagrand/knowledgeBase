@@ -14,7 +14,7 @@ class AddSourceColumnToArgumentsTable extends Migration
     public function up()
     {
         Schema::table('arguments', function (Blueprint $table) {
-            $table->unsignedBigInteger('source_id')->after('reason');
+            $table->unsignedBigInteger('source_id')->after('reason')->nullable();
 
             $table->foreign('source_id')
                   ->references('id')

@@ -2,7 +2,20 @@
 
 use Illuminate\Support\Str;
 
+$host = '';
+$port = '';
+$database = '';
+$username = '';
+$pass = '';
+
 $url = parse_url(getenv('DATABASE_URL'));
+if (array_key_exists('host', $url)) {
+    $host = $url['host'];
+    $port = $url['port'];
+    $database = $url['database'];
+    $username = $url['username'];
+    $pass = $url['pass'];
+}
 
 return [
 
@@ -17,7 +30,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,6 +58,12 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'testing' => [
+             'driver' => 'sqlite',
+             'database' => ':memory:',
+             'prefix' => '',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -68,11 +87,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', $url['host']),
-            'port' => env('DB_PORT', $url['port']),
-            'database' => env('DB_DATABASE', $url['database']),
-            'username' => env('DB_USERNAME', $url['username']),
-            'password' => env('DB_PASSWORD', $url['pass']),
+            'host' => env('DB_HOST', $host),
+            'port' => env('DB_PORT', $port),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $pass),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

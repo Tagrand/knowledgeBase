@@ -14,7 +14,7 @@ class AddSourceColumnToFactsTable extends Migration
     public function up()
     {
         Schema::table('facts', function (Blueprint $table) {
-            $table->unsignedBigInteger('source_id')->after('claim');
+            $table->unsignedBigInteger('source_id')->after('claim')->nullable();
 
             $table->foreign('source_id')
                   ->references('id')
