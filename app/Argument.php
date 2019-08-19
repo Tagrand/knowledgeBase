@@ -11,6 +11,7 @@ class Argument extends Model
     protected $casts = [
         'id' => 'int',
         'reason' => 'string',
+        'source_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -21,5 +22,9 @@ class Argument extends Model
 
     public function issues() {
         return $this->belongsToMany(Issue::class);
+    }
+
+    public function source() {
+        return $this->belongsTo(Source::class);
     }
 }
