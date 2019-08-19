@@ -20,4 +20,8 @@ class Source extends Model
     public function arguments() {
         return $this->hasMany(Argument::class);
     }
+
+    public function authors() {
+        return $this->belongsToMany(Author::class);
+    }
 }

@@ -12,5 +12,11 @@ class Author extends Model
         'id' => 'int',
         'first_name' => 'string',
         'last_name' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
+
+    public function sources() {
+        return $this->belongsToMany(Source::class);
+    }
 }
