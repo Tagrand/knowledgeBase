@@ -21,5 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('/sources', 'SourcesController@index');
         Route::post('/sources', 'SourcesController@create');
+
+        Route::post('/sources/{source}/facts', 'SourcesFactsController@create');
     });
 });
