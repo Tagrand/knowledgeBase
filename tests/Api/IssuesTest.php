@@ -46,4 +46,15 @@ class IssuesTest extends TestCase
             'summary' => 'Better election system',
         ]);
     }
+
+    public function test_a_guest_cannot_make_an_issue() {
+        $user = factory(User::class)->create();
+
+        $response = $this->json('POST', '/api/v1/issues', [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
