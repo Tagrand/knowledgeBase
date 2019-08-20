@@ -57,4 +57,17 @@ class IssuesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_a_issue_must_have_a_name() {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/issues', [
+            // 'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
 }
