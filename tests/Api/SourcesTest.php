@@ -73,4 +73,14 @@ class SourcesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('name');
     }
+
+    public function test_sources_cannot_be_made_by_guests() {
+        factory(Source::class, 2)->create();
+
+        $response = $this->json('POST','/api/v1/sources', [
+            'name' => 'this shouldn\'t work',
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
