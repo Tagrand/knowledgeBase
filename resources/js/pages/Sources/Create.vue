@@ -34,7 +34,8 @@
         <div>
           <h2>Issue</h2>
 
-          <div @click="setIssue" v-bind:key="issue.name" v-for="issue in issues">{{issue.name}}</div>
+          <div v-bind:key="issue.name" v-for="issue in factIssues"><strong>{{issue.name}}</strong></div>
+          <div @click="setIssue(issue)" v-bind:key="issue.name" v-for="issue in unrelatedIssues">{{issue.name}}</div>
 
           <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
           <div v-show="editIssue">
@@ -61,6 +62,7 @@ export default {
       selectedFact: {},
 
       issues: [],
+      factIssues: [],
 
       editIssue: false,
       issueName: "",
@@ -109,6 +111,25 @@ export default {
 
     noFact() {
       return _.isEmpty(this.selectedFact);
+    },
+
+    unrelatedIssues() {
+      return _.differenceBy(this.issues, this.factIssues, "id");
+    }
+  },
+
+  watch: {
+    selectedFact() {
+      if (this.noFact) {
+        this.factIssues = [];
+        return;
+      }
+
+      factIssues: [],
+        axios
+          .get(`/api/v1/facts/${this.fact.id}/issues`)
+          .then(({ data }) => (this.factIssues = data))
+          .catch(error => console.log(error));
     }
   },
 
@@ -148,8 +169,8 @@ export default {
         });
     },
 
-    setIssue() {
-      console.log("another");
+    setIssue(issue) {
+      axios.post(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`);
     }
   }
 };
