@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class FactsIssuesController extends Controller
 {
+    public function index(Fact $fact)
+    {
+        return $fact->issues;
+    }
+
     public function store(Fact $fact, Issue $issue, Request $request)
     {
         $fact->issues()->attach($issue);

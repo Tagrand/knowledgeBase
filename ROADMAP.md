@@ -8,6 +8,8 @@
 
 [ ] Add filtering to facts page
 
+[ ] Fix the join tables
+
 5. Add arguments to sources 
 
 6. Have an arguments page

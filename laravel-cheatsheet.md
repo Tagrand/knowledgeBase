@@ -26,3 +26,15 @@
 1. $this->json('GET', 'Path') <- to hit api end points
 2. $response->json() to access json data
 3. $response->assertJsonValidationErrors
+
+## database
+
+1. For join tables you want the singular (in alphabetical order). 'fact_issue'
+2. For foriegn keys  
+    $table->foreign('issue_id')
+                  ->references('id')
+                  ->on('issues')
+                  ->onDelete('cascade');
+3. the foriegn key is table_column_foreign
+4. Don't forget to dropForeign when you go down
+5.

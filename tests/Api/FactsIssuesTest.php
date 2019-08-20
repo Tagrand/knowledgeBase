@@ -13,9 +13,25 @@ class FactsIssuesTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_user_can_see_all_related_issues()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $unlinkedIssue = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+        $fact->issues()->attach([$issue->id, $issue2->id]);
+      
+        Passport::actingAs($user);
+        $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
+
+        $response->assertStatus(200);
+        $this->assertCount(2, $response->json());
+        $this->assertEquals($issue->id, $response->json()[0]['id']);
+    }
+
     public function test_user_can_create_an_issue_fact_join()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $issue = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
@@ -28,5 +44,37 @@ class FactsIssuesTest extends TestCase
             'fact_id' => $fact->id,
             'issue_id' => $issue->id,
         ]);
+    }
+
+    public function test_a_guest_cannot_create_an_issue_fact_join()
+    {
+        $issue = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+
+        $response = $this->json('POST', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
+
+        $response->assertStatus(401);
+    }
+
+    public function test_the_issue_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $fact = factory(Fact::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/facts/{$fact->id}/issues/123");
+
+        $response->assertStatus(404);
+    }
+
+    public function test_the_fact_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Fact::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/facts/123/issues/{$issue->id}");
+
+        $response->assertStatus(404);
     }
 }

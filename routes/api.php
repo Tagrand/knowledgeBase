@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/issues', 'IssuesController@index');
         Route::post('/issues', 'IssuesController@store');
 
+        Route::get('/facts/{fact}/issues', 'FactsIssuesController@index');
         Route::post('/facts/{fact}/issues/{issue}', 'FactsIssuesController@store');
     });
 });
