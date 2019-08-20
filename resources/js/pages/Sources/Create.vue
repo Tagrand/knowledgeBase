@@ -19,12 +19,18 @@
 
     <div v-show="!hasNoSource">
       <p>Source: {{ selectedSource.name }}</p>
-      <button @click="selectedSource = {}">Reset</button>
+      <button @click="selectedSource = {};selectedFact={}">Reset</button>
 
       <h2>Fact</h2>
 
-      <input type="text" placeholder="fact" v-model="fact" />
-      <button @click="saveFact">Save</button>
+      <div v-show="noFact">
+        <input type="text" placeholder="fact" v-model="fact" />
+        <button @click="saveFact">Save</button>
+      </div>
+      <div v-show="!noFact">
+        <p>Fact: {{ selectedFact.claim }}</p>
+        <button @click="selectedFact={}">Reset</button>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +45,8 @@ export default {
 
       selectedSource: {},
 
-      fact: ""
+      fact: "",
+      selectedFact: {}
     };
   },
 
@@ -73,6 +80,10 @@ export default {
 
     hasNoSource() {
       return _.isEmpty(this.selectedSource);
+    },
+
+    noFact() {
+      return _.isEmpty(this.selectedFact);
     }
   },
 
@@ -94,7 +105,9 @@ export default {
         .post(`/api/v1/sources/${this.selectedSource.id}/facts`, {
           claim: this.fact
         })
-        .then(() => (this.fact = ""));
+        .then(({ data }) => {
+          this.selectedFact = data;
+        });
     }
   }
 };
