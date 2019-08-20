@@ -30,6 +30,20 @@
       <div v-show="!noFact">
         <p>Fact: {{ selectedFact.claim }}</p>
         <button @click="selectedFact={}">Reset</button>
+
+        <div>
+          <h2>Issue</h2>
+
+          <div @click="setIssue" v-bind:key="issue.name" v-for="issue in issues">{{issue.name}}</div>
+
+          <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
+          <div v-show="editIssue">
+            <input placeholder="name" v-model="issueName" type="text" />
+            <input placeholder="summary" v-model="issueSummary" type="text" />
+            <button @click="saveIssue">Save</button>
+            <button @click="editIssue = false">Close</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -39,14 +53,18 @@
 export default {
   data() {
     return {
-      sourceSearch: "",
-
       sources: [],
-
+      sourceSearch: "",
       selectedSource: {},
 
       fact: "",
-      selectedFact: {}
+      selectedFact: {},
+
+      issues: [],
+
+      editIssue: false,
+      issueName: "",
+      issueSummary: ""
     };
   },
 
@@ -55,6 +73,13 @@ export default {
       .get("/api/v1/sources")
       .then(({ data }) => {
         this.sources = data;
+      })
+      .catch(error => console.log(error));
+
+    axios
+      .get("/api/v1/issues")
+      .then(({ data }) => {
+        this.issues = data;
       })
       .catch(error => console.log(error));
   },
@@ -108,6 +133,23 @@ export default {
         .then(({ data }) => {
           this.selectedFact = data;
         });
+    },
+
+    saveIssue() {
+      axios
+        .post("/api/v1/issues", {
+          name: this.issueName,
+          summary: this.issueSummary
+        })
+        .then(({ data }) => {
+          this.issues.push(data);
+          this.issueName = "";
+          this.issueSummary = "";
+        });
+    },
+
+    setIssue() {
+      console.log("another");
     }
   }
 };
