@@ -32,4 +32,19 @@ class SourcesTest extends TestCase
 
         $response->assertStatus(302);
     }
+
+    public function test_a_user_can_add_a_new_source() {
+        $user = factory(User::class)->create();
+        factory(Source::class, 2)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST','/api/v1/sources', [
+            'name' => 'the guardian',
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('sources', [
+            'name' => 'the guardian',
+        ]);
+    }
 }
