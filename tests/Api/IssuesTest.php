@@ -89,4 +89,35 @@ class IssuesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('name');
     }
+
+    public function test_summary_is_optional()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/issues', [
+            'name' => 'Electoral reform',
+            // 'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('issues', [
+            'name' => 'Electoral reform',
+            'summary' => null,
+        ]);
+    }
+
+    public function test_a_summary_must_be_a_string()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/issues', [
+            'name' => 'this',
+            'summary' => 123,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
 }

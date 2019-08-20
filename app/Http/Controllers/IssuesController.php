@@ -16,11 +16,9 @@ class IssuesController extends Controller
     {
         $validatedRequest = $request->validate([
             'name' => 'required|string',
+            'summary' => 'nullable|string'
         ]);
 
-        return Issue::create([
-           'name' => $validatedRequest['name'],
-           'summary' => $request['summary'],
-        ]);
+        return Issue::create($validatedRequest);
     }
 }
