@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class SourcesFactsController extends Controller
 {
-    public function create(Source $source, Request $request)
+    public function store(Source $source, Request $request)
     {
         $validatedRequest = $request->validate([
            'claim' => 'required|string',
