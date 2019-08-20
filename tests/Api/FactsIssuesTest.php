@@ -30,6 +30,19 @@ class FactsIssuesTest extends TestCase
         $this->assertEquals($issue->id, $response->json()[0]['id']);
     }
 
+    public function test_user_can_see_all_related_issues_even_when_it_has_none()
+    {
+        $user = factory(User::class)->create();
+        $unlinkedIssue = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+      
+        Passport::actingAs($user);
+        $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
+
+        $response->assertStatus(200);
+        $this->assertCount(0, $response->json());
+    }
+
     public function test_user_can_create_an_issue_fact_join()
     {
         $user = factory(User::class)->create();
