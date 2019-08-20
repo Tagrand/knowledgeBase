@@ -11,4 +11,12 @@ class IssuesController extends Controller
     {
         return Issue::all();
     }
+
+    public function store(Request $request)
+    {
+        return Issue::create([
+           'name' => $request['name'],
+           'summary' => $request['summary'],
+        ]);
+    }
 }

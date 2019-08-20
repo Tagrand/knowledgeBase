@@ -30,4 +30,20 @@ class IssuesTest extends TestCase
 
       $response->assertStatus(401);
     }
+
+    public function test_a_user_can_make_an_issue() {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/issues', [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('issues', [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+    }
 }
