@@ -20,6 +20,11 @@
     <div v-show="!hasNoSource">
       <p>Source: {{ selectedSource.name }}</p>
       <button @click="selectedSource = {}">Reset</button>
+
+      <h2>Fact</h2>
+
+      <input type="text" placeholder="fact" v-model="fact" />
+      <button @click="saveFact">Save</button>
     </div>
   </div>
 </template>
@@ -32,15 +37,19 @@ export default {
 
       sources: [],
 
-      selectedSource: {}
+      selectedSource: {},
+
+      fact: ""
     };
   },
 
   created() {
     axios
-    .get("/api/v1/sources")
-    .then(({ data }) => { this.sources = data })
-    .catch((error) => console.log(error));
+      .get("/api/v1/sources")
+      .then(({ data }) => {
+        this.sources = data;
+      })
+      .catch(error => console.log(error));
   },
 
   computed: {
@@ -50,7 +59,9 @@ export default {
       }
 
       return _.filter(this.sources, source => {
-        return source.name.toLowerCase().includes(this.sourceSearch.toLowerCase());
+        return source.name
+          .toLowerCase()
+          .includes(this.sourceSearch.toLowerCase());
       });
     },
 
@@ -72,12 +83,20 @@ export default {
           name: this.sourceSearch
         })
         .then(() => {
-          this.sources.push({
-            name: this.sourceSearch
+          axios.get("/api/v1/sources").then(({ data }) => {
+            this.sources = data;
+            this.selectedSource = this.sources.slice(-1)[0];
+            this.sourceSearch = "";
           });
-          this.selectedSource = this.sources.slice(-1)[0];
-          this.sourceSearch = "";
         });
+    },
+
+    saveFact() {
+      axios
+        .post(`/api/v1/sources/${this.selectedSource.id}/facts`, {
+          claim: this.fact
+        })
+        .then(() => (this.fact = ""));
     }
   }
 };
