@@ -1,13 +1,12 @@
-1. Add facts to sources 
-   - Create
-   - All
-2. Have a facts page 
+[x] Add facts to sources 
 
-3. Link facts to issues 
+[ ] Have a facts page 
 
-4. Have an issues page 
+[ ] Link facts to issues 
 
-4. Add filtering to facts page
+[ ] Have an issues page 
+
+[ ] Add filtering to facts page
 
 5. Add arguments to sources 
 
