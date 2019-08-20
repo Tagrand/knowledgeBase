@@ -42,7 +42,7 @@ class SourcesTest extends TestCase
             'name' => 'the guardian',
         ]);
         
-        $response->assertStatus(204);
+        $response->assertStatus(201);
         $this->assertDatabaseHas('sources', [
             'name' => 'the guardian',
         ]);

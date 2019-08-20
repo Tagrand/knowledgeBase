@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('/sources', 'SourcesController@index');
-        Route::post('/sources', 'SourcesController@create');
+        Route::post('/sources', 'SourcesController@store');
 
         Route::post('/sources/{source}/facts', 'SourcesFactsController@create');
     });

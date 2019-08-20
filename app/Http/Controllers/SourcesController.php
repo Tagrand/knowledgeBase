@@ -12,12 +12,11 @@ class SourcesController extends Controller
         return response(Source::all(), 200);
     }
 
-    public function create(Request $request) {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             'name' => 'required|string'
         ]);
         
-        Source::create($validatedData);
-        return response('', 204); 
+        return Source::create($validatedData);
     }
 }
