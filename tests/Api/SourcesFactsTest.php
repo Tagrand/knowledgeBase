@@ -48,4 +48,30 @@ class SourcesFactsTest extends TestCase
 
          $response->assertStatus(404);
     }
+
+    public function test_a_fact_must_have_a_claim() {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/facts", [
+            // 'claim' => 'This is a claim',
+        ]);
+
+         $response->assertStatus(422);
+         $response->assertJsonValidationErrors('claim');
+    }
+
+    public function test_a_fact_must_be_a_string() {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/facts", [
+            'claim' => 1234123,
+        ]);
+
+         $response->assertStatus(422);
+         $response->assertJsonValidationErrors('claim');
+    }
 }

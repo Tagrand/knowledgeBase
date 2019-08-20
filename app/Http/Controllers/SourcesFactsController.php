@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 
 class SourcesFactsController extends Controller
 {
-   public function create(Source $source, Request $request) {
-     Fact::create([
+    public function create(Source $source, Request $request)
+    {
+        $validatedRequest = $request->validate([
+           'claim' => 'required|string',
+        ]);
+        Fact::create([
          'source_id' => $source->id,
-         'claim' => $request['claim'],
-     ]);
-     return response('', 204);
-   }
+         'claim' => $validatedRequest['claim'],
+        ]);
+        
+        return response('', 204);
+    }
 }
