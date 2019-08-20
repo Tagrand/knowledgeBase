@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFactsIssuesTable extends Migration
+class CreateFactIssueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFactsIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('facts_issues', function (Blueprint $table) {
+        Schema::create('fact_issue', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('fact_id')->unsigned();
             $table->integer('issue_id')->unsigned();
@@ -38,11 +38,11 @@ class CreateFactsIssuesTable extends Migration
      */
     public function down()
     {
-        Schema::table('facts_issues', function (Blueprint $table) {
-            $table->dropForeign('facts_issues_issue_id_foreign');
-            $table->dropForeign('facts_issues_fact_id_foreign');
+        Schema::table('fact_issue', function (Blueprint $table) {
+            $table->dropForeign('fact_issue_issue_id_foreign');
+            $table->dropForeign('fact_issue_fact_id_foreign');
         });
 
-        Schema::dropIfExists('facts_issues');
+        Schema::dropIfExists('fact_issue');
     }
 }
