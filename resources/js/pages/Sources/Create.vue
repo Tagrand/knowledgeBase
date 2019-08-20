@@ -82,12 +82,10 @@ export default {
         .post("/api/v1/sources", {
           name: this.sourceSearch
         })
-        .then(() => {
-          axios.get("/api/v1/sources").then(({ data }) => {
-            this.sources = data;
-            this.selectedSource = this.sources.slice(-1)[0];
-            this.sourceSearch = "";
-          });
+        .then(({ data }) => {
+          this.sources.push(data);
+          this.selectedSource = data;
+          this.sourceSearch = "";
         });
     },
 
