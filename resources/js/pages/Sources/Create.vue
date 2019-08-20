@@ -30,17 +30,17 @@ export default {
     return {
       sourceSearch: "",
 
-      sources: [
-        {
-          name: "test"
-        },
-        {
-          name: "another"
-        }
-      ],
+      sources: [],
 
       selectedSource: {}
     };
+  },
+
+  created() {
+    axios
+    .get("/api/v1/sources")
+    .then(({ data }) => { this.sources = data })
+    .catch((error) => console.log(error));
   },
 
   computed: {
@@ -50,13 +50,13 @@ export default {
       }
 
       return _.filter(this.sources, source => {
-        return source.name.includes(this.sourceSearch);
+        return source.name.toLowerCase().includes(this.sourceSearch.toLowerCase());
       });
     },
 
     isNewSource() {
       return !_.some(this.sources, source => {
-        return source.name === this.sourceSearch;
+        return source.name.toLowerCase() === this.sourceSearch.toLowerCase();
       });
     },
 
@@ -67,12 +67,17 @@ export default {
 
   methods: {
     saveSource() {
-      this.sources.push({
-        name: this.sourceSearch
-      });
-
-      this.selectedSource = this.sources.slice(-1)[0];
-      this.sourceSearch = "";
+      axios
+        .post("/api/v1/sources", {
+          name: this.sourceSearch
+        })
+        .then(() => {
+          this.sources.push({
+            name: this.sourceSearch
+          });
+          this.selectedSource = this.sources.slice(-1)[0];
+          this.sourceSearch = "";
+        });
     }
   }
 };
