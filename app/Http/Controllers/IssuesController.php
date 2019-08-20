@@ -15,9 +15,9 @@ class IssuesController extends Controller
     public function store(Request $request)
     {
         $validatedRequest = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string',
         ]);
-        
+
         return Issue::create([
            'name' => $validatedRequest['name'],
            'summary' => $request['summary'],

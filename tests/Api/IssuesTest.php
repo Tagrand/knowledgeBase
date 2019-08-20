@@ -12,26 +12,29 @@ class IssuesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_a_user_can_get_all_issues() {
-      $user = factory(User::class)->create();
-      factory(Issue::class, 2)->create();
+    public function test_a_user_can_get_all_issues()
+    {
+        $user = factory(User::class)->create();
+        factory(Issue::class, 2)->create();
 
-      Passport::actingAs($user);
-      $response = $this->json('GET', '/api/v1/issues');
+        Passport::actingAs($user);
+        $response = $this->json('GET', '/api/v1/issues');
 
-      $response->assertStatus(200);
-      $this->assertCount(2, $response->json());
+        $response->assertStatus(200);
+        $this->assertCount(2, $response->json());
     }
 
-    public function test_a_guest_cannot_get_all_issues() {
-      factory(Issue::class, 2)->create(); 
+    public function test_a_guest_cannot_get_all_issues()
+    {
+        factory(Issue::class, 2)->create();
 
-      $response = $this->json('GET', '/api/v1/issues');
+        $response = $this->json('GET', '/api/v1/issues');
 
-      $response->assertStatus(401);
+        $response->assertStatus(401);
     }
 
-    public function test_a_user_can_make_an_issue() {
+    public function test_a_user_can_make_an_issue()
+    {
         $user = factory(User::class)->create();
 
         Passport::actingAs($user);
@@ -47,7 +50,8 @@ class IssuesTest extends TestCase
         ]);
     }
 
-    public function test_a_guest_cannot_make_an_issue() {
+    public function test_a_guest_cannot_make_an_issue()
+    {
         $user = factory(User::class)->create();
 
         $response = $this->json('POST', '/api/v1/issues', [
@@ -58,12 +62,27 @@ class IssuesTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_a_issue_must_have_a_name() {
+    public function test_a_issue_must_have_a_name()
+    {
         $user = factory(User::class)->create();
 
         Passport::actingAs($user);
         $response = $this->json('POST', '/api/v1/issues', [
             // 'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
+
+    public function test_a_name_must_be_a_string()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/issues', [
+            'name' => 124,
             'summary' => 'Better election system',
         ]);
 
