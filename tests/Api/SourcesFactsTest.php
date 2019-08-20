@@ -21,7 +21,7 @@ class SourcesFactsTest extends TestCase
             'claim' => 'This is a claim',
         ]);
 
-         $response->assertStatus(204);
+         $response->assertStatus(201);
          $this->assertDatabaseHas('facts', [
              'source_id' => $source->id, 
              'claim' => 'This is a claim',
