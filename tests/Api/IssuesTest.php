@@ -2,12 +2,11 @@
 
 namespace Tests\Api;
 
-use App\Issue;
 use App\User;
+use App\Issue;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IssuesTest extends TestCase
 {
@@ -18,9 +17,17 @@ class IssuesTest extends TestCase
       factory(Issue::class, 2)->create();
 
       Passport::actingAs($user);
-      $response = $this->json('get', '/api/v1/issues');
+      $response = $this->json('GET', '/api/v1/issues');
 
       $response->assertStatus(200);
       $this->assertCount(2, $response->json());
+    }
+
+    public function test_a_guest_cannot_get_all_issues() {
+      factory(Issue::class, 2)->create(); 
+
+      $response = $this->json('GET', '/api/v1/issues');
+
+      $response->assertStatus(401);
     }
 }
