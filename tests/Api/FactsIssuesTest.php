@@ -43,6 +43,18 @@ class FactsIssuesTest extends TestCase
         $this->assertCount(0, $response->json());
     }
 
+    public function test_guest_cannot_see_all_related_issues()
+    {
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+        $fact->issues()->attach([$issue->id, $issue2->id]);
+      
+        $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
+
+        $response->assertStatus(401);
+    }
+
     public function test_user_can_create_an_issue_fact_join()
     {
         $user = factory(User::class)->create();
