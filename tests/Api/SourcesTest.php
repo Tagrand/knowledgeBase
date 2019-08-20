@@ -47,4 +47,17 @@ class SourcesTest extends TestCase
             'name' => 'the guardian',
         ]);
     }
+
+    public function test_a_source_must_have_a_name() {
+        $user = factory(User::class)->create();
+        factory(Source::class, 2)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST','/api/v1/sources', [
+            // 'name' => 'the guardian',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
 }
