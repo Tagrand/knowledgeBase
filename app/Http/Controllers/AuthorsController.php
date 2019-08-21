@@ -14,8 +14,12 @@ class AuthorsController extends Controller
 
     public function store(Request $request)
     {
+        $validatedRequest = $request->validate([
+            'first_name' => 'required|string',
+        ]);
+
         return Author::create([
-          'first_name' => $request['first_name'],
+          'first_name' => $validatedRequest['first_name'],
           'last_name' => $request['last_name'],
       ]);
     }

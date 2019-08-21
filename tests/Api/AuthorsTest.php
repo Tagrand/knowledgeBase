@@ -49,4 +49,60 @@ class AuthorsTest extends TestCase
            'last_name' => 'Milliband',
        ]);
     }
+
+    public function test_authors_must_have_first_names()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/authors', [
+        //    'first_name' => 'Ed',
+           'last_name' => 'Milliband',
+       ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('first_name');
+    }
+
+    public function test_first_names_must_be_strings()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/authors', [
+           'first_name' => 1234,
+           'last_name' => 'Milliband',
+       ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('first_name');
+    }
+
+    public function test_authors_must_have_last_names()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/authors', [
+           'first_name' => 'Ed',
+        //    'last_name' => 'Milliband',
+       ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('last_name');
+    }
+
+    public function test_last_names_must_be_strings()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/authors', [
+           'first_name' => 'Ed',
+           'last_name' => 12434,
+       ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('last_name');
+    }
 }
