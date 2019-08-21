@@ -1,8 +1,9 @@
 <template>
   <div style="padding: 0px 100px">
-    <h1>Source</h1>
+    <h1 class="text-blue-700">Source</h1>
 
     <search-vue
+    class="text-blue"
       data-type="source"
       :collection="sources"
       @source-save="saveSource"
