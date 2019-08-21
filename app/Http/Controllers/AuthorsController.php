@@ -16,6 +16,7 @@ class AuthorsController extends Controller
     {
         $validatedRequest = $request->validate([
             'first_name' => 'required|string',
+            'last_name' => 'required|string',
         ]);
 
         return Author::create([
