@@ -19,7 +19,7 @@
 
       <search-vue
         data-type="fact"
-        defaultKey="claim"
+        searchKey="claim"
         @fact-save="saveFact"
         v-show="!isFactSelected"
         :collection="sourceFacts"
