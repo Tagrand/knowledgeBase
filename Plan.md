@@ -6,19 +6,24 @@
 
 [x] Add Tailwind
 
-[ ] Add an Authors index, and create
-
-[ ] Add phpunit to pipeline
-
-[ ] Link authors to sources
-
-[ ] Set up a fact view page
-[ ] See all facts - and filter by issues
+[x] Add an Authors index, and create
+[x] Link authors to sources
+[ ] Add in authors to the source page
 
 [ ] Give sources a readable name
+[ ] Set up a fact view page
 
 [ ] Set up source view page
 [ ] Set up vuex
+[ ] Add phpunit to pipeline
+
+[ ] See all facts - and filter by issues
+
+[ ] Make a basic design
+
+[ ] Look into adding front end tests
+
+[ ] Check backend tests - are there any more to add? - uniqueness
 
 [ ] Set up heroku
 
