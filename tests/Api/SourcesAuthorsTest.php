@@ -78,4 +78,14 @@ class SourcesAuthorsTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_guests_cannot_link_authors_and_sources()
+    {
+        $source = factory(Source::class)->create();
+        $author = factory(Author::class)->create();
+
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/authors/{$author->id}");
+
+        $response->assertStatus(401);
+    }
 }

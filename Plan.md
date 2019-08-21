@@ -6,6 +6,8 @@
 
 [x] Add Tailwind
 
+[ ] Add phpunit to pipeline
+
 [ ] Link authors to sources
 
 [ ] Set up a fact view page
