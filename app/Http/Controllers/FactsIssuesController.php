@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Fact;
 use App\Issue;
-use Illuminate\Http\Request;
 
 class FactsIssuesController extends Controller
 {
@@ -13,10 +12,16 @@ class FactsIssuesController extends Controller
         return $fact->issues;
     }
 
-    public function store(Fact $fact, Issue $issue, Request $request)
+    public function store(Fact $fact, Issue $issue)
     {
         $fact->issues()->attach($issue);
 
-        return response('', 200);
+        return response('', 204);
+    }
+
+    public function destroy(Fact $fact, Issue $issue) {
+        $fact->issues()->detach($issue);
+
+        return response('', 204);
     }
 }

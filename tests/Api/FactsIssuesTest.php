@@ -6,8 +6,8 @@ use App\User;
 use App\Fact;
 use App\Issue;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FactsIssuesTest extends TestCase
 {
@@ -74,7 +74,7 @@ class FactsIssuesTest extends TestCase
         Passport::actingAs($user);
         $response = $this->json('POST', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
 
-        $response->assertStatus(200);
+        $response->assertStatus(204);
         $this->assertDatabaseHas('fact_issue', [
             'fact_id' => $fact->id,
             'issue_id' => $issue->id,
@@ -111,5 +111,24 @@ class FactsIssuesTest extends TestCase
         $response = $this->json('POST', "/api/v1/facts/123/issues/{$issue->id}");
 
         $response->assertStatus(404);
+    }
+
+    public function test_facts_and_issues_can_be_unlinked()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+        $fact->issues()->attach([$issue->id, $issue2->id]);
+      
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
+
+        $response->assertStatus(204);
+        $this->assertCount(1, $fact->fresh()->issues);
+        $this->assertDatabaseMissing('fact_issue', [
+          'fact_id' => $fact->id,
+          'issue_id' => $issue->id
+        ]);
     }
 }

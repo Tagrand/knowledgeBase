@@ -30,5 +30,6 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/facts/{fact}/issues', 'FactsIssuesController@index');
         Route::post('/facts/{fact}/issues/{issue}', 'FactsIssuesController@store');
+        Route::delete('/facts/{fact}/issues/{issue}', 'FactsIssuesController@destroy');
     });
 });
