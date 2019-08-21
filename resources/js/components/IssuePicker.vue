@@ -18,12 +18,12 @@
         >{{issue.name}}</div>
       </div>
 
-      <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
-      <div v-show="editIssue">
+      <button @click="addIssue = true" v-show="!addIssue">Add Issue</button>
+      <div v-show="addIssue">
         <input placeholder="name" v-model="issueName" type="text" />
         <input placeholder="summary" v-model="issueSummary" type="text" />
         <button @click="saveIssue">Save</button>
-        <button @click="editIssue = false">Close</button>
+        <button @click="addIssue = false">Close</button>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@ export default {
       issues: [],
       factIssues: [],
 
-      editIssue: false,
+      addIssue: false,
       issueName: "",
       issueSummary: ""
     };
