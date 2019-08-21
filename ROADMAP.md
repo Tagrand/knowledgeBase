@@ -1,8 +1,10 @@
 [x] Add facts to sources 
 
-[ ] Have a facts page 
+[x] Link facts to issues 
 
-[ ] Link facts to issues 
+[ ] Give sources a readable name
+
+[ ] Have a facts page 
 
 [ ] Have an issues page 
 
