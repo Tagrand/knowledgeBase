@@ -1,22 +1,23 @@
 <template>
-  <div style="padding: 0px 100px">
-    <h1 class="text-blue-700">Source</h1>
+  <div>
+    <h1 class="text-xl font-bold">Source</h1>
 
     <search-vue
-    class="text-blue"
+      class="text-blue"
       data-type="source"
       :collection="sources"
       @source-save="saveSource"
       v-show="!isSourceSelected"
       @source-select="setSelectedSource"
-      style="max-height: 200px; overflow-y: auto;"
     ></search-vue>
 
     <div v-show="isSourceSelected">
-      <p>Source: {{ selectedSource.name }}</p>
-      <button @click="setSelectedSource({})">Reset</button>
+      <div class="flex mb-4">
+        <p class="mr-4">{{ selectedSource.name }}</p>
+        <button @click="setSelectedSource({})">Reset</button>
+      </div>
 
-      <h2>Fact</h2>
+      <h1 class="text-xl font-bold">Fact</h1>
 
       <search-vue
         data-type="fact"
@@ -29,8 +30,10 @@
       ></search-vue>
 
       <div v-show="isFactSelected">
-        <p>Fact: {{ selectedFact.claim }}</p>
-        <button @click="setSelectedFact({})">Reset</button>
+        <div class="flex mb-4">
+          <p class="mr-4">{{ selectedFact.claim }}</p>
+          <button @click="setSelectedFact({})">Reset</button>
+        </div>
 
         <issue-picker-vue :fact="selectedFact"></issue-picker-vue>
       </div>

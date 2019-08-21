@@ -3,7 +3,7 @@
     <input type="text" :placeholder="dataType" v-model="search" />
     <button @click="saveOption" v-show="isNewOption">Save as new</button>
 
-    <div>
+    <div class="overflow-y-auto" style="max-height: 100px">
       <div
         @click="selectOption(option)"
         v-bind:key="option[searchKey]"

@@ -1,18 +1,22 @@
 <template>
   <div>
     <div>
-      <h2>Issue</h2>
+      <h1 class="text-xl font-bold">Issues</h1>
 
-      <div :key="issue.name" v-for="issue in factIssues" @click="unsetIssue(issue)">
-        <strong>{{issue.name}}</strong>
+      <div class="overflow-y-auto" style="max-height: 100px">
+        <div
+          :key="issue.name"
+          v-for="issue in factIssues"
+          @click="unsetIssue(issue)"
+          class="text-green-700"
+        >{{issue.name}}</div>
+
+        <div
+          :key="issue.name"
+          @click="setIssue(issue)"
+          v-for="issue in unrelatedIssues"
+        >{{issue.name}}</div>
       </div>
-
-      <div
-        :key="issue.name"
-        @click="setIssue(issue)"
-        v-for="issue in unrelatedIssues"
-        style="max-height: 200px; overflow-y: auto;"
-      >{{issue.name}}</div>
 
       <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
       <div v-show="editIssue">
