@@ -67,8 +67,8 @@ export default {
     },
 
     saveOption() {
-      this.search = "";
       this.$emit(`${this.placeholder}-save`, this.search);
+      this.search = "";
     }
   }
 };

@@ -1,8 +1,6 @@
 <template>
   <div style="padding: 0px 100px">
-    <h1>Facts</h1>
-
-    <h2>Source</h2>
+    <h1>Source</h1>
 
     <search-vue
       v-show="hasNoSource"
@@ -33,28 +31,7 @@
         <p>Fact: {{ selectedFact.claim }}</p>
         <button @click="setSelectedFact()">Reset</button>
 
-        <div>
-          <h2>Issue</h2>
-
-          <div v-bind:key="issue.name" v-for="issue in factIssues">
-            <strong>{{issue.name}}</strong>
-          </div>
-
-          <div
-            @click="setIssue(issue)"
-            v-bind:key="issue.name"
-            v-for="issue in unrelatedIssues"
-            style="max-height: 200px; overflow-y: auto;"
-          >{{issue.name}}</div>
-
-          <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
-          <div v-show="editIssue">
-            <input placeholder="name" v-model="issueName" type="text" />
-            <input placeholder="summary" v-model="issueSummary" type="text" />
-            <button @click="saveIssue">Save</button>
-            <button @click="editIssue = false">Close</button>
-          </div>
-        </div>
+        <issue-picker-vue :fact="selectedFact"></issue-picker-vue>
       </div>
     </div>
   </div>
@@ -62,9 +39,10 @@
 
 <script>
 import SearchVue from "../../components/Search.vue";
+import IssuePickerVue from "../../components/IssuePicker.vue";
 
 export default {
-  components: { SearchVue },
+  components: { SearchVue, IssuePickerVue },
 
   data() {
     return {
@@ -72,14 +50,7 @@ export default {
       selectedSource: {},
 
       sourceFacts: [],
-      selectedFact: {},
-
-      issues: [],
-      factIssues: [],
-
-      editIssue: false,
-      issueName: "",
-      issueSummary: ""
+      selectedFact: {}
     };
   },
 
@@ -88,13 +59,6 @@ export default {
       .get("/api/v1/sources")
       .then(({ data }) => {
         this.sources = data;
-      })
-      .catch(error => console.log(error));
-
-    axios
-      .get("/api/v1/issues")
-      .then(({ data }) => {
-        this.issues = data;
       })
       .catch(error => console.log(error));
   },
@@ -114,19 +78,6 @@ export default {
   },
 
   watch: {
-    selectedFact() {
-      if (this.noFact) {
-        this.factIssues = [];
-        return;
-      }
-
-      factIssues: [],
-        axios
-          .get(`/api/v1/facts/${this.selectedFact.id}/issues`)
-          .then(({ data }) => (this.factIssues = data))
-          .catch(error => console.log(error));
-    },
-
     selectedSource() {
       if (this.hasNoSource) {
         this.sourceFacts = [];
@@ -141,7 +92,7 @@ export default {
   },
 
   methods: {
-    setSelectedSource(source ={}) {
+    setSelectedSource(source = {}) {
       this.selectedSource = source;
     },
 
@@ -169,26 +120,6 @@ export default {
         .then(({ data }) => {
           this.selectedFact = data;
         });
-    },
-
-    saveIssue() {
-      axios
-        .post("/api/v1/issues", {
-          name: this.issueName,
-          summary: this.issueSummary
-        })
-        .then(({ data }) => {
-          this.issues.push(data);
-          this.issueName = "";
-          this.issueSummary = "";
-        });
-    },
-
-    setIssue(issue) {
-      axios
-        .post(`/api/v1/facts/${this.selectedFact.id}/issues/${issue.id}`)
-        .then(() => this.factIssues.push(issue))
-        .catch(error => console.log(error));
     }
   }
 };
