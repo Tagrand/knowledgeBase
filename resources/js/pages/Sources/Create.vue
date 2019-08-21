@@ -15,7 +15,7 @@
 
     <div v-show="!hasNoSource">
       <p>Source: {{ selectedSource.name }}</p>
-      <button @click="selectedSource = {};selectedFact={}">Reset</button>
+      <button @click="setSelectedSource();setSelectedFact()">Reset</button>
 
       <h2>Fact</h2>
 
@@ -31,7 +31,7 @@
 
       <div v-show="!noFact">
         <p>Fact: {{ selectedFact.claim }}</p>
-        <button @click="selectedFact={}">Reset</button>
+        <button @click="setSelectedFact()">Reset</button>
 
         <div>
           <h2>Issue</h2>
@@ -102,24 +102,6 @@ export default {
   },
 
   computed: {
-    possibleSources() {
-      if (this.sourceSearch === "") {
-        return this.sources;
-      }
-
-      return _.filter(this.sources, source => {
-        return source.name
-          .toLowerCase()
-          .includes(this.sourceSearch.toLowerCase());
-      });
-    },
-
-    isNewSource() {
-      return !_.some(this.sources, source => {
-        return source.name.toLowerCase() === this.sourceSearch.toLowerCase();
-      });
-    },
-
     hasNoSource() {
       return _.isEmpty(this.selectedSource);
     },
@@ -161,7 +143,7 @@ export default {
   },
 
   methods: {
-    setSelectedSource(source) {
+    setSelectedSource(source ={}) {
       this.selectedSource = source;
     },
 
@@ -177,7 +159,7 @@ export default {
         });
     },
 
-    setSelectedFact(fact) {
+    setSelectedFact(fact = {}) {
       this.selectedFact = fact;
     },
 

@@ -61,10 +61,12 @@ export default {
 
   methods:{
       selectOption(option) {
+          this.search = '';
           this.$emit(`${this.placeholder}-select`, option);
       },
 
       saveOption() {
+          this.search = '';
           this.$emit(`${this.placeholder}-save`, this.search);
       }
   }
