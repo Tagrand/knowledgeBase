@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Author;
 use App\User;
+use App\Author;
 use App\Source;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
@@ -39,5 +39,43 @@ class SourcesAuthorsTest extends TestCase
         $response = $this->json('GET', "/api/v1/sources/{$source->id}/authors");
 
         $response->assertStatus(401);
+    }
+
+    public function test_a_user_can_add_an_author_to_a_source()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        $author = factory(Author::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/authors/{$author->id}");
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('author_source', [
+            'author_id' => $author->id,
+            'source_id' => $source->id,
+        ]);
+    }
+
+    public function test_the_author_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/authors/1231");
+
+        $response->assertStatus(404);
+    }
+
+    public function test_the_source_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $author = factory(Author::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/12342/authors/{$author->id}");
+
+        $response->assertStatus(404);
     }
 }
