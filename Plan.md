@@ -4,6 +4,23 @@
 
 [ ] Give sources a readable name
 
+[ ] Link authors to sources
+
+[ ] Give ratings to sources
+
+[ ] Tidy up create page
+
+[ ] See all facts - and filter by issues
+
+[ ] See all issues - and related facts/sources
+
+[ ] 
+
+
+
+
+
+
 [ ] Have a facts page 
 
 [ ] Have an issues page 
