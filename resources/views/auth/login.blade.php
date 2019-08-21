@@ -4,42 +4,36 @@
 <form method="POST" action="{{ route('login') }}">
     @csrf
 
-    <label for="email">{{ __('E-Mail Address') }}</label>
+    <div class="flex pt-12 pb-4">
+        <label for="email" class="px-4">Email:</label>
+        <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-    @error('email')
-    <span role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-
-    <label for="password">{{ __('Password') }}</label>
-
-    <input id="password" type="password" name="password" required autocomplete="current-password">
-
-    @error('password')
-    <span role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-
-    <div>
-        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-        <label for="remember">
-            {{ __('Remember Me') }}
-        </label>
+        @error('email')
+        <span role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
-    <button type="submit">
-        {{ __('Login') }}
-    </button>
 
-    @if (Route::has('password.request'))
-    <a href="{{ route('password.request') }}">
-        {{ __('Forgot Your Password?') }}
-    </a>
-    @endif
+    <div class="flex pb-4">
+        <label for="password" class="px-4">Password:</label>
+        <input id="password" type="password" name="password" required autocomplete="current-password">
+
+        @error('password')
+        <span role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+
+    <div class="pl-4 pb-4 flex items-centre">
+        <input class="mr-2" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+        <label for="remember">Remember me</label>
+    </div>
+
+    <button type="submit" class="px-4">Login</button>
+    <a href="{{ route('password.request') }}">Forgot your password</a>
 </form>
 @endsection

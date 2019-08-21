@@ -17,15 +17,15 @@
 <body>
     <div>
         <nav>
-            <div>
+            <div class="flex justify-between px-4 pt-2 text-lg">
                 <a href="{{ url('/') }}">
                     {{ config('app.name', 'Knowledge base') }}
                 </a>
 
                 <div>
-                    <ul>
+                    <ul class="flex flex-end">
                         @guest
-                        <li>
+                        <li class="pr-4">
                             <a href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('register'))
