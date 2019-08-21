@@ -131,4 +131,26 @@ class FactsIssuesTest extends TestCase
           'issue_id' => $issue->id
         ]);
     }
+
+    public function test_the_issue_must_exist_to_be_deleted()
+    {
+        $user = factory(User::class)->create();
+        $fact = factory(Fact::class)->create();
+      
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/12234");
+
+        $response->assertStatus(404);
+    }
+
+    public function test_the_fact_must_exist_to_be_deleted()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+      
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/facts/1234/issues/{$issue->id}");
+
+        $response->assertStatus(404);
+    }
 }
