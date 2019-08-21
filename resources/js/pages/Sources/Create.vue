@@ -3,33 +3,33 @@
     <h1>Source</h1>
 
     <search-vue
-      v-show="hasNoSource"
-      :collection="sources"
       placeholder="source"
+      :collection="sources"
       @source-save="saveSource"
+      v-show="!isSourceSelected"
       @source-select="setSelectedSource"
       style="max-height: 200px; overflow-y: auto;"
     ></search-vue>
 
-    <div v-show="!hasNoSource">
+    <div v-show="isSourceSelected">
       <p>Source: {{ selectedSource.name }}</p>
-      <button @click="setSelectedSource();setSelectedFact()">Reset</button>
+      <button @click="setSelectedSource({})">Reset</button>
 
       <h2>Fact</h2>
 
       <search-vue
-        v-show="noFact"
         placeholder="fact"
         defaultKey="claim"
         @fact-save="saveFact"
+        v-show="!isFactSelected"
         :collection="sourceFacts"
         @fact-select="setSelectedFact"
         style="max-height: 200px; overflow-y: auto;"
       ></search-vue>
 
-      <div v-show="!noFact">
+      <div v-show="isFactSelected">
         <p>Fact: {{ selectedFact.claim }}</p>
-        <button @click="setSelectedFact()">Reset</button>
+        <button @click="setSelectedFact({})">Reset</button>
 
         <issue-picker-vue :fact="selectedFact"></issue-picker-vue>
       </div>
@@ -64,22 +64,19 @@ export default {
   },
 
   computed: {
-    hasNoSource() {
-      return _.isEmpty(this.selectedSource);
+    isSourceSelected() {
+      return !_.isEmpty(this.selectedSource);
     },
 
-    noFact() {
-      return _.isEmpty(this.selectedFact);
-    },
-
-    unrelatedIssues() {
-      return _.differenceBy(this.issues, this.factIssues, "id");
+    isFactSelected() {
+      return !_.isEmpty(this.selectedFact);
     }
   },
 
   watch: {
     selectedSource() {
-      if (this.hasNoSource) {
+      if (!this.isSourceSelected) {
+        this.setSelectedFact({});
         this.sourceFacts = [];
         return;
       }
@@ -92,32 +89,26 @@ export default {
   },
 
   methods: {
-    setSelectedSource(source = {}) {
+    setSelectedSource(source) {
       this.selectedSource = source;
     },
 
-    saveSource(source) {
-      axios
-        .post("/api/v1/sources", {
-          name: source
-        })
-        .then(({ data }) => {
-          this.sources.push(data);
-          this.selectedSource = data;
-          this.sourceSearch = "";
-        });
+    saveSource(name) {
+      axios.post("/api/v1/sources", { name }).then(({ data }) => {
+        this.sources.push(data);
+        this.selectedSource = data;
+      });
     },
 
-    setSelectedFact(fact = {}) {
+    setSelectedFact(fact) {
       this.selectedFact = fact;
     },
 
-    saveFact(fact) {
+    saveFact(claim) {
       axios
-        .post(`/api/v1/sources/${this.selectedSource.id}/facts`, {
-          claim: fact
-        })
+        .post(`/api/v1/sources/${this.selectedSource.id}/facts`, { claim })
         .then(({ data }) => {
+          this.sourceFacts.push(data);
           this.selectedFact = data;
         });
     }
