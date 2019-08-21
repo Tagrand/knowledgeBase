@@ -7,14 +7,19 @@
 [x] Add Tailwind
 
 [x] Add an Authors index, and create
+
 [x] Link authors to sources
+
 [ ] Add in authors to the source page
 
 [ ] Give sources a readable name
+
 [ ] Set up a fact view page
 
 [ ] Set up source view page
+
 [ ] Set up vuex
+
 [ ] Add phpunit to pipeline
 
 [ ] See all facts - and filter by issues
@@ -25,9 +30,11 @@
 
 [ ] Check backend tests - are there any more to add? - uniqueness
 
+[ ] Fix the join tables
+
 [ ] Set up heroku
 
-[ ] Fix the join tables
+---- MVP reached ---- 
 
 [ ] Can there be a way to autolink all facts to particular issues?
 
@@ -43,13 +50,4 @@
 
 [ ] Add filtering to facts page
 
-
-5. Add arguments to sources
-
-6. Have an arguments page
-
-7. Link arguments to issues
-
-8. Add filtering to arguments page
-
-
+[ ] Can I have issues link to each other?
