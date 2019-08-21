@@ -4,18 +4,14 @@
 
     <h2>Source</h2>
 
-    <div v-show="hasNoSource">
-      <input type="text" placeholder="source" v-model="sourceSearch" />
-      <button @click="saveSource" v-show="isNewSource">Save as new</button>
-
-      <div style="max-height: 200px; overflow-y: auto;">
-        <div
-          v-bind:key="source.name"
-          v-for="source in possibleSources"
-          @click="selectedSource = source"
-        >{{source.name}}</div>
-      </div>
-    </div>
+    <search-vue
+      v-show="hasNoSource"
+      :collection="sources"
+      placeholder="source"
+      @source-save="saveSource"
+      @source-select="setSelectedSource"
+      style="max-height: 200px; overflow-y: auto;"
+    ></search-vue>
 
     <div v-show="!hasNoSource">
       <p>Source: {{ selectedSource.name }}</p>
@@ -23,15 +19,16 @@
 
       <h2>Fact</h2>
 
-      <div v-show="noFact">
-        <input type="text" placeholder="fact" v-model="fact" />
-        <button @click="saveFact">Save</button>
-        <div
-          v-bind:key="fact.name"
-          v-for="fact in sourceFacts"
-          @click="selectedFact = fact"
-        >{{fact.claim}}</div>
-      </div>
+      <search-vue
+        v-show="noFact"
+        placeholder="fact"
+        defaultKey="claim"
+        @fact-save="saveFact"
+        :collection="sourceFacts"
+        @fact-select="setSelectedFact"
+        style="max-height: 200px; overflow-y: auto;"
+      ></search-vue>
+
       <div v-show="!noFact">
         <p>Fact: {{ selectedFact.claim }}</p>
         <button @click="selectedFact={}">Reset</button>
@@ -64,7 +61,11 @@
 </template>
 
 <script>
+import SearchVue from "../../components/Search.vue";
+
 export default {
+  components: { SearchVue },
+
   data() {
     return {
       sources: [],
@@ -160,10 +161,14 @@ export default {
   },
 
   methods: {
-    saveSource() {
+    setSelectedSource(source) {
+      this.selectedSource = source;
+    },
+
+    saveSource(source) {
       axios
         .post("/api/v1/sources", {
-          name: this.sourceSearch
+          name: source
         })
         .then(({ data }) => {
           this.sources.push(data);
@@ -172,10 +177,14 @@ export default {
         });
     },
 
-    saveFact() {
+    setSelectedFact(fact) {
+      this.selectedFact = fact;
+    },
+
+    saveFact(fact) {
       axios
         .post(`/api/v1/sources/${this.selectedSource.id}/facts`, {
-          claim: this.fact
+          claim: fact
         })
         .then(({ data }) => {
           this.selectedFact = data;
