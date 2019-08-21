@@ -153,4 +153,15 @@ class FactsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_guests_cannot_unlink_facts_and_issues()
+    {
+        $issue = factory(Issue::class)->create();
+        $fact = factory(Fact::class)->create();
+        $fact->issues()->attach($issue);
+      
+        $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
+
+        $response->assertStatus(401);
+    }
 }
