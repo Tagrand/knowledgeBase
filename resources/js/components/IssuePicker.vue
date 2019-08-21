@@ -104,7 +104,7 @@ export default {
         .delete(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
         .then(() => {
           const index = this.factIssues.indexOf(issue);
-          this.factIssues.splice(index,1 );
+          this.factIssues.splice(index, 1);
         })
         .catch(error => console.log(error));
     }

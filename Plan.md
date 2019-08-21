@@ -2,13 +2,19 @@
 
 [x] Link facts to issues 
 
-[ ] Give sources a readable name
-
 [ ] Link authors to sources
+
+[ ] Set up source view page
+
+[ ] Set up a fact view page
+
+[ ] Can there be a way to autolink all facts to particular issues?
+
+[ ] Give sources a readable name
 
 [ ] Give ratings to sources
 
-[ ] Tidy up create page
+[x] Tidy up create page
 
 [ ] See all facts - and filter by issues
 
