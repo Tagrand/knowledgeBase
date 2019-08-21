@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
+        Route::get('/authors', 'AuthorsController@index');
+
         Route::get('/sources', 'SourcesController@index');
         Route::post('/sources', 'SourcesController@store');
 

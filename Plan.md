@@ -6,6 +6,8 @@
 
 [x] Add Tailwind
 
+[ ] Add an Authors index, and create
+
 [ ] Add phpunit to pipeline
 
 [ ] Link authors to sources
