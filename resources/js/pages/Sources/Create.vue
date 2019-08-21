@@ -3,7 +3,7 @@
     <h1>Source</h1>
 
     <search-vue
-      placeholder="source"
+      data-type="source"
       :collection="sources"
       @source-save="saveSource"
       v-show="!isSourceSelected"
@@ -18,7 +18,7 @@
       <h2>Fact</h2>
 
       <search-vue
-        placeholder="fact"
+        data-type="fact"
         defaultKey="claim"
         @fact-save="saveFact"
         v-show="!isFactSelected"

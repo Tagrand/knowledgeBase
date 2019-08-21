@@ -1,14 +1,14 @@
 <template>
   <div>
-    <input type="text" v-bind:placeholder="placeholder" v-model="search" />
+    <input type="text" :placeholder="dataType" v-model="search" />
     <button @click="saveOption" v-show="isNewOption">Save as new</button>
 
     <div>
       <div
         @click="selectOption(option)"
-        v-bind:key="option[defaultKey]"
+        v-bind:key="option[searchKey]"
         v-for="option in filteredCollection"
-      >{{option[defaultKey]}}</div>
+      >{{option[searchKey]}}</div>
     </div>
   </div>
 </template>
@@ -21,12 +21,12 @@ export default {
       required: true
     },
 
-    defaultKey: {
+    searchKey: {
       type: String,
       default: "name"
     },
 
-    placeholder: {
+    dataType: {
       type: String,
       required: true
     }
@@ -45,16 +45,20 @@ export default {
       }
 
       return _.filter(this.collection, option => {
-        return option[this.defaultKey]
+        return option[this.searchKey]
           .toLowerCase()
           .includes(this.search.toLowerCase());
       });
     },
 
     isNewOption() {
+      if (this.search === "") {
+        return false;
+      }
+
       return !_.some(this.collection, option => {
         return (
-          option[this.defaultKey].toLowerCase() === this.search.toLowerCase()
+          option[this.searchKey].toLowerCase() === this.search.toLowerCase()
         );
       });
     }
@@ -62,12 +66,12 @@ export default {
 
   methods: {
     selectOption(option) {
+      this.$emit(`${this.dataType}-select`, option);
       this.search = "";
-      this.$emit(`${this.placeholder}-select`, option);
     },
 
     saveOption() {
-      this.$emit(`${this.placeholder}-save`, this.search);
+      this.$emit(`${this.dataType}-save`, this.search);
       this.search = "";
     }
   }
