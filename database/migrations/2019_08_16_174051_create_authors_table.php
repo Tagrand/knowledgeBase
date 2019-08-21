@@ -18,6 +18,8 @@ class CreateAuthorsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->timestamps();
+
+            $table->unique(['first_name', 'last_name']);
         });
     }
 

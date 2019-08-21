@@ -2,11 +2,11 @@
 
 namespace Tests\Api;
 
-use App\Author;
 use App\User;
+use App\Author;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthorsTest extends TestCase
 {
@@ -41,13 +41,13 @@ class AuthorsTest extends TestCase
         $response = $this->json('POST', '/api/v1/authors', [
            'first_name' => 'Ed',
            'last_name' => 'Milliband',
-       ]);
+        ]);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('authors', [
            'first_name' => 'Ed',
            'last_name' => 'Milliband',
-       ]);
+        ]);
     }
 
     public function test_authors_must_have_first_names()
@@ -58,7 +58,7 @@ class AuthorsTest extends TestCase
         $response = $this->json('POST', '/api/v1/authors', [
         //    'first_name' => 'Ed',
            'last_name' => 'Milliband',
-       ]);
+        ]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('first_name');
@@ -72,7 +72,7 @@ class AuthorsTest extends TestCase
         $response = $this->json('POST', '/api/v1/authors', [
            'first_name' => 1234,
            'last_name' => 'Milliband',
-       ]);
+        ]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('first_name');
@@ -86,7 +86,7 @@ class AuthorsTest extends TestCase
         $response = $this->json('POST', '/api/v1/authors', [
            'first_name' => 'Ed',
         //    'last_name' => 'Milliband',
-       ]);
+        ]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('last_name');
@@ -100,7 +100,25 @@ class AuthorsTest extends TestCase
         $response = $this->json('POST', '/api/v1/authors', [
            'first_name' => 'Ed',
            'last_name' => 12434,
-       ]);
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('last_name');
+    }
+
+    public function test_last_and_first_name_combinations_must_be_unique()
+    {
+        $user = factory(User::class)->create();
+        factory(Author::class)->create([
+            'first_name' => 'Diane',
+            'last_name' => 'Abbot',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/authors', [
+            'first_name' => 'Diane',
+            'last_name' => 'Abbot',
+        ]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('last_name');
