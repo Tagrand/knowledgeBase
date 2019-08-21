@@ -28,6 +28,18 @@ class SourcesFactsTest extends TestCase
         $this->assertCount(2, $response->json());
     }
 
+    public function test_a_guest_cannot_see_unrelated_facts()
+    {
+        $source = factory(Source::class)->create();
+        $fact = factory(Fact::class, 2)->create([
+            'source_id' => $source->id,
+        ]);
+
+        $response = $this->json('GET', "/api/v1/sources/{$source->id}/facts");
+
+        $response->assertStatus(401);
+    }
+
     public function test_user_can_make_facts()
     {
         $user = factory(User::class)->create();
