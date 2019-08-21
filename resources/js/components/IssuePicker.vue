@@ -3,13 +3,13 @@
     <div>
       <h2>Issue</h2>
 
-      <div v-bind:key="issue.name" v-for="issue in factIssues">
+      <div :key="issue.name" v-for="issue in factIssues" @click="unsetIssue(issue)">
         <strong>{{issue.name}}</strong>
       </div>
 
       <div
+        :key="issue.name"
         @click="setIssue(issue)"
-        v-bind:key="issue.name"
         v-for="issue in unrelatedIssues"
         style="max-height: 200px; overflow-y: auto;"
       >{{issue.name}}</div>
@@ -96,6 +96,16 @@ export default {
       axios
         .post(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
         .then(() => this.factIssues.push(issue))
+        .catch(error => console.log(error));
+    },
+
+    unsetIssue(issue) {
+      axios
+        .delete(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
+        .then(() => {
+          const index = this.factIssues.indexOf(issue);
+          this.factIssues.splice(index,1 );
+        })
         .catch(error => console.log(error));
     }
   }
