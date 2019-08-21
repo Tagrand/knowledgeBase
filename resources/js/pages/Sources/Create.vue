@@ -34,8 +34,16 @@
         <div>
           <h2>Issue</h2>
 
-          <div v-bind:key="issue.name" v-for="issue in factIssues"><strong>{{issue.name}}</strong></div>
-          <div @click="setIssue(issue)" v-bind:key="issue.name" v-for="issue in unrelatedIssues">{{issue.name}}</div>
+          <div v-bind:key="issue.name" v-for="issue in factIssues">
+            <strong>{{issue.name}}</strong>
+          </div>
+          
+          <div
+            @click="setIssue(issue)"
+            v-bind:key="issue.name"
+            v-for="issue in unrelatedIssues"
+            style="max-height: 200px; overflow-y: auto;"
+          >{{issue.name}}</div>
 
           <button @click="editIssue = true" v-show="!editIssue">Add Issue</button>
           <div v-show="editIssue">
@@ -127,7 +135,7 @@ export default {
 
       factIssues: [],
         axios
-          .get(`/api/v1/facts/${this.fact.id}/issues`)
+          .get(`/api/v1/facts/${this.selectedFact.id}/issues`)
           .then(({ data }) => (this.factIssues = data))
           .catch(error => console.log(error));
     }
@@ -170,7 +178,10 @@ export default {
     },
 
     setIssue(issue) {
-      axios.post(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`);
+      axios
+        .post(`/api/v1/facts/${this.selectedFact.id}/issues/${issue.id}`)
+        .then(() => this.factIssues.push(issue))
+        .catch(error => console.log(error));
     }
   }
 };
