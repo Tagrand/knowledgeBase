@@ -43,3 +43,5 @@
 
 8. Add filtering to arguments page
 
+[ ] Add Tailwind
+
