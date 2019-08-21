@@ -26,6 +26,11 @@
       <div v-show="noFact">
         <input type="text" placeholder="fact" v-model="fact" />
         <button @click="saveFact">Save</button>
+        <div
+          v-bind:key="fact.name"
+          v-for="fact in sourceFacts"
+          @click="selectedFact = fact"
+        >{{fact.claim}}</div>
       </div>
       <div v-show="!noFact">
         <p>Fact: {{ selectedFact.claim }}</p>
@@ -37,7 +42,7 @@
           <div v-bind:key="issue.name" v-for="issue in factIssues">
             <strong>{{issue.name}}</strong>
           </div>
-          
+
           <div
             @click="setIssue(issue)"
             v-bind:key="issue.name"
@@ -68,6 +73,7 @@ export default {
 
       fact: "",
       selectedFact: {},
+      sourceFacts: [],
 
       issues: [],
       factIssues: [],
@@ -138,6 +144,18 @@ export default {
           .get(`/api/v1/facts/${this.selectedFact.id}/issues`)
           .then(({ data }) => (this.factIssues = data))
           .catch(error => console.log(error));
+    },
+
+    selectedSource() {
+      if (this.hasNoSource) {
+        this.sourceFacts = [];
+        return;
+      }
+
+      axios
+        .get(`/api/v1/sources/${this.selectedSource.id}/facts`)
+        .then(({ data }) => (this.sourceFacts = data))
+        .catch(error => console.log(error));
     }
   },
 
