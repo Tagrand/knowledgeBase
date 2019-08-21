@@ -1,41 +1,41 @@
-[x] Add facts to sources 
+[x] Add facts to sources
 
-[x] Link facts to issues 
-
-[ ] Link authors to sources
-
-[ ] Set up source view page
-
-[ ] Set up a fact view page
-
-[ ] Can there be a way to autolink all facts to particular issues?
-
-[ ] Give sources a readable name
-
-[ ] Give ratings to sources
+[x] Link facts to issues
 
 [x] Tidy up create page
 
+[x] Add Tailwind
+
+[ ] Link authors to sources
+
+[ ] Set up a fact view page
 [ ] See all facts - and filter by issues
 
-[ ] See all issues - and related facts/sources
+[ ] Give sources a readable name
 
-[ ] 
+[ ] Set up source view page
+[ ] Set up vuex
 
-
-
-
-
-
-[ ] Have a facts page 
-
-[ ] Have an issues page 
-
-[ ] Add filtering to facts page
+[ ] Set up heroku
 
 [ ] Fix the join tables
 
-5. Add arguments to sources 
+[ ] Can there be a way to autolink all facts to particular issues?
+
+[ ] Give ratings to sources
+
+[ ] See all issues - and related facts/sources
+
+[ ] Firefox extension to add sources easily
+
+[ ] Have a facts page
+
+[ ] Have an issues page
+
+[ ] Add filtering to facts page
+
+
+5. Add arguments to sources
 
 6. Have an arguments page
 
