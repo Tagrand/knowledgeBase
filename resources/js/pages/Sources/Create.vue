@@ -69,12 +69,10 @@ export default {
   data() {
     return {
       sources: [],
-      sourceSearch: "",
       selectedSource: {},
 
-      fact: "",
-      selectedFact: {},
       sourceFacts: [],
+      selectedFact: {},
 
       issues: [],
       factIssues: [],

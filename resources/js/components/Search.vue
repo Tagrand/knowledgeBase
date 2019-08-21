@@ -16,28 +16,27 @@
 <script>
 export default {
   props: {
-      collection: {
-          type: Array, 
-          required: true,
-      },
+    collection: {
+      type: Array,
+      required: true
+    },
 
-      defaultKey: {
-          type: String,
-          default: 'name',
-      },
+    defaultKey: {
+      type: String,
+      default: "name"
+    },
 
-      placeholder: {
-          type: String,
-          required: true,
-      }
+    placeholder: {
+      type: String,
+      required: true
+    }
   },
 
   data() {
     return {
-      search: '',
+      search: ""
     };
   },
-
 
   computed: {
     filteredCollection() {
@@ -54,21 +53,23 @@ export default {
 
     isNewOption() {
       return !_.some(this.collection, option => {
-        return option[this.defaultKey].toLowerCase() === this.search.toLowerCase();
+        return (
+          option[this.defaultKey].toLowerCase() === this.search.toLowerCase()
+        );
       });
-    },
+    }
   },
 
-  methods:{
-      selectOption(option) {
-          this.search = '';
-          this.$emit(`${this.placeholder}-select`, option);
-      },
+  methods: {
+    selectOption(option) {
+      this.search = "";
+      this.$emit(`${this.placeholder}-select`, option);
+    },
 
-      saveOption() {
-          this.search = '';
-          this.$emit(`${this.placeholder}-save`, this.search);
-      }
+    saveOption() {
+      this.search = "";
+      this.$emit(`${this.placeholder}-save`, this.search);
+    }
   }
 };
 </script>
