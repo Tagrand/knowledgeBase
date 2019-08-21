@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="text-xl font-bold">Source</h1>
+    <div class="flex justify-between">
+      <h1 class="text-xl font-bold">Source</h1>
+      <h1 class="text-xl font-bold" v-show="isSourceSelected">Author</h1>
+    </div>
 
     <search-vue
       class="text-blue"
@@ -12,9 +15,15 @@
     ></search-vue>
 
     <div v-show="isSourceSelected">
-      <div class="flex mb-4">
-        <p class="mr-4">{{ selectedSource.name }}</p>
-        <button @click="setSelectedSource({})">Reset</button>
+      <div class="flex justify-between mb-4">
+        <div>
+          <p class="mr-4">{{ selectedSource.name }}</p>
+          <button @click="setSelectedSource({})">Reset</button>
+        </div>
+        <div>
+          <div>Authors</div>
+          <div>New</div>
+        </div>
       </div>
 
       <h1 class="text-xl font-bold">Fact</h1>

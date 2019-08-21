@@ -3,15 +3,16 @@
     <div>
       <h1 class="text-xl font-bold">Issues</h1>
 
-      <div class="overflow-y-auto" style="max-height: 100px">
+      <div class="overflow-y-auto flex flex-wrap" style="max-height: 100px">
         <div
           :key="issue.name"
           v-for="issue in factIssues"
           @click="unsetIssue(issue)"
-          class="text-green-700"
+          class="text-green-700 mr-8"
         >{{issue.name}}</div>
 
         <div
+          class="mr-8"
           :key="issue.name"
           @click="setIssue(issue)"
           v-for="issue in unrelatedIssues"
