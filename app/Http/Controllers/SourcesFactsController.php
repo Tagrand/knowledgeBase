@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SourcesFactsController extends Controller
 {
+    public function index(Source $source)
+    {
+        return $source->facts;
+    }
+
     public function store(Source $source, Request $request)
     {
         $validatedRequest = $request->validate([
