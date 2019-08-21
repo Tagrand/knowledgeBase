@@ -22,4 +22,12 @@ class AuthorsTest extends TestCase
        $response->assertStatus(200);
        $this->assertCount(2, $response->json());
     }
+
+    public function test_guest_cannot_see_authors() {
+       factory(Author::class, 2)->create();
+
+       $response = $this->json('GET', '/api/v1/authors');
+
+       $response->assertStatus(401);
+    }
 }
