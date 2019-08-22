@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/js/pages/Home';
-import Create from '@/js/pages/Sources/Create';
+import Edit from '@/js/pages/Sources/Edit';
 import Index from '@/js/pages/Sources/Index';
 
 
@@ -23,7 +23,7 @@ const router = new VueRouter({
     {
       path: '/sources/edit',
       name: 'source.edit',
-      component: Create,
+      component: Edit,
     },
   ],
 });
