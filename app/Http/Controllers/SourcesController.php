@@ -17,7 +17,7 @@ class SourcesController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'summary' => 'nullable'
+            'summary' => 'nullable|string',
         ]);
 
         return Source::create($validatedData);
