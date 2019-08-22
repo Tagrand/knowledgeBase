@@ -3,6 +3,7 @@
     <search-vue
       class="text-blue"
       data-type="source"
+      extra-info="summary"
       :collection="sources"
       @source-save="saveSource"
       @source-select="setSelectedSource"
@@ -26,10 +27,14 @@ export default {
   },
 
   methods: {
-    saveSource(name) {
-      axios.post("/api/v1/sources", { name }).then(({ data }) => {
+    saveSource(info) {
+      let name, summary;
+      console.log(info);
+      [name, summary] = info.split('\*\*');
+
+      axios.post("/api/v1/sources", { name, summary }).then(({ data }) => {
         this.$store.commit("addSource", data);
-        this.$router.push({ name: "source.edit" });
+        this.$router.push({ name: "source.edit", params: { id: data.id }});
       });
     },
 

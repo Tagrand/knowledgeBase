@@ -7,7 +7,10 @@
 
     <div class="flex justify-between mb-4">
       <div>
-        <p class="mr-4">{{ selectedSource.name }}</p>
+        <div>
+          <span>{{ selectedSource.name }}</span>
+          <span class="mr-4" v-show="!!selectedSource.summary">({{ selectedSource.summary }})</span>
+        </div>
         <router-link class="hover:text-blue-400" to="/sources">Reset</router-link>
       </div>
 

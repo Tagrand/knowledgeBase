@@ -8,7 +8,10 @@
         @click="selectOption(option)"
         v-bind:key="option[searchKey]"
         v-for="option in filteredCollection"
-      >{{option[searchKey]}}</div>
+      >
+        <span v-text="option[searchKey]"></span>
+        <span v-show="!!option[extraInfo]" v-text="`(${option[extraInfo]})`"></span>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +32,10 @@ export default {
     dataType: {
       type: String,
       required: true
+    },
+
+    extraInfo: {
+      type: String
     }
   },
 
