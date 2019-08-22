@@ -25,7 +25,8 @@ class SourcesTest extends TestCase
         $this->assertCount(2, $response->json());
     }
 
-    public function test_a_guest_cannot_get_all_the_sources() {
+    public function test_a_guest_cannot_get_all_the_sources()
+    {
         factory(Source::class, 2)->create();
 
         $response = $this->get('/api/v1/sources');
@@ -33,12 +34,13 @@ class SourcesTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_a_user_can_add_a_new_source() {
+    public function test_a_user_can_add_a_new_source()
+    {
         $user = factory(User::class)->create();
         factory(Source::class, 2)->create();
 
         Passport::actingAs($user);
-        $response = $this->json('POST','/api/v1/sources', [
+        $response = $this->json('POST', '/api/v1/sources', [
             'name' => 'the guardian',
             'summary' => 'the guardian',
         ]);
@@ -50,12 +52,30 @@ class SourcesTest extends TestCase
         ]);
     }
 
-    public function test_a_source_must_have_a_name() {
+    public function test_summary_is_optional()
+    {
         $user = factory(User::class)->create();
         factory(Source::class, 2)->create();
 
         Passport::actingAs($user);
-        $response = $this->json('POST','/api/v1/sources', [
+        $response = $this->json('POST', '/api/v1/sources', [
+            'name' => 'the guardian',
+            // 'summary' => 'the guardian',
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('sources', [
+            'name' => 'the guardian',
+        ]);
+    }
+
+    public function test_a_source_must_have_a_name()
+    {
+        $user = factory(User::class)->create();
+        factory(Source::class, 2)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/sources', [
             // 'name' => 'the guardian',
         ]);
 
@@ -63,12 +83,13 @@ class SourcesTest extends TestCase
         $response->assertJsonValidationErrors('name');
     }
 
-    public function test_names_must_be_strings() {
+    public function test_names_must_be_strings()
+    {
         $user = factory(User::class)->create();
         factory(Source::class, 2)->create();
 
         Passport::actingAs($user);
-        $response = $this->json('POST','/api/v1/sources', [
+        $response = $this->json('POST', '/api/v1/sources', [
             'name' => 123,
         ]);
 
@@ -76,10 +97,11 @@ class SourcesTest extends TestCase
         $response->assertJsonValidationErrors('name');
     }
 
-    public function test_sources_cannot_be_made_by_guests() {
+    public function test_sources_cannot_be_made_by_guests()
+    {
         factory(Source::class, 2)->create();
 
-        $response = $this->json('POST','/api/v1/sources', [
+        $response = $this->json('POST', '/api/v1/sources', [
             'name' => 'this shouldn\'t work',
         ]);
 
