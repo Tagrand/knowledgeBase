@@ -10,7 +10,7 @@
 
 [x] Link authors to sources
 
-[ ] Add in authors to the source page
+[x] Add in authors to the source page
 
 [ ] Give sources a readable name
 
@@ -34,7 +34,7 @@
 
 [ ] Set up heroku
 
----- MVP reached ---- 
+---- MVP reached ----
 
 [ ] Can there be a way to autolink all facts to particular issues?
 
