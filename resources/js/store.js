@@ -7,6 +7,8 @@ const store = new Vuex.Store({
     state: {
         sources: [],
         selectedSource: {},
+
+        authors: [],
     },
 
     mutations: {
@@ -14,9 +16,18 @@ const store = new Vuex.Store({
             state.sources = sources;
         },
 
+        setSelectedSource(state, id) {
+            const source = _.find(state.sources, (source) => source.id === Number(id));
+            state.selectedSource = source;
+        },
+
         addSource(state, source) {
             state.sources.push(source);
             state.selectedSource = source;
+        },
+
+        setAuthors(state, authors = []) {
+            state.authors = authors;
         },
     },
 
@@ -26,15 +37,34 @@ const store = new Vuex.Store({
                 return;
             }
 
-            axios
+            return axios
                 .get("/api/v1/sources")
                 .then(({ data }) => {
                     commit("setSources", data);
                 });
+        },
+
+        getAuthors({ commit, state }) {
+            if (state.authors.length !== 0) {
+                return;
+            }
+
+            axios
+                .get("/api/v1/authors")
+                .then(({ data }) => {
+                    commit("setAuthors", data);
+                });
+        },
+
+        setSelectedSource({ dispatch, commit, state}, id) {
+            if (state.sources.length !== 0) {
+                commit('setSelectedSource', id)
+                return;
+            }
+
+            dispatch('getSources').then(() => commit('setSelectedSource', id) );
         }
-    }
-
-
+    },
 });
 
 export default store;

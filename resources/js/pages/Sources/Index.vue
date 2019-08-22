@@ -34,8 +34,7 @@ export default {
     },
 
     setSelectedSource(source) {
-      this.$store.commit("addSource", source);
-      this.$router.push({ name: "source.edit" });
+      this.$router.push({ name: "source.edit", params: { id: source.id } });
     }
   }
 };

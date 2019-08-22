@@ -21,9 +21,10 @@ const router = new VueRouter({
       component: Index,
     },
     {
-      path: '/sources/edit',
+      path: '/sources/:id/edit',
       name: 'source.edit',
       component: Edit,
+      props: true,
     },
   ],
 });

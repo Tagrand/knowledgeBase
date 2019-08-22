@@ -45,6 +45,12 @@ import AuthorPickerVue from "../../components/AuthorPicker.vue";
 export default {
   components: { SearchVue, IssuePickerVue, AuthorPickerVue },
 
+  props: {
+    id: {
+      required: true
+    }
+  },
+
   data() {
     return {
       sourceFacts: [],
@@ -63,8 +69,10 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("setSelectedSource", this.id);
+
     axios
-      .get(`/api/v1/sources/${this.selectedSource.id}/facts`)
+      .get(`/api/v1/sources/${this.id}/facts`)
       .then(({ data }) => (this.sourceFacts = data))
       .catch(error => console.log(error));
   },

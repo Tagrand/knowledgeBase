@@ -38,7 +38,6 @@ export default {
 
   data() {
     return {
-      authors: [],
       sourceAuthors: [],
 
       addAuthor: false,
@@ -49,15 +48,14 @@ export default {
   },
 
   created() {
-    axios
-      .get("/api/v1/authors")
-      .then(({ data }) => {
-        this.authors = data;
-      })
-      .catch(error => console.log(error));
+    this.$store.dispatch('getAuthors');
   },
 
   computed: {
+    authors() {
+      return this.$store.state.authors;
+    },
+
     otherAuthors() {
       return _.differenceBy(this.authors, this.sourceAuthors, "id");
     },
