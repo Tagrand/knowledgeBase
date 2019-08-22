@@ -41,7 +41,6 @@ export default {
 
   data() {
     return {
-      issues: [],
       factIssues: [],
 
       addIssue: false,
@@ -51,15 +50,14 @@ export default {
   },
 
   created() {
-    axios
-      .get("/api/v1/issues")
-      .then(({ data }) => {
-        this.issues = data;
-      })
-      .catch(error => console.log(error));
+    this.$store.dispatch('getIssues');
   },
 
   computed: {
+    issues() {
+      return this.$store.state.issues;
+    },
+
     unrelatedIssues() {
       return _.differenceBy(this.issues, this.factIssues, "id");
     },
@@ -91,7 +89,7 @@ export default {
           summary: this.issueSummary
         })
         .then(({ data }) => {
-          this.issues.push(data);
+          this.$store.commit('addIssue', data);
           this.issueName = "";
           this.issueSummary = "";
         });
