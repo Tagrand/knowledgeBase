@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import Vuex from 'vuex'
 import App from '@/js/views/App';
 import Routes from '@/js/routes.js';
-
-Vue.use(Vuex)
-
+import store from '@/js/store.js';
 
 window._ = require('lodash');
 window.axios = require('axios');
@@ -21,6 +18,7 @@ if (token) {
 
 const app = new Vue({
     el: '#app',
+    store,
     router: Routes,
     render: h => h(App),
 });
