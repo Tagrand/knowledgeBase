@@ -20,10 +20,8 @@
           <p class="mr-4">{{ selectedSource.name }}</p>
           <button @click="setSelectedSource({})">Reset</button>
         </div>
-        <div>
-          <div>Authors</div>
-          <div>New</div>
-        </div>
+
+        <author-picker-vue :source="selectedSource"></author-picker-vue>
       </div>
 
       <h1 class="text-xl font-bold">Fact</h1>
@@ -53,9 +51,10 @@
 <script>
 import SearchVue from "../../components/Search.vue";
 import IssuePickerVue from "../../components/IssuePicker.vue";
+import AuthorPickerVue from "../../components/AuthorPicker.vue";
 
 export default {
-  components: { SearchVue, IssuePickerVue },
+  components: { SearchVue, IssuePickerVue, AuthorPickerVue },
 
   data() {
     return {
