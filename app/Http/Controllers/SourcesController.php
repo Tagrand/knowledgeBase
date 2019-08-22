@@ -8,15 +8,18 @@ use Illuminate\Support\Facades\Response;
 
 class SourcesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return response(Source::all(), 200);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'summary' => 'nullable'
         ]);
-        
+
         return Source::create($validatedData);
     }
 }

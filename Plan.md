@@ -18,7 +18,7 @@
 
 [ ] Set up source view page
 
-[ ] Set up vuex
+[x] Set up vuex
 
 [ ] Add phpunit to pipeline
 

@@ -40,11 +40,13 @@ class SourcesTest extends TestCase
         Passport::actingAs($user);
         $response = $this->json('POST','/api/v1/sources', [
             'name' => 'the guardian',
+            'summary' => 'the guardian',
         ]);
-        
+
         $response->assertStatus(201);
         $this->assertDatabaseHas('sources', [
             'name' => 'the guardian',
+            'summary' => 'the guardian',
         ]);
     }
 
@@ -60,7 +62,7 @@ class SourcesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('name');
     }
-    
+
     public function test_names_must_be_strings() {
         $user = factory(User::class)->create();
         factory(Source::class, 2)->create();
