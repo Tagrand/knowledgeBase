@@ -73,7 +73,7 @@ export default {
       }
 
       axios
-        .get(`/api/v1/source/${this.source.id}/authors`)
+        .get(`/api/v1/sources/${this.source.id}/authors`)
         .then(({ data }) => (this.sourceAuthors = data))
         .catch(error => console.log(error));
     }
