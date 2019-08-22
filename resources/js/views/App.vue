@@ -3,7 +3,7 @@
     <div class="px-4">
       <div class="flex pb-4 justify-between pt-2 text-md">
         <router-link class="hover:text-blue-400" to="/">Home</router-link>
-        <router-link class="hover:text-blue-400" to="/sources/new">Create/Edit Source</router-link>
+        <router-link class="hover:text-blue-400" to="/sources">Sources</router-link>
       </div>
       <router-view></router-view>
     </div>
