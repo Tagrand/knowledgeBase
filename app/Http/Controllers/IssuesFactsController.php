@@ -6,7 +6,10 @@ use App\Issue;
 
 class IssuesFactsController extends Controller
 {
-   public function index(Issue $issue) {
-      return $issue->facts;
-   }
+    public function index(Issue $issue)
+    {
+        return $issue->facts()
+               ->with('source', 'issues')
+               ->get();
+    }
 }
