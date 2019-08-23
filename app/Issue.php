@@ -16,11 +16,18 @@ class Issue extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function arguments() {
+    public function arguments()
+    {
         return $this->belongsToMany(Argument::class);
     }
 
-    public function facts() {
+    public function facts()
+    {
         return $this->belongsToMany(Fact::class);
+    }
+
+    public function sources()
+    {
+        return $this->hasManyThrough(Source::class, Fact::class);
     }
 }

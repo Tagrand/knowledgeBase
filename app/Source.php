@@ -24,4 +24,8 @@ class Source extends Model
     public function authors() {
         return $this->belongsToMany(Author::class);
     }
+
+    public function issues() {
+        return $this->hasManyThrough(Issue::class, Fact::class);
+    }
 }
