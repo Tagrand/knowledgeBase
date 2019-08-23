@@ -2,25 +2,20 @@
 [x] Link facts to issues
 [x] Tidy up create page
 [x] Add Tailwind
+[x] Set up vuex
 [x] Add an Authors index, and create
 [x] Link authors to sources
 [x] Add in authors to the source page
 [x] Give sources a readable name
 [x] See all issues
-
-[ ] See specific issues - edit
+[x] See specific issues
 
 [ ] See all facts
-
+[ ] See all facts - and filter by issues
 [ ] Set up a fact view page
 
 [ ] Set up a fact edit page
-
-[ ] See all facts - and filter by issues
-
 [ ] Set up source view page
-
-[x] Set up vuex
 
 [ ] Add phpunit to pipeline
 
@@ -30,15 +25,11 @@
 
 [ ] Check backend tests - are there any more to add? - uniqueness
 
-[ ] Remove arguments - or rename to policies?
-
-[ ] facts - for policy
-
-[ ] facts - against policy
-
-[ ] Show policies that link to issues
-
 [ ] Fix the join tables
+[ ] Remove arguments - or rename to policies?
+[ ] facts - for policy
+[ ] facts - against policy
+[ ] Show policies that link to issues
 
 [ ] Set up heroku
 
