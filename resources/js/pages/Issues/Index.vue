@@ -63,7 +63,7 @@ export default {
     },
 
     selectIssue(issue) {
-      console.log();
+      this.$router.push({ name: "issues.view", params: { id: issue.id } });
     }
   }
 };
