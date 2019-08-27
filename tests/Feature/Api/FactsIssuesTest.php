@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api;
+namespace Tests\Feature\Api;
 
 use App\User;
 use App\Fact;
@@ -21,7 +21,7 @@ class FactsIssuesTest extends TestCase
         $unlinkedIssue = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
         $fact->issues()->attach([$issue->id, $issue2->id]);
-      
+
         Passport::actingAs($user);
         $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
 
@@ -35,7 +35,7 @@ class FactsIssuesTest extends TestCase
         $user = factory(User::class)->create();
         $unlinkedIssue = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
-      
+
         Passport::actingAs($user);
         $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
 
@@ -49,7 +49,7 @@ class FactsIssuesTest extends TestCase
         $issue2 = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
         $fact->issues()->attach([$issue->id, $issue2->id]);
-      
+
         $response = $this->json('GET', "/api/v1/facts/{$fact->id}/issues");
 
         $response->assertStatus(401);
@@ -59,7 +59,7 @@ class FactsIssuesTest extends TestCase
     {
         $issue = factory(Issue::class)->create();
         $issue2 = factory(Issue::class)->create();
-      
+
         $response = $this->json('GET', "/api/v1/facts/1234/issues");
 
         $response->assertStatus(401);
@@ -120,7 +120,7 @@ class FactsIssuesTest extends TestCase
         $issue2 = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
         $fact->issues()->attach([$issue->id, $issue2->id]);
-      
+
         Passport::actingAs($user);
         $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
 
@@ -136,7 +136,7 @@ class FactsIssuesTest extends TestCase
     {
         $user = factory(User::class)->create();
         $fact = factory(Fact::class)->create();
-      
+
         Passport::actingAs($user);
         $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/12234");
 
@@ -147,7 +147,7 @@ class FactsIssuesTest extends TestCase
     {
         $user = factory(User::class)->create();
         $issue = factory(Issue::class)->create();
-      
+
         Passport::actingAs($user);
         $response = $this->json('DELETE', "/api/v1/facts/1234/issues/{$issue->id}");
 
@@ -159,7 +159,7 @@ class FactsIssuesTest extends TestCase
         $issue = factory(Issue::class)->create();
         $fact = factory(Fact::class)->create();
         $fact->issues()->attach($issue);
-      
+
         $response = $this->json('DELETE', "/api/v1/facts/{$fact->id}/issues/{$issue->id}");
 
         $response->assertStatus(401);

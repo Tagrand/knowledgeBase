@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api;
+namespace Tests\Feature\Api;
 
 use App\User;
 use App\Author;
