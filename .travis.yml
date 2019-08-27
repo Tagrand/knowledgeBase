@@ -9,9 +9,9 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - cp .env.travis .env
   - phpenv rehash
-  - nvm install 7.7.1
+  - nvm install 11.15.0
+  - npm install 6.10.3 -g
   - npm install
 
 script:

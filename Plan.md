@@ -13,7 +13,6 @@
 [ ] See all facts
 [ ] See all facts - and filter by issues
 [ ] Set up a fact view page
-
 [ ] Set up a fact edit page
 [ ] Set up source view page
 
