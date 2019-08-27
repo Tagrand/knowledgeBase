@@ -1,5 +1,7 @@
 ## Knowledge base
 
+[![Build Status](https://travis-ci.org/Tagrand/knowledgeBase.svg?branch=master)](https://travis-ci.org/Tagrand/knowledgeBase)
+
 This is just a place for me to dump facts, arguments and sources - but also be able to quickly get them too.
 
 I find I read some things, they're good ideas, but often I have no structured way of linking them to other ideas.
