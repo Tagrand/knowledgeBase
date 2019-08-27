@@ -26,6 +26,7 @@ class AuthorsTest extends TestCase
 
     public function test_guest_cannot_see_authors()
     {
+        $this->withoutExceptionHandling();
         factory(Author::class, 2)->create();
 
         $response = $this->json('GET', '/api/v1/authors');
