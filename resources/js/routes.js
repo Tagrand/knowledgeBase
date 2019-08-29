@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/js/pages/Home';
+import Home from '@/pages/Home';
 import Edit from '@/js/pages/Sources/Edit';
 import SourcesIndex from '@/js/pages/Sources/Index';
 import IssuesIndex from '@/js/pages/Issues/Index';
