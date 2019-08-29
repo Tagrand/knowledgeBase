@@ -21,7 +21,7 @@
 [ ] Set up a fact view page
 [ ] Set up a fact edit page
 
-Refactoring check point - how is everything? Could this be tidied up further?
+[ ] Refactoring check point - how is everything? Could this be tidied up further?
 [ ] Check backend tests - are there any more to add? - uniqueness
 
 [ ] Fix the join tables
@@ -38,10 +38,12 @@ Refactoring check point - how is everything? Could this be tidied up further?
 
 [ ] Make a basic design
 [ ] Set up heroku
+[ ] Write guide, laravel to heroku
+[ ] Start using - don't change for a bit
 
-[ ] Look into adding front end tests
 ---- MVP reached ----
 
+[ ] Look into adding front end tests
 [ ] Can there be a way to autolink all facts to particular issues?
 
 [ ] Can I filter sources by issues?
