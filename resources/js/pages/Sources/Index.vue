@@ -31,6 +31,7 @@ export default {
     saveSource(info) {
       let name; let summary;
 
+      // eslint-disable-next-line prefer-const
       [name, summary] = info.split('**');
 
       axios.post('/api/v1/sources', { name, summary }).then(({ data }) => {
