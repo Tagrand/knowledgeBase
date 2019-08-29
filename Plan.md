@@ -9,6 +9,9 @@
 [x] Give sources a readable name
 [x] See all issues
 [x] See specific issues
+[ ] Edit issues
+
+[ ] View specific sources
 
 [ ] See all facts
 [ ] See all facts - and filter by issues
@@ -27,10 +30,17 @@ Refactoring check point - how is everything? Could this be tidied up further?
 [ ] Check backend tests - are there any more to add? - uniqueness
 
 [ ] Fix the join tables
-[ ] Remove arguments - or rename to policies?
-[ ] facts - for policy
-[ ] facts - against policy
-[ ] Show policies that link to issues
+[ ] Remove arguments - or rename to policies? <- going to stick to arguments, but in the future may separate policies and arguments
+[ ] facts - for argument
+[ ] facts - against arguement
+[ ] Show arguments that link to issues
+
+[ ] See all arguments
+[ ] See all arguments - and filter by issues
+[ ] Set up a arguments view page
+[ ] Set up a arguments edit page
+[ ] Set up arguments view page
+[ ] Arguments have a notes section
 
 [ ] Set up heroku
 
@@ -51,3 +61,5 @@ Refactoring check point - how is everything? Could this be tidied up further?
 [ ] Add filtering to facts page
 
 [ ] Can I have issues link to each other?
+
+[ ] Should I separate arguments from policies
