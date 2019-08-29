@@ -24,10 +24,13 @@ class IssuesController extends Controller
 
     public function update(Issue $issue, Request $request)
     {
-        $issue->update([
-            'name' => $request['name'],
-            'summary' => $request['summary'],
+
+        $validatedRequest = $request->validate([
+            'name' => 'required|string',
+            'summary' => 'nullable|string'
         ]);
+
+        $issue->update($validatedRequest);
 
         return response('', 204);
     }

@@ -166,4 +166,25 @@ class IssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_the_summary_is_optional()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create([
+            'name' => 'thius',
+            'summary' => 'trial',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'name' => 'Electoral reform',
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('issues', [
+            'name' => 'Electoral reform',
+            'summary' => 'trial',
+        ]);
+    }
+
 }
