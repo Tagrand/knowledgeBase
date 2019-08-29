@@ -1,39 +1,65 @@
 <template>
   <div>
     <div>
-      <div class="overflow-y-auto flex flex-wrap" style="max-height: 100px">
+      <div
+        class="overflow-y-auto flex flex-wrap"
+        style="max-height: 100px"
+      >
         <div
-          @click="unsetAuthor(issue)"
-          class="text-green-700 mr-8"
           v-for="author in sourceAuthors"
           :key="author.first_name + author.last_name"
-        >{{ author.first_name + ' ' + author.last_name }}</div>
+          class="text-green-700 mr-8"
+          @click="unsetAuthor(issue)"
+        >
+          {{ author.first_name + ' ' + author.last_name }}
+        </div>
 
         <div
-          @click="setAuthor(author)"
           v-for="author in otherAuthors"
           :key="author.first_name + author.last_name"
-        >{{ author.first_name + ' ' + author.last_name }}</div>
+          @click="setAuthor(author)"
+        >
+          {{ author.first_name + ' ' + author.last_name }}
+        </div>
       </div>
 
-      <button @click="addAuthor = true" v-show="!addAuthor">Add Author</button>
+      <button
+        v-show="!addAuthor"
+        @click="addAuthor = true"
+      >
+        Add Author
+      </button>
       <div v-show="addAuthor">
-        <input placeholder="first name" v-model="firstName" type="text" />
-        <input placeholder="last name" v-model="lastName" type="text" />
-        <button @click="saveAuthor">Save</button>
-        <button @click="addAuthor = false">Close</button>
+        <input
+          v-model="firstName"
+          placeholder="first name"
+          type="text"
+        >
+        <input
+          v-model="lastName"
+          placeholder="last name"
+          type="text"
+        >
+        <button @click="saveAuthor">
+          Save
+        </button>
+        <button @click="addAuthor = false">
+          Close
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   props: {
     source: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -42,13 +68,9 @@ export default {
 
       addAuthor: false,
 
-      firstName: "",
-      lastName: ""
+      firstName: '',
+      lastName: '',
     };
-  },
-
-  created() {
-    this.$store.dispatch('getAuthors');
   },
 
   computed: {
@@ -57,12 +79,12 @@ export default {
     },
 
     otherAuthors() {
-      return _.differenceBy(this.authors, this.sourceAuthors, "id");
+      return _.differenceBy(this.authors, this.sourceAuthors, 'id');
     },
 
     noSource() {
       return _.isEmpty(this.source);
-    }
+    },
   },
 
   watch: {
@@ -75,21 +97,25 @@ export default {
       axios
         .get(`/api/v1/sources/${this.source.id}/authors`)
         .then(({ data }) => (this.sourceAuthors = data))
-        .catch(error => console.log(error));
-    }
+        .catch((error) => console.log(error));
+    },
+  },
+
+  created() {
+    this.$store.dispatch('getAuthors');
   },
 
   methods: {
     saveAuthor() {
       axios
-        .post("/api/v1/authors", {
+        .post('/api/v1/authors', {
           first_name: this.firstName,
-          last_name: this.lastName
+          last_name: this.lastName,
         })
         .then(({ data }) => {
           this.authors.push(data);
-          this.firstName = "";
-          this.lastName = "";
+          this.firstName = '';
+          this.lastName = '';
         });
     },
 
@@ -97,7 +123,7 @@ export default {
       axios
         .post(`/api/v1/sources/${this.source.id}/authors/${author.id}`)
         .then(() => this.sourceAuthors.push(author))
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     unsetAuthor(author) {
@@ -107,8 +133,8 @@ export default {
           const index = this.sourceAuthors.indexOf(author);
           this.sourceAuthors.splice(index, 1);
         })
-        .catch(error => console.log(error));
-    }
-  }
+        .catch((error) => console.log(error));
+    },
+  },
 };
 </script>
