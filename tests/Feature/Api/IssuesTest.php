@@ -153,4 +153,17 @@ class IssuesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_the_issue_must_exist()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', '/api/v1/issues/1231', [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(404);
+    }
 }
