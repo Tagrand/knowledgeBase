@@ -9,41 +9,37 @@
 [x] Give sources a readable name
 [x] See all issues
 [x] See specific issues
-[ ] Edit issues
+[x] Add phpunit to pipeline
+[x] Add eslint to project
+[x] Edit issues
 
+[ ] Edit source content
 [ ] View specific sources
+[ ] Adapt search bar so you can see edits
 
 [ ] See all facts
-[ ] See all facts - and filter by issues
 [ ] Set up a fact view page
 [ ] Set up a fact edit page
-[ ] Set up source view page
 
 Refactoring check point - how is everything? Could this be tidied up further?
-
-[x] Add phpunit to pipeline
-
-[ ] Make a basic design
-
-[ ] Look into adding front end tests
-
 [ ] Check backend tests - are there any more to add? - uniqueness
 
 [ ] Fix the join tables
-[ ] Remove arguments - or rename to policies? <- going to stick to arguments, but in the future may separate policies and arguments
+[ ] See all arguments
+[ ] Set up a arguments view page
+[ ] Set up a arguments edit page
+[ ] Arguments have a notes section
+
 [ ] facts - for argument
 [ ] facts - against arguement
 [ ] Show arguments that link to issues
+[ ] Show arguments that link to facts
+[ ] Show arguments that link to sources
 
-[ ] See all arguments
-[ ] See all arguments - and filter by issues
-[ ] Set up a arguments view page
-[ ] Set up a arguments edit page
-[ ] Set up arguments view page
-[ ] Arguments have a notes section
-
+[ ] Make a basic design
 [ ] Set up heroku
 
+[ ] Look into adding front end tests
 ---- MVP reached ----
 
 [ ] Can there be a way to autolink all facts to particular issues?
