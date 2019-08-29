@@ -1,42 +1,71 @@
 <template>
   <div>
     <div>
-      <h1 class="text-xl font-bold">Issues</h1>
+      <h1 class="text-xl font-bold">
+        Issues
+      </h1>
 
-      <div class="overflow-y-auto flex flex-wrap" style="max-height: 100px">
+      <div
+        class="overflow-y-auto flex flex-wrap"
+        style="max-height: 100px"
+      >
         <div
-          :key="issue.name"
           v-for="issue in factIssues"
-          @click="unsetIssue(issue)"
+          :key="issue.name"
           class="text-green-700 mr-8"
-        >{{issue.name}}</div>
+          @click="unsetIssue(issue)"
+        >
+          {{ issue.name }}
+        </div>
 
         <div
-          class="mr-8"
-          :key="issue.name"
-          @click="setIssue(issue)"
           v-for="issue in unrelatedIssues"
-        >{{issue.name}}</div>
+          :key="issue.name"
+          class="mr-8"
+          @click="setIssue(issue)"
+        >
+          {{ issue.name }}
+        </div>
       </div>
 
-      <button @click="addIssue = true" v-show="!addIssue">Add Issue</button>
+      <button
+        v-show="!addIssue"
+        @click="addIssue = true"
+      >
+        Add Issue
+      </button>
       <div v-show="addIssue">
-        <input placeholder="name" v-model="issueName" type="text" />
-        <input placeholder="summary" v-model="issueSummary" type="text" />
-        <button @click="saveIssue">Save</button>
-        <button @click="addIssue = false">Close</button>
+        <input
+          v-model="issueName"
+          placeholder="name"
+          type="text"
+        >
+        <input
+          v-model="issueSummary"
+          placeholder="summary"
+          type="text"
+        >
+        <button @click="saveIssue">
+          Save
+        </button>
+        <button @click="addIssue = false">
+          Close
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
+import axios from 'axios';
+
 export default {
   props: {
     fact: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -44,13 +73,9 @@ export default {
       factIssues: [],
 
       addIssue: false,
-      issueName: "",
-      issueSummary: ""
+      issueName: '',
+      issueSummary: '',
     };
-  },
-
-  created() {
-    this.$store.dispatch('getIssues');
   },
 
   computed: {
@@ -59,12 +84,12 @@ export default {
     },
 
     unrelatedIssues() {
-      return _.differenceBy(this.issues, this.factIssues, "id");
+      return _.differenceBy(this.issues, this.factIssues, 'id');
     },
 
     noFact() {
       return _.isEmpty(this.fact);
-    }
+    },
   },
 
   watch: {
@@ -76,22 +101,26 @@ export default {
 
       axios
         .get(`/api/v1/facts/${this.fact.id}/issues`)
-        .then(({ data }) => (this.factIssues = data))
-        .catch(error => console.log(error));
-    }
+        .then(({ data }) => { this.factIssues = data; })
+        .catch((error) => console.log(error));
+    },
+  },
+
+  created() {
+    this.$store.dispatch('getIssues');
   },
 
   methods: {
     saveIssue() {
       axios
-        .post("/api/v1/issues", {
+        .post('/api/v1/issues', {
           name: this.issueName,
-          summary: this.issueSummary
+          summary: this.issueSummary,
         })
         .then(({ data }) => {
           this.$store.commit('addIssue', data);
-          this.issueName = "";
-          this.issueSummary = "";
+          this.issueName = '';
+          this.issueSummary = '';
         });
     },
 
@@ -99,7 +128,7 @@ export default {
       axios
         .post(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
         .then(() => this.factIssues.push(issue))
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     unsetIssue(issue) {
@@ -109,8 +138,8 @@ export default {
           const index = this.factIssues.indexOf(issue);
           this.factIssues.splice(index, 1);
         })
-        .catch(error => console.log(error));
-    }
-  }
+        .catch((error) => console.log(error));
+    },
+  },
 };
 </script>
