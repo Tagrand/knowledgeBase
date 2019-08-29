@@ -187,7 +187,23 @@ class IssuesTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_the_summary_is_optional()
+    public function test_the_name_cannot_be_null() {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create([
+            'name' => 'thius',
+            'summary' => 'trial',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'name' => '',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
+
+    public function test_the_name_must_be_a_string()
     {
         $user = factory(User::class)->create();
         $issue = factory(Issue::class)->create([
