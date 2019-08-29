@@ -34,14 +34,15 @@ export default {
   data() {
     return {
       issueFacts: [],
-      facts: [],
+      facts: []
     };
   },
 
   created() {
-    axios.get('/api/v1/facts')
-    .then(({data}) => this.facts = data)
-    .catch((error) => console.log(error));
+    axios
+      .get("/api/v1/facts")
+      .then(({ data }) => (this.facts = data))
+      .catch(error => console.log(error));
   },
 
   computed: {

@@ -3,6 +3,8 @@
     <h1>{{ issue.name }}</h1>
     <h2>{{ issue.summary }}</h2>
 
+    <router-link :to="`/issues/${issue.id}/edit`">Edit</router-link>
+
     <h2 class="pt-4">Facts</h2>
     <div :key="fact.claim" v-for="fact in facts">
       <span>{{ fact.claim }}</span>
