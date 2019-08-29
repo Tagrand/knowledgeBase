@@ -3,15 +3,11 @@
     <h1>{{ issue.name }}</h1>
     <h2>{{ issue.summary }}</h2>
 
-    <h2 class="pt-4">Facts</h2>
-    <div :key="fact.claim" v-for="fact in facts">
-      <span>{{ fact.claim }}</span>
-      <span>({{ fact.source.name }})</span>
-    </div>
-
+    <fact-picker-vue :issue=issue></fact-picker-vue>
   </div>
 </template>
 <script>
+import FactPickerVue from "../../components/FactPicker.vue";
 
 export default {
   components: { FactPickerVue },
@@ -19,12 +15,6 @@ export default {
     id: {
       required: true
     }
-  },
-
-  data() {
-    return {
-      facts: []
-    };
   },
 
   created() {
@@ -46,10 +36,6 @@ export default {
   methods: {
     resetIssue() {
       this.$store.dispatch("setSelectedIssue", this.id);
-
-      axios
-        .get(`/api/v1/issues/${this.id}/facts`)
-        .then(({ data }) => (this.facts = data));
     }
   }
 };
