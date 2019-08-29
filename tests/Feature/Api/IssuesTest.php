@@ -213,14 +213,27 @@ class IssuesTest extends TestCase
 
         Passport::actingAs($user);
         $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
-            'name' => 'Electoral reform',
+            'name' => 1231212,
         ]);
 
-        $response->assertStatus(204);
-        $this->assertDatabaseHas('issues', [
-            'name' => 'Electoral reform',
-            'summary' => 'trial',
-        ]);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
     }
 
+    public function test_the_summary_must_be_a_string()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create([
+            'name' => 'thius',
+            'summary' => 'trial',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'summary' => 121212,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
 }
