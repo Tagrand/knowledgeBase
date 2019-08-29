@@ -21,4 +21,14 @@ class IssuesController extends Controller
 
         return Issue::create($validatedRequest);
     }
+
+    public function update(Issue $issue, Request $request)
+    {
+        $issue->update([
+            'name' => $request['name'],
+            'summary' => $request['summary'],
+        ]);
+
+        return response('', 204);
+    }
 }

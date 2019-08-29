@@ -120,4 +120,26 @@ class IssuesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('summary');
     }
+
+    public function test_a_user_can_edit_an_issue()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create([
+            'name' => 'thius',
+            'summary' => 'trial',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('issues', [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+    }
 }
