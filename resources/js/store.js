@@ -44,6 +44,12 @@ const store = new Vuex.Store({
         setSelectedIssue(state, id) {
             const issue = _.find(state.issues, (issue) => issue.id === Number(id));
             state.selectedIssue = issue;
+        },
+
+        updateSelectedIssue(state, updatedIssue) {
+            const index = _.findIndex(state.issues, (issue) => issue.id === Number(updatedIssue.id));
+            state.issues[index] = updatedIssue;
+            this.state.selectedIssue = updatedIssue;
         }
     },
 
