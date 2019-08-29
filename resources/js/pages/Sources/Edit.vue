@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 import SearchVue from '../../components/Search.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
@@ -96,7 +97,7 @@ export default {
 
     axios
       .get(`/api/v1/sources/${this.id}/facts`)
-      .then(({ data }) => (this.sourceFacts = data))
+      .then(({ data }) => { this.sourceFacts = data; })
       .catch((error) => console.log(error));
   },
 
