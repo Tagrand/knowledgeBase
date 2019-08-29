@@ -30,11 +30,11 @@ export default {
     saveSource(info) {
       let name, summary;
       console.log(info);
-      [name, summary] = info.split('\*\*');
+      [name, summary] = info.split("**");
 
       axios.post("/api/v1/sources", { name, summary }).then(({ data }) => {
         this.$store.commit("addSource", data);
-        this.$router.push({ name: "source.edit", params: { id: data.id }});
+        this.$router.push({ name: "source.edit", params: { id: data.id } });
       });
     },
 

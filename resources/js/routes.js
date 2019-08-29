@@ -5,6 +5,7 @@ import Edit from '@/js/pages/Sources/Edit';
 import SourcesIndex from '@/js/pages/Sources/Index';
 import IssuesIndex from '@/js/pages/Issues/Index';
 import View from '@/js/pages/Issues/View';
+import IssuesEdit from '@/js/pages/Issues/Edit';
 
 
 Vue.use(VueRouter);
@@ -37,6 +38,12 @@ const router = new VueRouter({
       path: '/issues/:id',
       name: 'issues.view',
       component: View,
+      props: true,
+    },
+    {
+      path: '/issues/:id/edit',
+      name: 'issues.edit',
+      component: IssuesEdit,
       props: true,
     },
   ],
