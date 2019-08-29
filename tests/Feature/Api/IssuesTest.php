@@ -142,6 +142,26 @@ class IssuesTest extends TestCase
         ]);
     }
 
+    public function test_the_summary_can_be_null() {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create([
+            'name' => 'thius',
+            'summary' => 'jahsdjhjashd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'summary' => '',
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('issues', [
+            'id' => $issue->id,
+            'name' => 'thius',
+            'summary' => null,
+        ]);
+    }
+
     public function test_a_guest_cannot_edit_an_issue()
     {
         $issue = factory(Issue::class)->create();

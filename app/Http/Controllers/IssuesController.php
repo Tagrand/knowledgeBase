@@ -24,9 +24,8 @@ class IssuesController extends Controller
 
     public function update(Issue $issue, Request $request)
     {
-
         $validatedRequest = $request->validate([
-            'name' => 'required|string',
+            'name' => 'string',
             'summary' => 'nullable|string'
         ]);
 
