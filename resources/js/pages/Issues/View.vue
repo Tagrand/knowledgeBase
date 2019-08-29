@@ -4,7 +4,10 @@
     <h2>{{ issue.summary }}</h2>
 
     <h2 class="pt-4">Facts</h2>
-    <div :key="fact.claim" v-for="fact in facts">{{ fact.claim }} ({{ fact.source.name }})</div>
+    <div :key="fact.claim" v-for="fact in facts">
+      <span>{{ fact.claim }}</span>
+      <span>({{ fact.source.name }})</span>
+    </div>
 
     <h2 class="pt-4">Related issues</h2>
     <div :key="issue.name" v-for="issue in relatedIssues">
@@ -45,7 +48,10 @@ export default {
       const related = [];
       this.facts.forEach(fact => {
         fact.issues.forEach(issue => {
-          if (!_.some(related, option => option.id === issue.id) && issue.id != this.id) {
+          if (
+            !_.some(related, option => option.id === issue.id) &&
+            issue.id != this.id
+          ) {
             related.push(issue);
           }
         });
