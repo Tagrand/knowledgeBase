@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/issues', 'IssuesController@store');
         Route::get('/issues/{issue}/facts', 'IssuesFactsController@index');
 
+        Route::get('/facts', 'FactsController@index');
         Route::get('/facts/{fact}/issues', 'FactsIssuesController@index');
         Route::post('/facts/{fact}/issues/{issue}', 'FactsIssuesController@store');
         Route::delete('/facts/{fact}/issues/{issue}', 'FactsIssuesController@destroy');
