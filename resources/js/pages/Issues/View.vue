@@ -22,16 +22,17 @@
       Related issues
     </h2>
     <div
-      v-for="issue in relatedIssues"
-      :key="issue.name"
+      v-for="relatedIssue in relatedIssues"
+      :key="relatedIssue.name"
     >
-      <router-link :to="`/issues/${issue.id}`">
-        {{ issue.name }}
+      <router-link :to="`/issues/${relatedIssue.id}`">
+        {{ relatedIssue.name }}
       </router-link>
     </div>
   </div>
 </template>
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -59,7 +60,7 @@ export default {
         fact.issues.forEach((issue) => {
           if (
             !_.some(related, (option) => option.id === issue.id)
-            && issue.id != this.id
+            && issue.id !== this.id
           ) {
             related.push(issue);
           }
@@ -85,7 +86,7 @@ export default {
 
       axios
         .get(`/api/v1/issues/${this.id}/facts`)
-        .then(({ data }) => (this.facts = data));
+        .then(({ data }) => { this.facts = data; });
     },
   },
 };
