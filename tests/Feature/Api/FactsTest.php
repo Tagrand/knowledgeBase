@@ -22,4 +22,12 @@ class FactsTest extends TestCase
         $response->assertStatus(200);
         $this->assertCount(4, $response->json());
     }
+
+    public function test_guests_cannot_get_facts() {
+        $facts = factory(Fact::class, 4)->create();
+
+        $response = $this->json('get', '/api/v1/facts');
+
+        $response->assertStatus(401);
+    }
 }
