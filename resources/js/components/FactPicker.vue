@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -68,7 +69,7 @@ export default {
 
       axios
         .get(`/api/v1/issues/${this.issue.id}/facts`)
-        .then(({ data }) => (this.issueFacts = data))
+        .then(({ data }) => { this.issueFacts = data; })
         .catch((error) => console.log(error));
     },
   },
@@ -76,7 +77,7 @@ export default {
   created() {
     axios
       .get('/api/v1/facts')
-      .then(({ data }) => (this.facts = data))
+      .then(({ data }) => { this.facts = data; })
       .catch((error) => console.log(error));
   },
 
