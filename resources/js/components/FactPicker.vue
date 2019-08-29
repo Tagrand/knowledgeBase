@@ -1,58 +1,62 @@
 <template>
   <div>
     <div>
-      <h1 class="text-xl font-bold">Facts</h1>
+      <h1 class="text-xl font-bold">
+        Facts
+      </h1>
 
-      <div class="overflow-y-auto flex flex-wrap" style="max-height: 100px">
+      <div
+        class="overflow-y-auto flex flex-wrap"
+        style="max-height: 100px"
+      >
         <div
-          :key="fact.claim"
           v-for="fact in issueFacts"
-          @click="unsetFact(fact)"
+          :key="fact.claim"
           class="text-green-700 mr-8"
-        >{{fact.name}}</div>
+          @click="unsetFact(fact)"
+        >
+          {{ fact.name }}
+        </div>
 
         <div
-          class="mr-8"
-          :key="fact.claim"
-          @click="setFact(fact)"
           v-for="fact in unrelatedFacts"
-        >{{fact.claim}}</div>
+          :key="fact.claim"
+          class="mr-8"
+          @click="setFact(fact)"
+        >
+          {{ fact.claim }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   props: {
     issue: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
       issueFacts: [],
-      facts: []
+      facts: [],
     };
-  },
-
-  created() {
-    axios
-      .get("/api/v1/facts")
-      .then(({ data }) => (this.facts = data))
-      .catch(error => console.log(error));
   },
 
   computed: {
     unrelatedFacts() {
-      return _.differenceBy(this.facts, this.issueFacts, "id");
+      return _.differenceBy(this.facts, this.issueFacts, 'id');
     },
 
     noFact() {
       return _.isEmpty(this.issue);
-    }
+    },
   },
 
   watch: {
@@ -65,8 +69,15 @@ export default {
       axios
         .get(`/api/v1/issues/${this.issue.id}/facts`)
         .then(({ data }) => (this.issueFacts = data))
-        .catch(error => console.log(error));
-    }
+        .catch((error) => console.log(error));
+    },
+  },
+
+  created() {
+    axios
+      .get('/api/v1/facts')
+      .then(({ data }) => (this.facts = data))
+      .catch((error) => console.log(error));
   },
 
   methods: {
@@ -74,7 +85,7 @@ export default {
       axios
         .post(`/api/v1/facts/${fact.id}/issues/${this.issue.id}`)
         .then(() => this.issueFacts.push(fact))
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     unsetFact(fact) {
@@ -84,8 +95,8 @@ export default {
           const index = this.issueFacts.indexOf(fact);
           this.issueFacts.splice(index, 1);
         })
-        .catch(error => console.log(error));
-    }
-  }
+        .catch((error) => console.log(error));
+    },
+  },
 };
 </script>
