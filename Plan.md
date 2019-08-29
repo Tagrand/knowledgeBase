@@ -16,7 +16,9 @@
 [ ] Set up a fact edit page
 [ ] Set up source view page
 
-[ ] Add phpunit to pipeline
+Refactoring check point - how is everything? Could this be tidied up further?
+
+[x] Add phpunit to pipeline
 
 [ ] Make a basic design
 
