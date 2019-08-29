@@ -1,7 +1,9 @@
+/* eslint-disable import/no-unresolved */
+
 import Vue from 'vue';
 import App from '@/js/views/App';
-import Routes from '@/js/routes.js';
-import store from '@/js/store.js';
+import Routes from '@/js/routes';
+import store from '@/js/store';
 
 window._ = require('lodash');
 
