@@ -5,18 +5,18 @@
 
       <div class="overflow-y-auto flex flex-wrap" style="max-height: 100px">
         <div
-          :key="fact.name"
+          :key="fact.claim"
           v-for="fact in issueFacts"
           @click="unsetFact(fact)"
           class="text-green-700 mr-8"
-        >{{issue.name}}</div>
+        >{{fact.name}}</div>
 
         <div
           class="mr-8"
-          :key="fact.name"
+          :key="fact.claim"
           @click="setFact(fact)"
           v-for="fact in unrelatedFacts"
-        >{{issue.name}}</div>
+        >{{fact.claim}}</div>
       </div>
     </div>
   </div>

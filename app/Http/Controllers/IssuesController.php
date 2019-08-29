@@ -31,6 +31,6 @@ class IssuesController extends Controller
 
         $issue->update($validatedRequest);
 
-        return response('', 204);
+        return $issue->fresh();
     }
 }
