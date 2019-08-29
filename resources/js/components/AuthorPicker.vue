@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -96,7 +97,7 @@ export default {
 
       axios
         .get(`/api/v1/sources/${this.source.id}/authors`)
-        .then(({ data }) => (this.sourceAuthors = data))
+        .then(({ data }) => { this.sourceAuthors = data; })
         .catch((error) => console.log(error));
     },
   },
