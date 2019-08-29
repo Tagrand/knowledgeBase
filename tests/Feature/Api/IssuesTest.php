@@ -123,7 +123,6 @@ class IssuesTest extends TestCase
 
     public function test_a_user_can_edit_an_issue()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $issue = factory(Issue::class)->create([
             'name' => 'thius',
@@ -141,5 +140,17 @@ class IssuesTest extends TestCase
             'name' => 'Electoral reform',
             'summary' => 'Better election system',
         ]);
+    }
+
+    public function test_a_guest_cannot_edit_an_issue()
+    {
+        $issue = factory(Issue::class)->create();
+
+        $response = $this->json('PATCH', "/api/v1/issues/{$issue->id}", [
+            'name' => 'Electoral reform',
+            'summary' => 'Better election system',
+        ]);
+
+        $response->assertStatus(401);
     }
 }
