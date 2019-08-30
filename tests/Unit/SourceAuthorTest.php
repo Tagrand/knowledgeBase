@@ -24,14 +24,14 @@ class SourceAuthorTest extends TestCase
         ]);
     }
 
-    public function test_you_cannot_join_facts_and_arguments_twice()
+    public function test_you_cannot_join_sources_and_authors_twice()
     {
         $this->expectException(QueryException::class);
 
-        $argument = factory(Argument::class)->create();
-        $fact = factory(Fact::class)->create();
-        $argument->facts()->attach($fact);
-        $argument->facts()->attach($fact);
+        $source = factory(Source::class)->create();
+        $author = factory(Author::class)->create();
+        $source->authors()->attach($author);
+        $source->authors()->attach($author);
 
         $this->assertTrue(true);
     }

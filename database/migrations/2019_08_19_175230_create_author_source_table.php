@@ -19,6 +19,8 @@ class CreateAuthorSourceTable extends Migration
             $table->unsignedBigInteger('source_id');
             $table->timestamps();
 
+            $table->unique(['author_id', 'source_id']);
+
             $table->foreign('author_id')
                   ->references('id')
                   ->on('authors')
