@@ -15,7 +15,7 @@
           class="text-green-700 mr-8"
           @click="unsetFact(fact)"
         >
-          {{ fact.name }}
+          {{ fact.claim }}
         </div>
 
         <div
