@@ -15,9 +15,9 @@
 
 [x] Test models
 
-[ ] Edit source content
-[ ] View specific sources
-[ ] Adapt search bar so you can see edits
+[x] Edit source content
+[x] View specific sources
+[x] Adapt search bar so you can see edits
 
 [ ] See all facts
 [ ] Set up a fact view page
