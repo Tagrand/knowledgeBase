@@ -123,7 +123,8 @@ class SourcesTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_users_can_edit_source() {
+    public function test_users_can_edit_source()
+    {
         $user = factory(User::class)->create();
         $source = factory(Source::class)->create([
             'name' => 'Great',
@@ -141,6 +142,28 @@ class SourcesTest extends TestCase
             'id' => $source->id,
             'name' => 'testing',
             'summary' => 'another',
+        ]);
+    }
+
+    public function test_summary_can_be_null()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'name' => 'Great',
+            'summary' => 'kjashdkjhasd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => 'testing',
+            'summary' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('sources', [
+            'id' => $source->id,
+            'name' => 'testing',
+            'summary' => null,
         ]);
     }
 }
