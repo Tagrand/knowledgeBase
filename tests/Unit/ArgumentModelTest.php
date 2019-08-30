@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Argument;
 use App\Source;
+use App\Argument;
 use Tests\TestCase;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
