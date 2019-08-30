@@ -24,14 +24,14 @@ class ArgumentFactTest extends TestCase
         ]);
     }
 
-    public function test_you_cannot_join_facts_and_issues_twice()
+    public function test_you_cannot_join_facts_and_arguments_twice()
     {
         $this->expectException(QueryException::class);
 
         $argument = factory(Argument::class)->create();
-        $issue = factory(Issue::class)->create();
-        $argument->issues()->attach($issue);
-        $argument->issues()->attach($issue);
+        $fact = factory(Fact::class)->create();
+        $argument->facts()->attach($fact);
+        $argument->facts()->attach($fact);
 
         $this->assertTrue(true);
     }

@@ -19,6 +19,8 @@ class CreateArgumentsFactsTable extends Migration
             $table->unsignedBigInteger('fact_id');
             $table->timestamps();
 
+            $table->unique(['argument_id', 'fact_id']);
+
             $table->foreign('argument_id')
                   ->references('id')
                   ->on('arguments')
