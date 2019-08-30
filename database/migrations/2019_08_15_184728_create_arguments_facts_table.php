@@ -13,7 +13,7 @@ class CreateArgumentsFactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('arguments_facts', function (Blueprint $table) {
+        Schema::create('argument_fact', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('argument_id');
             $table->unsignedBigInteger('fact_id');
@@ -39,11 +39,11 @@ class CreateArgumentsFactsTable extends Migration
     public function down()
     {
 
-        Schema::table('arguments_facts', function (Blueprint $table) {
-            $table->dropForeign('arguments_facts_argument_id_foreign');
-            $table->dropForeign('arguments_facts_fact_id_foreign');
+        Schema::table('argument_fact', function (Blueprint $table) {
+            $table->dropForeign('argument_fact_argument_id_foreign');
+            $table->dropForeign('argument_fact_fact_id_foreign');
         });
-         
-        Schema::dropIfExists('arguments_facts');
+
+        Schema::dropIfExists('argument_fact');
     }
 }
