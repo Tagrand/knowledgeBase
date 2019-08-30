@@ -197,4 +197,20 @@ class SourcesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('summary');
     }
+
+    public function test_names_cannot_be_null()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'name' => 'this is one',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => '',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
 }
