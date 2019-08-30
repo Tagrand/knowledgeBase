@@ -135,7 +135,7 @@ class IssuesTest extends TestCase
             'summary' => 'Better election system',
         ]);
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('issues', [
             'name' => 'Electoral reform',
             'summary' => 'Better election system',
@@ -154,7 +154,7 @@ class IssuesTest extends TestCase
             'summary' => '',
         ]);
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('issues', [
             'id' => $issue->id,
             'name' => 'thius',
