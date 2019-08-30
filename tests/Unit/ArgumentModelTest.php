@@ -47,4 +47,16 @@ class ArgumentModelTest extends TestCase
         $this->assertFalse($argument->save());
     }
 
+    public function test_reasons_must_be_unique()
+    {
+        $this->expectException(QueryException::class);
+        Argument::create([
+            'reason' => 'I saw it in a dream',
+        ]);
+        $argument = new Argument([
+            'reason' => 'I saw it in a dream',
+        ]);
+
+        $this->assertFalse($argument->save());
+    }
 }
