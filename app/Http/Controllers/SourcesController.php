@@ -29,10 +29,7 @@ class SourcesController extends Controller
             'summary' => 'nullable|string',
         ]);
 
-        $source->update([
-            'name' => $request['name'],
-            'summary' => $validatedData['summary'],
-        ]);
+        $source->update($validatedData);
 
         return $source->fresh();
     }
