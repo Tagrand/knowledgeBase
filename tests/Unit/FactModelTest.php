@@ -47,4 +47,16 @@ class FactModelTest extends TestCase
         $this->assertFalse($fact->save());
     }
 
+    public function test_claims_must_be_unique()
+    {
+        $this->expectException(QueryException::class);
+        factory(Fact::class)->create([
+            'claim' => 'The truth',
+        ]);
+        $fact = new Fact([
+            'claim' => 'The truth',
+        ]);
+
+        $this->assertFalse($fact->save());
+    }
 }
