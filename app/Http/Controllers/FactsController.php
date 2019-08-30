@@ -14,10 +14,12 @@ class FactsController extends Controller
 
     public function update(Fact $fact, Request $request)
     {
-        $fact->update([
-            'claim' => $request['claim'],
+        $validatedData = $request->validate([
+           'claim' => 'string',
         ]);
 
-        return response('', 200);
+        $fact->update($validatedData);
+
+        return $fact->fresh();
     }
 }

@@ -51,4 +51,20 @@ class FactsTest extends TestCase
             'claim' => 'it is not',
         ]);
     }
+
+    public function test_claims_cannot_be_null()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'kajsdkjaskd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'claim' => '',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('claim');
+    }
 }
