@@ -66,6 +66,13 @@ const store = new Vuex.Store({
       const fact = _.find(state.facts, (storedFact) => storedFact.id === Number(id));
       state.selectedFact = fact;
     },
+
+    updateSelectedFact(state, updatedFact) {
+      const index = _.findIndex(state.facts, (fact) => fact.id === Number(updatedFact.id));
+      state.facts[index] = updatedFact;
+      this.state.selectedFact = updatedFact;
+    },
+
   },
 
   actions: {
