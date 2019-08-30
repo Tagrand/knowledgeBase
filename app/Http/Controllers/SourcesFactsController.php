@@ -10,7 +10,7 @@ class SourcesFactsController extends Controller
 {
     public function index(Source $source)
     {
-        return $source->facts;
+        return $source->facts()->with('issues')->get();
     }
 
     public function store(Source $source, Request $request)

@@ -27,9 +27,20 @@
     >
       {{ fact.claim }}
     </p>
+
+    <h2 class="mt-4">
+      Issues
+    </h2>
+    <p
+      v-for="issue in issues"
+      :key="issue.name"
+    >
+      {{ issue.name }}
+    </p>
   </div>
 </template>
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -50,6 +61,18 @@ export default {
   computed: {
     source() {
       return this.$store.state.selectedSource;
+    },
+
+    issues() {
+      const related = [];
+      this.facts.forEach((fact) => {
+        fact.issues.forEach((issue) => {
+          if (!_.some(related, (option) => option.id === issue.id)) {
+            related.push(issue);
+          }
+        });
+      });
+      return related;
     },
   },
 
