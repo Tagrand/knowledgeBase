@@ -10,6 +10,7 @@ import IssuesIndex from '@/js/pages/Issues/Index';
 import IssuesView from '@/js/pages/Issues/View';
 import IssuesEdit from '@/js/pages/Issues/Edit';
 import FactsIndex from '@/js/pages/Facts/Index';
+import FactsView from '@/js/pages/Facts/View';
 
 Vue.use(VueRouter);
 
@@ -59,6 +60,12 @@ const router = new VueRouter({
       path: '/facts',
       name: 'facts',
       component: FactsIndex,
+    },
+    {
+      path: '/facts/:id',
+      name: 'facts.view',
+      component: FactsView,
+      props: true,
     },
   ],
 });

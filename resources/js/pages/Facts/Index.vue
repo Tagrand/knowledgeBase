@@ -1,7 +1,6 @@
 <template>
   <div>
     <search-vue
-      v-show="!addIssue"
       class="text-blue"
       data-type="fact"
       search-key="claim"
@@ -35,7 +34,7 @@ export default {
     },
 
     selectFact(fact) {
-      console.log(fact);
+      this.$router.push({ name: 'facts.view', params: { id: fact.id } });
     },
 
     editFact(fact) {

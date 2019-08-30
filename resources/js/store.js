@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     selectedIssue: {},
 
     facts: [],
+    selectedFact: {},
   },
 
   mutations: {
@@ -59,6 +60,11 @@ const store = new Vuex.Store({
 
     setFacts(state, facts = []) {
       state.facts = facts;
+    },
+
+    setSelectedFact(state, id) {
+      const fact = _.find(state.facts, (storedFact) => storedFact.id === Number(id));
+      state.selectedFact = fact;
     },
   },
 
@@ -127,6 +133,15 @@ const store = new Vuex.Store({
         .then(({ data }) => {
           commit('setFacts', data);
         });
+    },
+
+    setSelectedFact({ dispatch, commit, state }, id) {
+      if (state.sources.length !== 0) {
+        commit('setSelectedFact', id);
+        return;
+      }
+
+      dispatch('getFacts').then(() => commit('setSelectedFact', id));
     },
   },
 });
