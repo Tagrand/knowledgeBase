@@ -19,6 +19,8 @@ class CreateFactIssueTable extends Migration
             $table->integer('issue_id')->unsigned();
             $table->timestamps();
 
+            $table->unique(['fact_id', 'issue_id']);
+
             $table->foreign('issue_id')
                   ->references('id')
                   ->on('issues')
