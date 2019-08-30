@@ -49,4 +49,16 @@ class IssueModelTest extends TestCase
         $this->assertFalse($issue->save());
     }
 
+    public function test_name_is_unique()
+    {
+        $this->expectException(QueryException::class);
+        Issue::create([
+            'name' => 'Poverty',
+        ]);
+        $issue = new Issue([
+            'name' => 'Poverty',
+        ]);
+
+        $this->assertFalse($issue->save());
+    }
 }
