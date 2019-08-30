@@ -116,4 +116,15 @@ class SourcesAuthorsTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_author_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/sources/{$source->id}/authors/17871827");
+
+        $response->assertStatus(404);
+    }
 }
