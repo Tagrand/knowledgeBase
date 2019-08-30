@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArgumentsIssuesTable extends Migration
+class CreateArgumentIssueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateArgumentsIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('arguments_issues', function (Blueprint $table) {
+        Schema::create('argument_issue', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('argument_id');
             $table->unsignedBigInteger('issue_id');
@@ -38,11 +38,11 @@ class CreateArgumentsIssuesTable extends Migration
      */
     public function down()
     {
-        Schema::table('arguments_issues', function (Blueprint $table) {
-            $table->dropForeign('arguments_issues_argument_id_foreign');
-            $table->dropForeign('arguments_issues_issue_id_foreign');
+        Schema::table('argument_issue', function (Blueprint $table) {
+            $table->dropForeign('argument_issue_argument_id_foreign');
+            $table->dropForeign('argument_issue_issue_id_foreign');
         });
-        
-        Schema::dropIfExists('arguments_issues');
+
+        Schema::dropIfExists('argument_issue');
     }
 }
