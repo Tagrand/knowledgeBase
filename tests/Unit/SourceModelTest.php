@@ -20,6 +20,7 @@ class SourceModelTest extends TestCase
 
         $this->assertTrue($source->save());
         $this->assertDatabaseHas('sources', [
+            'id' => $source->id,
             'name' => 'Gareth',
             'summary' => 'kjshdfkjddf',
         ]);
@@ -33,6 +34,7 @@ class SourceModelTest extends TestCase
 
         $this->assertTrue($source->save());
         $this->assertDatabaseHas('sources', [
+            'id' => $source->id,
             'name' => 'Gareth',
             'summary' => null,
         ]);

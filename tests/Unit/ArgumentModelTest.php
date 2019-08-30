@@ -20,6 +20,7 @@ class ArgumentModelTest extends TestCase
 
         $this->assertTrue($argument->save());
         $this->assertDatabaseHas('arguments', [
+            'id' => $argument->id,
             'reason' => 'Science',
         ]);
     }
@@ -34,6 +35,7 @@ class ArgumentModelTest extends TestCase
 
         $this->assertTrue($argument->save());
         $this->assertDatabaseHas('arguments', [
+            'id' => $argument->id,
             'reason' => 'Faith',
             'source_id' => $source->id,
         ]);

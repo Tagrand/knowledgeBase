@@ -20,6 +20,7 @@ class FactModelTest extends TestCase
 
         $this->assertTrue($fact->save());
         $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
             'claim' => 'Climate change is real',
         ]);
     }
@@ -34,6 +35,7 @@ class FactModelTest extends TestCase
 
         $this->assertTrue($fact->save());
         $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
             'claim' => 'Climate change is real',
             'source_id' => $source->id,
         ]);
