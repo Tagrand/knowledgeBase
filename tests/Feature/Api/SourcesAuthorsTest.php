@@ -127,4 +127,15 @@ class SourcesAuthorsTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_guests_cannot_unlink_sources_and_authors()
+    {
+        $source = factory(Source::class)->create();
+        $author = factory(Author::class)->create();
+        $source->authors()->attach($author);
+
+        $response = $this->json('DELETE', "/api/v1/sources/{$source->id}/authors/{$author->id}");
+
+        $response->assertStatus(401);
+    }
 }
