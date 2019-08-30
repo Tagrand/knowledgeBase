@@ -24,9 +24,13 @@ class SourcesController extends Controller
     }
 
     public function update(Source $source, Request $request) {
+        $validatedData = $request->validate([
+            'summary' => 'nullable|string',
+        ]);
+
         $source->update([
             'name' => $request['name'],
-            'summary' => $request['summary'],
+            'summary' => $validatedData['summary'],
         ]);
 
         return $source->fresh();

@@ -181,4 +181,20 @@ class SourcesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_summary_must_be_a_string()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'summary' => 'kjashdkjhasd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'summary' => 121212,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
 }
