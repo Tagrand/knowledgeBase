@@ -14,22 +14,19 @@
 </template>
 
 <script>
-import axios from 'axios';
 import SearchVue from '../../components/Search.vue';
 
 export default {
   components: { SearchVue },
 
-  data() {
-    return {
-      facts: [],
-    };
+  computed: {
+    facts() {
+      return this.$store.state.facts;
+    },
   },
 
   created() {
-    axios
-      .get('/api/v1/facts')
-      .then(({ data }) => { this.facts = data; });
+    this.$store.dispatch('getFacts');
   },
 
   methods: {

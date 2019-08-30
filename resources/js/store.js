@@ -15,6 +15,8 @@ const store = new Vuex.Store({
 
     issues: [],
     selectedIssue: {},
+
+    facts: [],
   },
 
   mutations: {
@@ -53,6 +55,10 @@ const store = new Vuex.Store({
       const index = _.findIndex(state.issues, (issue) => issue.id === Number(updatedIssue.id));
       state.issues[index] = updatedIssue;
       this.state.selectedIssue = updatedIssue;
+    },
+
+    setFacts(state, facts = []) {
+      state.facts = facts;
     },
   },
 
@@ -109,6 +115,18 @@ const store = new Vuex.Store({
       }
 
       return dispatch('getIssues').then(() => commit('setSelectedIssue', id));
+    },
+
+    getFacts({ commit, state }) {
+      if (state.facts.length !== 0) {
+        return Promise.resolve();
+      }
+
+      return axios
+        .get('/api/v1/facts')
+        .then(({ data }) => {
+          commit('setFacts', data);
+        });
     },
   },
 });
