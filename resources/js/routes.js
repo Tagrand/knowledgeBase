@@ -4,6 +4,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/js/pages/Home';
 import Edit from '@/js/pages/Sources/Edit';
+import SourcesView from '@/js/pages/Sources/View';
 import SourcesIndex from '@/js/pages/Sources/Index';
 import IssuesIndex from '@/js/pages/Issues/Index';
 import View from '@/js/pages/Issues/View';
@@ -24,6 +25,12 @@ const router = new VueRouter({
       path: '/sources',
       name: 'sources',
       component: SourcesIndex,
+    },
+    {
+      path: '/sources/:id',
+      name: 'source.view',
+      component: SourcesView,
+      props: true,
     },
     {
       path: '/sources/:id/edit',
