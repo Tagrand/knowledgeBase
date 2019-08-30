@@ -28,20 +28,15 @@ export default {
   },
 
   methods: {
-    saveSource(info) {
-      let name; let summary;
-
-      // eslint-disable-next-line prefer-const
-      [name, summary] = info.split('**');
-
-      axios.post('/api/v1/sources', { name, summary }).then(({ data }) => {
+    saveSource(name) {
+      axios.post('/api/v1/sources', { name }).then(({ data }) => {
         this.$store.commit('addSource', data);
         this.$router.push({ name: 'source.edit', params: { id: data.id } });
       });
     },
 
     setSelectedSource(source) {
-      this.$router.push({ name: 'source.edit', params: { id: source.id } });
+      this.$router.push({ name: 'source.view', params: { id: source.id } });
     },
   },
 };
