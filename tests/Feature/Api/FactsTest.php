@@ -67,4 +67,20 @@ class FactsTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('claim');
     }
+
+    public function test_claims_must_be_strings()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'kajsdkjaskd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'claim' => 125151,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('claim');
+    }
 }
