@@ -52,6 +52,18 @@ class FactsTest extends TestCase
         ]);
     }
 
+    public function test_facts_must_exist_to_be_edited()
+    {
+        $user= factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/165151", [
+            'claim' => 'it is not',
+        ]);
+
+        $response->assertStatus(404);
+    }
+
     public function test_claims_cannot_be_null()
     {
         $user= factory(User::class)->create();
