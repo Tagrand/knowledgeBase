@@ -213,4 +213,20 @@ class SourcesTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('name');
     }
+
+    public function test_names_must_be_strings_when_editing()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'name' => 'this is one',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => 1212121,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
+    }
 }
