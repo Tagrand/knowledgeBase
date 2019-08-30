@@ -13,6 +13,8 @@
 [x] Add eslint to project
 [x] Edit issues
 
+[x] Test models
+
 [ ] Edit source content
 [ ] View specific sources
 [ ] Adapt search bar so you can see edits
@@ -22,13 +24,14 @@
 [ ] Set up a fact edit page
 
 [ ] Refactoring check point - how is everything? Could this be tidied up further?
-[ ] Check backend tests - are there any more to add? - uniqueness
 
-[ ] Fix the join tables
+[x] Fix the join tables
 [ ] See all arguments
 [ ] Set up a arguments view page
 [ ] Set up a arguments edit page
 [ ] Arguments have a notes section
+
+[ ] Check controller and model method tests - do they need extending?
 
 [ ] facts - for argument
 [ ] facts - against arguement
@@ -40,6 +43,8 @@
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
 [ ] Start using - don't change for a bit
+
+[ ] Add a 404 page
 
 ---- MVP reached ----
 
