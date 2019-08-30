@@ -12,7 +12,8 @@ class FactsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_users_can_get_all_facts() {
+    public function test_users_can_get_all_facts()
+    {
         $user= factory(User::class)->create();
         $facts = factory(Fact::class, 4)->create();
 
@@ -23,11 +24,31 @@ class FactsTest extends TestCase
         $this->assertCount(4, $response->json());
     }
 
-    public function test_guests_cannot_get_facts() {
+    public function test_guests_cannot_get_facts()
+    {
         $facts = factory(Fact::class, 4)->create();
 
         $response = $this->json('get', '/api/v1/facts');
 
         $response->assertStatus(401);
+    }
+
+    public function test_users_can_edit_a_fact()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'this is true',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'claim' => 'it is not',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
+            'claim' => 'it is not',
+        ]);
     }
 }
