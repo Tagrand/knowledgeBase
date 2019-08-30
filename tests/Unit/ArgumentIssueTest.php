@@ -28,10 +28,10 @@ class ArgumentIssueTest extends TestCase
     {
         $this->expectException(QueryException::class);
 
-        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
         $issue = factory(Issue::class)->create();
-        $fact->issues()->attach($issue);
-        $fact->issues()->attach($issue);
+        $argument->issues()->attach($issue);
+        $argument->issues()->attach($issue);
 
         $this->assertTrue(true);
     }

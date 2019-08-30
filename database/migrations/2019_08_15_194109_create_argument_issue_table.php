@@ -19,6 +19,8 @@ class CreateArgumentIssueTable extends Migration
             $table->unsignedBigInteger('issue_id');
             $table->timestamps();
 
+            $table->unique(['argument_id', 'issue_id']);
+
             $table->foreign('argument_id')
                   ->references('id')
                   ->on('arguments')
