@@ -15,7 +15,7 @@ class FactsController extends Controller
     public function update(Fact $fact, Request $request)
     {
         $validatedData = $request->validate([
-           'claim' => 'string',
+           'claim' => 'string|unique:facts',
         ]);
 
         $fact->update($validatedData);

@@ -83,4 +83,22 @@ class FactsTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('claim');
     }
+
+    public function test_claims_cannot_be_duplicated() {
+        $user= factory(User::class)->create();
+        factory(Fact::class)->create([
+            'claim' => 'this is true',
+        ]);
+        $fact = factory(Fact::class)->create([
+            'claim' => 'this is false',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'claim' => 'this is true',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('claim');
+    }
 }
