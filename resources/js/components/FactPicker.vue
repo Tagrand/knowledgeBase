@@ -61,7 +61,7 @@ export default {
   },
 
   watch: {
-    fact() {
+    issue() {
       if (this.noFact) {
         this.factIssues = [];
         return;
