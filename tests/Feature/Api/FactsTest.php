@@ -64,6 +64,19 @@ class FactsTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function test_guests_cannot_edit_facts()
+    {
+        $fact = factory(Fact::class)->create([
+            'claim' => 'this is true',
+        ]);
+
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'claim' => 'it is not',
+        ]);
+
+        $response->assertStatus(401);
+    }
+
     public function test_claims_cannot_be_null()
     {
         $user= factory(User::class)->create();
@@ -96,7 +109,8 @@ class FactsTest extends TestCase
         $response->assertJsonValidationErrors('claim');
     }
 
-    public function test_claims_cannot_be_duplicated() {
+    public function test_claims_cannot_be_duplicated()
+    {
         $user= factory(User::class)->create();
         factory(Fact::class)->create([
             'claim' => 'this is true',
