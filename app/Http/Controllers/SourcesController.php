@@ -22,4 +22,13 @@ class SourcesController extends Controller
 
         return Source::create($validatedData);
     }
+
+    public function update(Source $source, Request $request) {
+        $source->update([
+            'name' => $request['name'],
+            'summary' => $request['summary'],
+        ]);
+
+        return $source->fresh();
+    }
 }

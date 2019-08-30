@@ -122,4 +122,25 @@ class SourcesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_users_can_edit_source() {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'name' => 'Great',
+            'summary' => 'Great',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => 'testing',
+            'summary' => 'another',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('sources', [
+            'id' => $source->id,
+            'name' => 'testing',
+            'summary' => 'another',
+        ]);
+    }
 }
