@@ -9,12 +9,17 @@
     <button @click="save">
       Save
     </button>
+
+    <issue-picker-vue :fact="fact" />
   </div>
 </template>
 <script>
 import axios from 'axios';
+import IssuePickerVue from '../../components/IssuePicker.vue';
 
 export default {
+  components: { IssuePickerVue },
+
   props: {
     id: {
       required: true,
