@@ -41,6 +41,7 @@
       style="max-height: 200px; overflow-y: auto;"
       @fact-save="saveFact"
       @fact-select="setSelectedFact"
+      @fact-edit="editFact"
     />
 
     <div v-show="isFactSelected">
@@ -113,6 +114,10 @@ export default {
           this.sourceFacts.push(data);
           this.selectedFact = data;
         });
+    },
+
+    editFact(fact) {
+      console.log(fact);
     },
   },
 };

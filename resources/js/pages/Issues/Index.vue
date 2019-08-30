@@ -8,6 +8,7 @@
       :collection="issues"
       @issue-save="addNewIssue"
       @issue-select="selectIssue"
+      @issue-edit="editIssue"
     />
 
     <div v-show="addIssue">
@@ -77,6 +78,10 @@ export default {
 
     selectIssue(issue) {
       this.$router.push({ name: 'issues.view', params: { id: issue.id } });
+    },
+
+    editIssue(issue) {
+      this.$router.push({ name: 'issues.edit', params: { id: issue.id } });
     },
   },
 };

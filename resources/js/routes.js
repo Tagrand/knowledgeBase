@@ -3,9 +3,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/js/pages/Home';
-import Edit from '@/js/pages/Sources/Edit';
-import SourcesView from '@/js/pages/Sources/View';
 import SourcesIndex from '@/js/pages/Sources/Index';
+import SourcesView from '@/js/pages/Sources/View';
+import SourcesEdit from '@/js/pages/Sources/Edit';
 import IssuesIndex from '@/js/pages/Issues/Index';
 import View from '@/js/pages/Issues/View';
 import IssuesEdit from '@/js/pages/Issues/Edit';
@@ -35,7 +35,7 @@ const router = new VueRouter({
     {
       path: '/sources/:id/edit',
       name: 'source.edit',
-      component: Edit,
+      component: SourcesEdit,
       props: true,
     },
     {

@@ -7,6 +7,7 @@
       :collection="sources"
       @source-save="saveSource"
       @source-select="setSelectedSource"
+      @source-edit="editSource"
     />
   </div>
 </template>
@@ -31,12 +32,15 @@ export default {
     saveSource(name) {
       axios.post('/api/v1/sources', { name }).then(({ data }) => {
         this.$store.commit('addSource', data);
-        this.$router.push({ name: 'source.edit', params: { id: data.id } });
       });
     },
 
     setSelectedSource(source) {
       this.$router.push({ name: 'source.view', params: { id: source.id } });
+    },
+
+    editSource(source) {
+      this.$router.push({ name: 'source.edit', params: { id: source.id } });
     },
   },
 };

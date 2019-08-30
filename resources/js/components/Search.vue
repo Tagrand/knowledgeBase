@@ -19,13 +19,17 @@
       <div
         v-for="option in filteredCollection"
         :key="option[searchKey]"
-        @click="selectOption(option)"
       >
-        <span v-text="option[searchKey]" />
+        <span
+          @click="selectOption(option)"
+          v-text="option[searchKey]"
+        />
         <span
           v-show="!!option[extraInfo]"
+          @click="selectOption(option)"
           v-text="`(${option[extraInfo]})`"
         />
+        <span @click="editOption(option)">Edit</span>
       </div>
     </div>
   </div>
@@ -93,6 +97,11 @@ export default {
 
     saveOption() {
       this.$emit(`${this.dataType}-save`, this.search);
+      this.search = '';
+    },
+
+    editOption(option) {
+      this.$emit(`${this.dataType}-edit`, option);
       this.search = '';
     },
   },
