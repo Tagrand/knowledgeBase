@@ -38,7 +38,7 @@ export default {
     },
 
     editFact(fact) {
-      console.log(fact);
+      this.$router.push({ name: 'facts.edit', params: { id: fact.id } });
     },
   },
 };

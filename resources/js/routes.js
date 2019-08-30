@@ -11,6 +11,7 @@ import IssuesView from '@/js/pages/Issues/View';
 import IssuesEdit from '@/js/pages/Issues/Edit';
 import FactsIndex from '@/js/pages/Facts/Index';
 import FactsView from '@/js/pages/Facts/View';
+import FactsEdit from '@/js/pages/Facts/Edit';
 
 Vue.use(VueRouter);
 
@@ -65,6 +66,12 @@ const router = new VueRouter({
       path: '/facts/:id',
       name: 'facts.view',
       component: FactsView,
+      props: true,
+    },
+    {
+      path: '/facts/:id/edit',
+      name: 'facts.edit',
+      component: FactsEdit,
       props: true,
     },
   ],
