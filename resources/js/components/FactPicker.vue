@@ -46,11 +46,14 @@ export default {
   data() {
     return {
       issueFacts: [],
-      facts: [],
     };
   },
 
   computed: {
+    facts() {
+      return this.$store.state.facts;
+    },
+
     unrelatedFacts() {
       return _.differenceBy(this.facts, this.issueFacts, 'id');
     },
@@ -75,10 +78,7 @@ export default {
   },
 
   created() {
-    axios
-      .get('/api/v1/facts')
-      .then(({ data }) => { this.facts = data; })
-      .catch((error) => console.log(error));
+    this.$store.dispatch('getFacts');
   },
 
   methods: {
