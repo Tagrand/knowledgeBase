@@ -19,11 +19,13 @@
 [x] View specific sources
 [x] Adapt search bar so you can see edits
 
-[ ] See all facts
-[ ] Set up a fact view page
-[ ] Set up a fact edit page
+[x] See all facts
+[x] Set up a fact view page
+[x] Set up a fact edit page
+[ ] Decide what to do with a create new fact (maybe take to a source page?)
 
-[ ] Refactoring check point - how is everything? Could this be tidied up further?
+[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further?
+    Should the Store be being broken up?
 
 [x] Fix the join tables
 [ ] See all arguments
