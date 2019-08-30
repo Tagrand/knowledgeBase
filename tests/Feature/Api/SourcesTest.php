@@ -166,4 +166,19 @@ class SourcesTest extends TestCase
             'summary' => null,
         ]);
     }
+
+    public function test_guests_cannot_edit_sources()
+    {
+        $source = factory(Source::class)->create([
+            'name' => 'Great',
+            'summary' => 'kjashdkjhasd',
+        ]);
+
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => 'testing',
+            'summary' => '',
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
