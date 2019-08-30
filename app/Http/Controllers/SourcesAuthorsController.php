@@ -14,7 +14,7 @@ class SourcesAuthorsController extends Controller
 
     public function store(Source $source, Author $author)
     {
-        $source->authors()->attach($source);
+        $source->authors()->attach($author);
 
         return response('', 204);
     }
