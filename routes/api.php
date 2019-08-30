@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/sources/{source}/facts', 'SourcesFactsController@store');
         Route::get('/sources/{source}/authors', 'SourcesAuthorsController@index');
         Route::post('/sources/{source}/authors/{author}', 'SourcesAuthorsController@store');
+        Route::delete('/sources/{source}/authors/{author}', 'SourcesAuthorsController@destroy');
 
         Route::get('/issues', 'IssuesController@index');
         Route::post('/issues', 'IssuesController@store');

@@ -18,4 +18,11 @@ class SourcesAuthorsController extends Controller
 
         return response('', 204);
     }
+
+    public function destroy(Source $source, Author $author)
+    {
+        $source->authors()->detach($author);
+
+        return response('', 204);
+    }
 }

@@ -88,4 +88,21 @@ class SourcesAuthorsTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_a_user_can_detach_an_author_from_a_source()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        $author = factory(Author::class)->create();
+        $source->authors()->attach($author);
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/sources/{$source->id}/authors/{$author->id}");
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('author_source', [
+            'author_id' => $author->id,
+            'source_id' => $source->id,
+        ]);
+    }
 }

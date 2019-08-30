@@ -9,7 +9,7 @@
           v-for="author in sourceAuthors"
           :key="author.first_name + author.last_name"
           class="text-green-700 mr-8"
-          @click="unsetAuthor(issue)"
+          @click="unsetAuthor(author)"
         >
           {{ author.first_name + ' ' + author.last_name }}
         </div>
