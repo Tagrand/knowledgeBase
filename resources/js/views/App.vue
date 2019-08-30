@@ -16,6 +16,12 @@
         </router-link>
         <router-link
           class="hover:text-blue-400"
+          to="/facts"
+        >
+          Facts
+        </router-link>
+        <router-link
+          class="hover:text-blue-400"
           to="/issues"
         >
           Issues
