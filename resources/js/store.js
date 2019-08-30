@@ -105,10 +105,10 @@ const store = new Vuex.Store({
     setSelectedIssue({ dispatch, commit, state }, id) {
       if (state.issues.length !== 0) {
         commit('setSelectedIssue', id);
-        return;
+        return Promise.resolve();
       }
 
-      dispatch('getIssues').then(() => commit('setSelectedIssue', id));
+      return dispatch('getIssues').then(() => commit('setSelectedIssue', id));
     },
   },
 });

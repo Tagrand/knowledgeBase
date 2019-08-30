@@ -55,10 +55,10 @@ export default {
 
   methods: {
     resetIssue() {
-      this.$store.dispatch('setSelectedIssue', this.id);
-
-      this.name = this.issue.name;
-      this.summary = this.issue.summary;
+      this.$store.dispatch('setSelectedIssue', this.id).then(() => {
+        this.name = this.issue.name;
+        this.summary = this.issue.summary;
+      });
     },
 
     save() {
