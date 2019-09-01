@@ -24,11 +24,12 @@
 [x] Set up a fact edit page
 [x] Decide what to do with a create new fact (maybe take to a source page?) (make it togglable)
 
-[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further?
-    Should the Store be being broken up?
-
 [x] Fix the join tables
-[ ] See all arguments
+[x] See all arguments
+[ ] Attach arguments to sources
+[ ] Show arguments that link to sources
+[ ] Attach arguments to issues
+
 [ ] Set up a arguments view page
 [ ] Set up a arguments edit page
 [ ] Arguments have a notes section
@@ -39,7 +40,8 @@
 [ ] facts - against arguement
 [ ] Show arguments that link to issues
 [ ] Show arguments that link to facts
-[ ] Show arguments that link to sources
+
+[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
 
 [ ] Make a basic design
 [ ] Set up heroku
@@ -49,6 +51,7 @@
 [ ] Add a 404 page
 
 ---- MVP reached ----
+[ ] Move create facts to factsController
 
 [ ] Look into adding front end tests
 [ ] Can there be a way to autolink all facts to particular issues?

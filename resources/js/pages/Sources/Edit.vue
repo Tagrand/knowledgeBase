@@ -30,37 +30,53 @@
       <author-picker-vue :source="selectedSource" />
     </div>
 
-    <h1 class="text-xl font-bold">
-      Connected facts
-    </h1>
+    <div>
+      <div>
+        <h1 class="text-xl font-bold">
+          Connected facts
+        </h1>
 
-    <search-vue
-      v-show="!isFactSelected"
-      data-type="fact"
-      search-key="claim"
-      :collection="sourceFacts"
-      style="max-height: 200px; overflow-y: auto;"
-      @fact-save="saveFact"
-      @fact-select="setSelectedFact"
-      @fact-edit="editFact"
-    />
+        <search-vue
+          v-show="!isFactSelected"
+          data-type="fact"
+          search-key="claim"
+          :collection="sourceFacts"
+          style="max-height: 200px; overflow-y: auto;"
+          @fact-save="saveFact"
+          @fact-select="setSelectedFact"
+          @fact-edit="editFact"
+        />
 
-    <div v-show="isFactSelected">
-      <div class="flex mb-4">
-        <p class="mr-4">
-          {{ selectedFact.claim }}
-        </p>
+        <div v-show="isFactSelected">
+          <div class="flex mb-4">
+            <p class="mr-4">
+              {{ selectedFact.claim }}
+            </p>
 
-        <router-link :to="`/facts/${selectedFact.id}/edit`">
-          Edit
-        </router-link>
+            <router-link :to="`/facts/${selectedFact.id}/edit`">
+              Edit
+            </router-link>
 
-        <button @click="setSelectedFact({})">
-          Reset
-        </button>
+            <button @click="setSelectedFact({})">
+              Reset
+            </button>
+          </div>
+        </div>
       </div>
 
       <issue-picker-vue :fact="selectedFact" />
+      <div>
+        <search-vue
+          v-show="!isFactSelected"
+          data-type="fact"
+          search-key="claim"
+          :collection="sourceFacts"
+          style="max-height: 200px; overflow-y: auto;"
+          @fact-save="saveFact"
+          @fact-select="setSelectedFact"
+          @fact-edit="editFact"
+        />
+      </div>
     </div>
   </div>
 </template>
