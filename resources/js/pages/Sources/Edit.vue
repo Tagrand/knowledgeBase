@@ -31,7 +31,7 @@
     </div>
 
     <h1 class="text-xl font-bold">
-      Fact
+      Connected facts
     </h1>
 
     <search-vue
@@ -50,6 +50,11 @@
         <p class="mr-4">
           {{ selectedFact.claim }}
         </p>
+
+        <router-link :to="`/facts/${selectedFact.id}/edit`">
+          Edit
+        </router-link>
+
         <button @click="setSelectedFact({})">
           Reset
         </button>
@@ -118,7 +123,7 @@ export default {
     },
 
     editFact(fact) {
-      console.log(fact);
+      this.$router.push({ name: 'facts.edit', params: { id: fact.id } });
     },
   },
 };

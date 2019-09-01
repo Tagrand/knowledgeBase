@@ -22,7 +22,7 @@
 [x] See all facts
 [x] Set up a fact view page
 [x] Set up a fact edit page
-[ ] Decide what to do with a create new fact (maybe take to a source page?)
+[x] Decide what to do with a create new fact (maybe take to a source page?) (make it togglable)
 
 [ ] Frontend Refactoring check point - how is everything? Could this be tidied up further?
     Should the Store be being broken up?
