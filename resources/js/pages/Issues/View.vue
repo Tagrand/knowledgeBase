@@ -3,7 +3,7 @@
     <h1>{{ issue.name }}</h1>
     <h2>{{ issue.summary }}</h2>
 
-    <router-link :to="`/issues/${issue.id}/edit`">
+    <router-link :to="`/issues/${id}/edit`">
       Edit
     </router-link>
 
