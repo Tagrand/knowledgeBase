@@ -52,7 +52,24 @@ class ArgumentsTest extends TestCase
         ]);
     }
 
-    public function test_an_argument_must_have_a_reason() {
+    public function test_sources_are_optional()
+    {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/arguments', [
+            'reason' => 'This is a good one',
+            // 'source_id' => $source->id,
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('arguments', [
+            'reason' => 'This is a good one',
+        ]);
+    }
+
+    public function test_an_argument_must_have_a_reason()
+    {
         $user = factory(User::class)->create();
         $source = factory(Source::class)->create();
 
@@ -66,7 +83,8 @@ class ArgumentsTest extends TestCase
         $response->assertJsonValidationErrors('reason');
     }
 
-    public function test_reasons_must_be_strings() {
+    public function test_reasons_must_be_strings()
+    {
         $user = factory(User::class)->create();
         $source = factory(Source::class)->create();
 
@@ -80,7 +98,8 @@ class ArgumentsTest extends TestCase
         $response->assertJsonValidationErrors('reason');
     }
 
-    public function test_reasons_must_be_unique() {
+    public function test_reasons_must_be_unique()
+    {
         $user = factory(User::class)->create();
         $source = factory(Source::class)->create();
         $argument = factory(Argument::class)->create([
@@ -95,5 +114,18 @@ class ArgumentsTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('reason');
+    }
+
+    public function test_sources_must_exist() {
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/arguments', [
+            'reason' => 'THIS IS TRUE',
+            'source_id' => 12121,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('source_id');
     }
 }

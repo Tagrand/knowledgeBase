@@ -16,6 +16,7 @@ class ArgumentsController extends Controller
     {
         $validatedData = $request->validate([
             'reason' => 'required|string|unique:arguments',
+            'source_id' => 'nullable|exists:sources',
         ]);
 
         return Argument::create([
