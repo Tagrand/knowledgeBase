@@ -9,6 +9,10 @@
       @fact-edit="editFact"
       @fact-select="selectFact"
     />
+
+    <router-link to="/sources">
+      Create new fact (create a source first)
+    </router-link>
   </div>
 </template>
 

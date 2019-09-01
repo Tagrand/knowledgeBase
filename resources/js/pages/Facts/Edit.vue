@@ -11,6 +11,10 @@
     </button>
 
     <issue-picker-vue :fact="fact" />
+
+    <router-link :to="`/facts/${id}`">
+      View
+    </router-link>
   </div>
 </template>
 <script>

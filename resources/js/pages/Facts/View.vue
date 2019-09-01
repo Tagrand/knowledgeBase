@@ -11,6 +11,10 @@
     >
       {{ issue.name }}
     </p>
+
+    <router-link :to="`/facts/${id}/edit`">
+      Edit
+    </router-link>
   </div>
 </template>
 <script>
