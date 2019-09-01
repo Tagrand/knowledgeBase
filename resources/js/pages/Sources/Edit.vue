@@ -18,11 +18,12 @@
             class="mr-4"
           >({{ selectedSource.summary }})</span>
         </div>
+
         <router-link
           class="hover:text-blue-400"
-          to="/sources"
+          :to="`/sources/${id}`"
         >
-          Reset
+          View
         </router-link>
       </div>
 
