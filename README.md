@@ -22,6 +22,14 @@ One thing so far I've really appreciated is how much time it can just take to se
 - Vuex is making a CRUDDY approach easier.
 - By not working on design, its making it much easier to let it take shape. Less constrained.
 
+(Sunday 01/09/2019)
+
+The front end is coming together, I just need to do the arguments, and then I should have a base working project.
+
+The main thing I am wondering, is how to extract out all the designs into templates - I'd like to start using slots to simplify the front end code, and make it more flexible.
+
+I've found this approach quite good, but I would like to be a bit more disciplined and have more refactor/tidy points. There are certainly places I rushed too - which has led to more technical debt that I had to fix later. But having said that, letting it be messy at the start meant I followed through more with the project. And it's more substansive than anything else I've made before in my spare time.
+
 ## Approach
 
 Two key things I'm focusing on developing:
@@ -39,3 +47,5 @@ A few things I'm keeping from previous experiments:
 3) Breaking if I get stuck on a problem for 15 minutes or more. It's amazing how a break works when staring at a problem obcessively doesn't.
 
 This is also my first serious project dont in VSCode, so I'm getting used to a more general purpose editor after using PhPStorm. Mainly because I like the idea of a general purpose editor, which I can adapt to all languages. Also I keep hearing really good things about it.
+
+
