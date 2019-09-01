@@ -9,6 +9,13 @@
       @source-select="setSelectedSource"
       @source-edit="editSource"
     />
+
+    <label for="redirect">Redirect when saving new source?</label>
+    <input
+      id="redirect"
+      v-model="redirect"
+      type="checkbox"
+    >
   </div>
 </template>
 <script>
@@ -17,6 +24,12 @@ import SearchVue from '../../components/Search.vue';
 
 export default {
   components: { SearchVue },
+
+  data() {
+    return {
+      redirect: false,
+    };
+  },
 
   computed: {
     sources() {
@@ -32,6 +45,10 @@ export default {
     saveSource(name) {
       axios.post('/api/v1/sources', { name }).then(({ data }) => {
         this.$store.commit('addSource', data);
+
+        if (this.redirect) {
+          this.$router.push({ name: 'source.edit', params: { id: data.id } });
+        }
       });
     },
 
