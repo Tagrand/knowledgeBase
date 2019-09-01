@@ -1,34 +1,21 @@
 <template>
   <div>
     <search-vue
-      v-show="!addIssue"
       class="text-blue"
       data-type="issue"
       extra-info="summary"
       :collection="issues"
-      @issue-save="addNewIssue"
+      @issue-save="saveIssue"
       @issue-select="selectIssue"
       @issue-edit="editIssue"
     />
 
-    <div v-show="addIssue">
-      <input
-        v-model="issueName"
-        placeholder="name"
-        type="text"
-      >
-      <input
-        v-model="issueSummary"
-        placeholder="summary"
-        type="text"
-      >
-      <button @click="saveIssue">
-        Save
-      </button>
-      <button @click="addIssue = false">
-        Close
-      </button>
-    </div>
+    <label>Redirect when saving new issue?</label>
+    <input
+      id="redirect"
+      v-model="redirect"
+      type="checkbox"
+    >
   </div>
 </template>
 
@@ -41,9 +28,7 @@ export default {
 
   data() {
     return {
-      addIssue: false,
-      issueName: '',
-      issueSummary: '',
+      redirect: false,
     };
   },
 
@@ -58,21 +43,17 @@ export default {
   },
 
   methods: {
-    addNewIssue(name) {
-      this.addIssue = true;
-      this.issueName = name;
-    },
-
-    saveIssue() {
+    saveIssue(name) {
       axios
         .post('/api/v1/issues', {
-          name: this.issueName,
-          summary: this.issueSummary,
+          name,
         })
         .then(({ data }) => {
           this.$store.commit('addIssue', data);
-          this.issueName = '';
-          this.issueSummary = '';
+
+          if (this.redirect) {
+            this.$router.push({ name: 'issues.edit', params: { id: data.id } });
+          }
         });
     },
 

@@ -10,7 +10,7 @@
       @source-edit="editSource"
     />
 
-    <label for="redirect">Redirect when saving new source?</label>
+    <label>Redirect when saving new source?</label>
     <input
       id="redirect"
       v-model="redirect"
