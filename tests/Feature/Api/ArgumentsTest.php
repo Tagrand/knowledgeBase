@@ -9,7 +9,7 @@ use Tests\TestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ArgumentTest extends TestCase
+class ArgumentsTest extends TestCase
 {
     use RefreshDatabase;
 
