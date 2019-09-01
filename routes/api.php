@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('/arguments', 'ArgumentsController@index');
+        Route::post('/arguments', 'ArgumentsController@store');
 
         Route::get('/authors', 'AuthorsController@index');
         Route::post('/authors', 'AuthorsController@store');

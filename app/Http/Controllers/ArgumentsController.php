@@ -11,4 +11,12 @@ class ArgumentsController extends Controller
     {
         return Argument::all();
     }
+
+    public function store(Request $request)
+    {
+        return Argument::create([
+          'source_id' => $request['source_id'],
+          'reason' => $request['reason'],
+      ]);
+    }
 }

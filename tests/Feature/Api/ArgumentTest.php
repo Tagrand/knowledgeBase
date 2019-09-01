@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\User;
+use App\Source;
 use App\Argument;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
@@ -31,5 +32,23 @@ class ArgumentTest extends TestCase
         $response = $this->json('GET', '/api/v1/arguments');
 
         $response->assertStatus(401);
+    }
+
+    public function test_a_user_can_make_an_argument()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/arguments', [
+            'reason' => 'This is a good one',
+            'source_id' => $source->id,
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('arguments', [
+            'reason' => 'This is a good one',
+            'source_id' => $source->id,
+        ]);
     }
 }
