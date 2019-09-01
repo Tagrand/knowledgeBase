@@ -27,4 +27,16 @@ class SourcesArgumentsTest extends TestCase
         $response->assertStatus(200);
         $this->assertCount(2, $response->json());
     }
+
+    public function test_guests_cannot_see_arguments() {
+        $source = factory(Source::class)->create();
+        $arguments = factory(Argument::class, 2)->create([
+            'source_id' => $source->id,
+        ]);
+        $unlinkedArgument = factory(Argument::class)->create();
+
+        $response = $this->json('get', "/api/v1/sources/{$source->id}/arguments");
+
+        $response->assertStatus(401);
+    }
 }
