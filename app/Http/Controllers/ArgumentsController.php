@@ -15,7 +15,7 @@ class ArgumentsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'reason' => 'required',
+            'reason' => 'required|string',
         ]);
 
         return Argument::create([
