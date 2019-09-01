@@ -18,6 +18,8 @@ const store = new Vuex.Store({
 
     facts: [],
     selectedFact: {},
+
+    arguments: [],
   },
 
   mutations: {
@@ -73,6 +75,9 @@ const store = new Vuex.Store({
       this.state.selectedFact = updatedFact;
     },
 
+    setArguments(state, personalArguments = []) {
+      state.arguments = personalArguments;
+    },
   },
 
   actions: {
@@ -149,6 +154,18 @@ const store = new Vuex.Store({
       }
 
       return dispatch('getFacts').then(() => commit('setSelectedFact', id));
+    },
+
+    getArguments({ commit, state }) {
+      if (state.arguments.length !== 0) {
+        return Promise.resolve();
+      }
+
+      return axios
+        .get('/api/v1/arguments')
+        .then(({ data }) => {
+          commit('setArguments', data);
+        });
     },
   },
 });
