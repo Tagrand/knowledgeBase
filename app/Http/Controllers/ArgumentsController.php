@@ -19,9 +19,6 @@ class ArgumentsController extends Controller
             'source_id' => 'nullable|exists:sources',
         ]);
 
-        return Argument::create([
-          'source_id' => $request['source_id'],
-          'reason' => $validatedData['reason'],
-      ]);
+        return Argument::create($validatedData);
     }
 }
