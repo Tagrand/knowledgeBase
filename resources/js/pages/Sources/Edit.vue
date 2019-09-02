@@ -150,15 +150,22 @@ export default {
 
   created() {
     this.$store.dispatch('setSelectedSource', this.id);
+    this.$store.dispatch('getFacts');
 
     axios
       .get(`/api/v1/sources/${this.id}/facts`)
       .then(({ data }) => { this.sourceFacts = data; })
       .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/v1/sources/${this.id}/arguments`)
+      .then(({ data }) => { this.sourceArguments = data; })
+      .catch((error) => console.log(error));
   },
 
   methods: {
     setSelectedFact(fact) {
+      console.log(fact.id);
       this.$store.commit('setSelectedFact', fact.id);
     },
 
@@ -180,8 +187,8 @@ export default {
       this.$store.commit('clearSelectedFact');
     },
 
-    setSelectedArgument() {
-      console.log();
+    setSelectedArgument(argument) {
+      this.selectedArgument = argument;
     },
 
     saveArgument(reason) {
