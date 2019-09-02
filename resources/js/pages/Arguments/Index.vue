@@ -4,7 +4,7 @@
       class="text-blue"
       search-key="reason"
       data-type="argument"
-      :collection="arguments"
+      :collection="politicalArguments"
       @argument-save="saveArgument"
       @argument-edit="editArgument"
       @argument-select="selectArgument"
@@ -23,7 +23,7 @@ export default {
   components: { SearchVue },
 
   computed: {
-    arguments() {
+    politicalArguments() {
       return this.$store.state.arguments;
     },
   },
