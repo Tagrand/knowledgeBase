@@ -30,7 +30,42 @@
       <author-picker-vue :source="selectedSource" />
     </div>
 
-    <div>
+    <div class="flex justify-between">
+      <div>
+        <h1 class="text-xl font-bold">
+          Connected arguments
+        </h1>
+
+        <search-vue
+          v-show="!isArgumentSelected"
+          data-type="argument"
+          search-key="reason"
+          :collection="sourceArguments"
+          style="max-height: 200px; overflow-y: auto;"
+          @argument-save="saveArgument"
+          @argument-select="setSelectedArgument"
+          @argument-edit="editArgument"
+        />
+
+        <div v-show="isArgumentSelected">
+          <div class="flex mb-4">
+            <p class="mr-4">
+              {{ selectedArgument.reason }}
+            </p>
+
+            <router-link to="/arguments">
+              Edit
+            </router-link>
+
+            <button @click="setSelectedArgument({})">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <issue-picker-vue :fact="selectedFact" />
+      </div>
+
       <div>
         <h1 class="text-xl font-bold">
           Connected facts
@@ -53,29 +88,17 @@
               {{ selectedFact.claim }}
             </p>
 
-            <router-link :to="`/facts/${selectedFact.id}/edit`">
+            <router-link :to="`/facts/${selectedFact}/edit`">
               Edit
             </router-link>
 
-            <button @click="setSelectedFact({})">
+            <button @click="clearSelectedFact">
               Reset
             </button>
           </div>
         </div>
-      </div>
 
-      <issue-picker-vue :fact="selectedFact" />
-      <div>
-        <search-vue
-          v-show="!isFactSelected"
-          data-type="fact"
-          search-key="claim"
-          :collection="sourceFacts"
-          style="max-height: 200px; overflow-y: auto;"
-          @fact-save="saveFact"
-          @fact-select="setSelectedFact"
-          @fact-edit="editFact"
-        />
+        <issue-picker-vue :fact="selectedFact" />
       </div>
     </div>
   </div>
@@ -119,6 +142,10 @@ export default {
     selectedSource() {
       return this.$store.state.selectedSource;
     },
+
+    isArgumentSelected() {
+      return !_.isEmpty(this.selectedArgument);
+    },
   },
 
   created() {
@@ -140,13 +167,19 @@ export default {
         .post(`/api/v1/sources/${this.selectedSource.id}/facts`, { claim })
         .then(({ data }) => {
           this.sourceFacts.push(data);
-          this.selectedFact = data;
+          this.$store.commit('addFact', data);
+          this.$store.commit('setSelectedFact', data.id);
         });
     },
 
     editFact(fact) {
       this.$router.push({ name: 'facts.edit', params: { id: fact.id } });
     },
+
+    clearSelectedFact() {
+      this.$store.commit('clearSelectedFact');
+    },
+
   },
 };
 </script>

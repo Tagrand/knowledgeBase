@@ -64,6 +64,10 @@ const store = new Vuex.Store({
       state.facts = facts;
     },
 
+    clearSelectedFact(state) {
+      state.selectedFact = {};
+    },
+
     setSelectedFact(state, id) {
       const fact = _.find(state.facts, (storedFact) => storedFact.id === Number(id));
       state.selectedFact = fact;
