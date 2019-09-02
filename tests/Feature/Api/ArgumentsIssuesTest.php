@@ -54,4 +54,14 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_the_argument_must_exist_to_see_issues()
+    {
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+
+        $response = $this->json('GET', "/api/v1/argument/1234/issues");
+
+        $response->assertStatus(404);
+    }
 }
