@@ -180,6 +180,27 @@ export default {
       this.$store.commit('clearSelectedFact');
     },
 
+    setSelectedArgument() {
+      console.log();
+    },
+
+    saveArgument(reason) {
+      axios
+        .post('/api/v1/arguments', {
+          reason,
+          source_id: this.selectedSource.id,
+        })
+        .then(({ data }) => {
+          this.sourceArguments.push(data);
+          this.$store.commit('addArgument', data);
+          this.selectedArgument = data;
+        });
+    },
+
+    editArgument() {
+      console.log();
+    },
+
   },
 };
 </script>

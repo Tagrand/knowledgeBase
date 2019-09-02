@@ -86,6 +86,10 @@ const store = new Vuex.Store({
     setArguments(state, personalArguments = []) {
       state.arguments = personalArguments;
     },
+
+    addArgument(state, argument) {
+      state.arguments.push(argument);
+    },
   },
 
   actions: {
