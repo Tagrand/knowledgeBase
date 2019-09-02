@@ -42,4 +42,16 @@ class ArgumentsIssuesTest extends TestCase
         $response->assertStatus(200);
         $this->assertCount(0, $response->json());
     }
+
+    public function test_guest_cannot_see_all_related_issues()
+    {
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->issues()->attach([$issue->id, $issue2->id]);
+
+        $response = $this->json('GET', "/api/v1/argument/{$argument->id}/issues");
+
+        $response->assertStatus(401);
+    }
 }
