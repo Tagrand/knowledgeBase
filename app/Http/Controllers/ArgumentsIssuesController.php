@@ -16,4 +16,10 @@ class ArgumentsIssuesController extends Controller
 
         return response('', 204);
     }
+
+    public function destroy(Argument $argument, Issue $issue) {
+        $argument->issues()->detach($issue);
+
+        return response('', 204);
+    }
 }

@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/arguments/{argument}/issues', 'ArgumentsIssuesController@index');
         Route::post('/arguments/{argument}/issues/{issue}', 'ArgumentsIssuesController@store');
+        Route::delete('/arguments/{argument}/issues/{issue}', 'ArgumentsIssuesController@destroy');
 
         Route::get('/authors', 'AuthorsController@index');
         Route::post('/authors', 'AuthorsController@store');

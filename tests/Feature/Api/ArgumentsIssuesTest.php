@@ -112,4 +112,23 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_argument_and_issues_can_be_unlinked()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->issues()->attach([$issue->id, $issue2->id]);
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/arguments/{$argument->id}/issues/{$issue->id}");
+
+        $response->assertStatus(204);
+        $this->assertCount(1, $argument->fresh()->issues);
+        $this->assertDatabaseMissing('argument_issue', [
+          'argument_id' => $argument->id,
+          'issue_id' => $issue->id
+        ]);
+    }
 }
