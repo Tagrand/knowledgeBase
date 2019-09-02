@@ -19,7 +19,8 @@ const store = new Vuex.Store({
     facts: [],
     selectedFact: {},
 
-    arguments: [],
+    politicalArguments: [],
+    selectedPoliticalArgument: {},
   },
 
   mutations: {
@@ -83,12 +84,20 @@ const store = new Vuex.Store({
       state.facts.push(facts);
     },
 
-    setArguments(state, personalArguments = []) {
-      state.arguments = personalArguments;
+    setArguments(state, politicalArguments = []) {
+      state.politicalArguments = politicalArguments;
     },
 
     addArgument(state, argument) {
-      state.arguments.push(argument);
+      state.politicalArguments.push(argument);
+    },
+
+    setSelectedPoliticalArgument(state, id) {
+      const politicalArgument = _.find(state.politicalArguments,
+        (storedArgument) => storedArgument.id === Number(id));
+
+      console.log(state.selectedPoliticalArgument);
+      state.selectedPoliticalArgument = politicalArgument;
     },
   },
 
@@ -169,7 +178,7 @@ const store = new Vuex.Store({
     },
 
     getArguments({ commit, state }) {
-      if (state.arguments.length !== 0) {
+      if (state.politicalArguments.length !== 0) {
         return Promise.resolve();
       }
 
@@ -178,6 +187,15 @@ const store = new Vuex.Store({
         .then(({ data }) => {
           commit('setArguments', data);
         });
+    },
+
+    setSelectedPoliticalArgument({ dispatch, commit, state }, id) {
+      if (state.politicalArguments.length !== 0) {
+        commit('setSelectedPoliticalArgument', id);
+        return;
+      }
+
+      dispatch('getArguments').then(() => commit('setSelectedPoliticalArgument', id));
     },
   },
 });

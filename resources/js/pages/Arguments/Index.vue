@@ -38,7 +38,7 @@ export default {
     },
 
     selectArgument(argument) {
-      console.log(argument);
+      this.$router.push({ name: 'arguments.view', params: { id: argument.id } });
     },
 
     editArgument(argument) {
