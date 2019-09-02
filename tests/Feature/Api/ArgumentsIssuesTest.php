@@ -131,4 +131,15 @@ class ArgumentsIssuesTest extends TestCase
           'issue_id' => $issue->id
         ]);
     }
+
+    public function test_the_issue_must_exist_to_be_deleted()
+    {
+        $user = factory(User::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/arguments/{$argument->id}/issues/12234");
+
+        $response->assertStatus(404);
+    }
 }
