@@ -64,8 +64,8 @@
         </div>
 
         <issue-picker-vue
-          parent-name="fact"
-          :parent="selectedFact"
+          parent-name="argument"
+          :parent="selectedArgument"
         />
       </div>
 
