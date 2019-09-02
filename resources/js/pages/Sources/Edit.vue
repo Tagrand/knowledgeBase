@@ -63,7 +63,10 @@
           </div>
         </div>
 
-        <issue-picker-vue :fact="selectedFact" />
+        <issue-picker-vue
+          parent-name="fact"
+          :parent="selectedFact"
+        />
       </div>
 
       <div>
@@ -98,7 +101,10 @@
           </div>
         </div>
 
-        <issue-picker-vue :fact="selectedFact" />
+        <issue-picker-vue
+          parent-name="fact"
+          :parent="selectedFact"
+        />
       </div>
     </div>
   </div>

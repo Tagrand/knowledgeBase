@@ -10,7 +10,10 @@
       Save
     </button>
 
-    <issue-picker-vue :fact="fact" />
+    <issue-picker-vue
+      :parent="fact"
+      parent-name="fact"
+    />
 
     <router-link :to="`/facts/${id}`">
       View

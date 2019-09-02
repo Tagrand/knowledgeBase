@@ -10,7 +10,7 @@
         style="max-height: 100px"
       >
         <div
-          v-for="issue in factIssues"
+          v-for="issue in parentIssues"
           :key="issue.name"
           class="text-green-700 mr-8"
           @click="unsetIssue(issue)"
@@ -62,15 +62,20 @@ import axios from 'axios';
 
 export default {
   props: {
-    fact: {
+    parent: {
       type: Object,
+      required: true,
+    },
+
+    parentName: {
+      type: String,
       required: true,
     },
   },
 
   data() {
     return {
-      factIssues: [],
+      parentIssues: [],
 
       addIssue: false,
       issueName: '',
@@ -84,24 +89,24 @@ export default {
     },
 
     unrelatedIssues() {
-      return _.differenceBy(this.issues, this.factIssues, 'id');
+      return _.differenceBy(this.issues, this.parentIssues, 'id');
     },
 
-    noFact() {
-      return _.isEmpty(this.fact);
+    noParent() {
+      return _.isEmpty(this.parent);
     },
   },
 
   watch: {
-    fact() {
-      if (this.noFact) {
-        this.factIssues = [];
+    parent() {
+      if (this.noParent) {
+        this.parentIssues = [];
         return;
       }
 
       axios
-        .get(`/api/v1/facts/${this.fact.id}/issues`)
-        .then(({ data }) => { this.factIssues = data; })
+        .get(`/api/v1/${this.parentName}s/${this.parent.id}/issues`)
+        .then(({ data }) => { this.parentIssues = data; })
         .catch((error) => console.log(error));
     },
   },
@@ -126,17 +131,17 @@ export default {
 
     setIssue(issue) {
       axios
-        .post(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
-        .then(() => this.factIssues.push(issue))
+        .post(`/api/v1/${this.parentName}s/${this.parent.id}/issues/${issue.id}`)
+        .then(() => this.parentIssues.push(issue))
         .catch((error) => console.log(error));
     },
 
     unsetIssue(issue) {
       axios
-        .delete(`/api/v1/facts/${this.fact.id}/issues/${issue.id}`)
+        .delete(`/api/v1/${this.parentName}s/${this.parent.id}/issues/${issue.id}`)
         .then(() => {
-          const index = this.factIssues.indexOf(issue);
-          this.factIssues.splice(index, 1);
+          const index = this.parentIssues.indexOf(issue);
+          this.parentIssues.splice(index, 1);
         })
         .catch((error) => console.log(error));
     },
