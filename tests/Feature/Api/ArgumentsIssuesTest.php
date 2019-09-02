@@ -64,4 +64,20 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_user_can_create_an_issue_argument_join()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/issues/{$issue->id}");
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('argument_issue', [
+            'argument_id' => $argument->id,
+            'issue_id' => $issue->id,
+        ]);
+    }
 }
