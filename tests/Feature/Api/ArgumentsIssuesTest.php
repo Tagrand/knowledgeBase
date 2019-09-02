@@ -50,7 +50,7 @@ class ArgumentsIssuesTest extends TestCase
         $argument = factory(Argument::class)->create();
         $argument->issues()->attach([$issue->id, $issue2->id]);
 
-        $response = $this->json('GET', "/api/v1/argument/{$argument->id}/issues");
+        $response = $this->json('GET', "/api/v1/arguments/{$argument->id}/issues");
 
         $response->assertStatus(401);
     }
@@ -60,9 +60,9 @@ class ArgumentsIssuesTest extends TestCase
         $issue = factory(Issue::class)->create();
         $issue2 = factory(Issue::class)->create();
 
-        $response = $this->json('GET', "/api/v1/argument/1234/issues");
+        $response = $this->json('GET', "/api/v1/arguments/1234/issues");
 
-        $response->assertStatus(404);
+        $response->assertStatus(401);
     }
 
     public function test_user_can_create_an_issue_argument_join()
@@ -79,5 +79,15 @@ class ArgumentsIssuesTest extends TestCase
             'argument_id' => $argument->id,
             'issue_id' => $issue->id,
         ]);
+    }
+
+    public function test_a_guest_cannot_create_an_issue_argument_join()
+    {
+        $issue = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/issues/{$issue->id}");
+
+        $response->assertStatus(401);
     }
 }
