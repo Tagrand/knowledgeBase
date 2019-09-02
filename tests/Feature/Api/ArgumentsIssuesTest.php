@@ -90,4 +90,15 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_the_issue_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/issues/123");
+
+        $response->assertStatus(404);
+    }
 }
