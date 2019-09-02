@@ -153,4 +153,15 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_guests_cannot_unlink_argument_and_issues()
+    {
+        $issue = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->issues()->attach($issue);
+
+        $response = $this->json('DELETE', "/api/v1/arguments/{$argument->id}/issues/{$issue->id}");
+
+        $response->assertStatus(401);
+    }
 }
