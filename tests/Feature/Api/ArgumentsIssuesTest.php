@@ -142,4 +142,15 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_the_argument_must_exist_to_be_deleted()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/arguments/1234/issues/{$issue->id}");
+
+        $response->assertStatus(404);
+    }
 }
