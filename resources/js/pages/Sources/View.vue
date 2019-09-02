@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ source.name }}</h1>
-    <h2>{{ source.name }}</h2>
+    <h2>{{ source.summary }}</h2>
 
     <router-link :to="`/sources/${source.id}/edit`">
       Edit
@@ -32,10 +32,10 @@
       Arguments
     </h2>
     <p
-      v-for="argument in arguments"
-      :key="`${argument.id}${argument.reason}`"
+      v-for="politicalArgument in politicalArguments"
+      :key="`${politicalArgument.id}${politicalArgument.reason}`"
     >
-      {{ argument.reason }}
+      {{ politicalArgument.reason }}
     </p>
 
     <h2 class="mt-4">
@@ -65,7 +65,7 @@ export default {
     return {
       authors: [],
       facts: [],
-      arguments: [],
+      politicalArguments: [],
     };
   },
 
@@ -80,7 +80,7 @@ export default {
         fact.issues.forEach((issue) => related.push(issue));
       });
 
-      this.arguments.forEach((argument) => {
+      this.politicalArguments.forEach((argument) => {
         argument.issues.forEach((issue) => related.push(issue));
       });
 
@@ -101,7 +101,7 @@ export default {
 
     axios
       .get(`/api/v1/sources/${this.id}/arguments`)
-      .then(({ data }) => { this.arguments = data; });
+      .then(({ data }) => { this.politicalArguments = data; });
   },
 };
 </script>
