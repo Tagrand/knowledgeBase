@@ -23,7 +23,7 @@
     </h2>
     <p
       v-for="fact in facts"
-      :key="fact.claim"
+      :key="`${fact.id}${fact.claim}`"
     >
       {{ fact.claim }}
     </p>
@@ -33,7 +33,7 @@
     </h2>
     <p
       v-for="argument in arguments"
-      :key="argument.reason"
+      :key="`${argument.id}${argument.reason}`"
     >
       {{ argument.reason }}
     </p>
