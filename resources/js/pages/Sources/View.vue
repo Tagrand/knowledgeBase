@@ -29,6 +29,16 @@
     </p>
 
     <h2 class="mt-4">
+      Arguments
+    </h2>
+    <p
+      v-for="argument in arguments"
+      :key="argument.reason"
+    >
+      {{ argument.reason }}
+    </p>
+
+    <h2 class="mt-4">
       Issues
     </h2>
     <p
@@ -55,6 +65,7 @@ export default {
     return {
       authors: [],
       facts: [],
+      arguments: [],
     };
   },
 
@@ -67,6 +78,10 @@ export default {
       const related = [];
       this.facts.forEach((fact) => {
         fact.issues.forEach((issue) => related.push(issue));
+      });
+
+      this.arguments.forEach((argument) => {
+        argument.issues.forEach((issue) => related.push(issue));
       });
 
       return _.uniqBy(related, 'id');
@@ -83,6 +98,10 @@ export default {
     axios
       .get(`/api/v1/sources/${this.id}/facts`)
       .then(({ data }) => { this.facts = data; });
+
+    axios
+      .get(`/api/v1/sources/${this.id}/arguments`)
+      .then(({ data }) => { this.arguments = data; });
   },
 };
 </script>
