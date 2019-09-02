@@ -26,9 +26,9 @@
 
 [x] Fix the join tables
 [x] See all arguments
-[ ] Attach arguments to sources
-[ ] Show arguments that link to sources
-[ ] Attach arguments to issues
+[x] Attach arguments to sources
+[x] Show arguments that link to sources
+[x] Attach arguments to issues
 
 [ ] Set up a arguments view page
 [ ] Set up a arguments edit page
