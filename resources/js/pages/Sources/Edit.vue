@@ -101,11 +101,17 @@ export default {
   data() {
     return {
       sourceFacts: [],
-      selectedFact: {},
+
+      sourceArguments: [],
+      selectedArgument: {},
     };
   },
 
   computed: {
+    selectedFact() {
+      return this.$store.state.selectedFact;
+    },
+
     isFactSelected() {
       return !_.isEmpty(this.selectedFact);
     },
@@ -126,7 +132,7 @@ export default {
 
   methods: {
     setSelectedFact(fact) {
-      this.selectedFact = fact;
+      this.$store.commit('setSelectedFact', fact.id);
     },
 
     saveFact(claim) {

@@ -75,6 +75,10 @@ const store = new Vuex.Store({
       this.state.selectedFact = updatedFact;
     },
 
+    addFact(state, facts) {
+      state.facts.push(facts);
+    },
+
     setArguments(state, personalArguments = []) {
       state.arguments = personalArguments;
     },
