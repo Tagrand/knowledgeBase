@@ -29,4 +29,17 @@ class ArgumentsIssuesTest extends TestCase
         $this->assertCount(2, $response->json());
         $this->assertEquals($issue->id, $response->json()[0]['id']);
     }
+
+    public function test_user_can_see_all_related_issues_even_when_it_has_none()
+    {
+        $user = factory(User::class)->create();
+        $unlinkedIssue = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('GET', "/api/v1/arguments/{$argument->id}/issues");
+
+        $response->assertStatus(200);
+        $this->assertCount(0, $response->json());
+    }
 }
