@@ -101,4 +101,15 @@ class ArgumentsIssuesTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_the_argument_must_exist()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/123/issues/{$issue->id}");
+
+        $response->assertStatus(404);
+    }
 }
