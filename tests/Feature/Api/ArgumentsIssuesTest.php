@@ -1,0 +1,32 @@
+<?php
+
+namespace Tests\Feature\Api;
+
+use App\User;
+use App\Issue;
+use App\Argument;
+use Tests\TestCase;
+use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ArgumentsIssuesTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_user_can_see_all_related_issues()
+    {
+        $user = factory(User::class)->create();
+        $issue = factory(Issue::class)->create();
+        $issue2 = factory(Issue::class)->create();
+        $unlinkedIssue = factory(Issue::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->issues()->attach([$issue->id, $issue2->id]);
+
+        Passport::actingAs($user);
+        $response = $this->json('GET', "/api/v1/arguments/{$argument->id}/issues");
+
+        $response->assertStatus(200);
+        $this->assertCount(2, $response->json());
+        $this->assertEquals($issue->id, $response->json()[0]['id']);
+    }
+}
