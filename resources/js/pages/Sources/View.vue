@@ -66,13 +66,10 @@ export default {
     issues() {
       const related = [];
       this.facts.forEach((fact) => {
-        fact.issues.forEach((issue) => {
-          if (!_.some(related, (option) => option.id === issue.id)) {
-            related.push(issue);
-          }
-        });
+        fact.issues.forEach((issue) => related.push(issue));
       });
-      return related;
+
+      return _.uniqBy(related, 'id');
     },
   },
 
