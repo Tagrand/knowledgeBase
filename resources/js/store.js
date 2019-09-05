@@ -192,10 +192,10 @@ const store = new Vuex.Store({
     setSelectedPoliticalArgument({ dispatch, commit, state }, id) {
       if (state.politicalArguments.length !== 0) {
         commit('setSelectedPoliticalArgument', id);
-        return;
+        return Promise.resolve();
       }
 
-      dispatch('getArguments').then(() => commit('setSelectedPoliticalArgument', id));
+      return dispatch('getArguments').then(() => commit('setSelectedPoliticalArgument', id));
     },
   },
 });

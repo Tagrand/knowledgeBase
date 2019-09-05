@@ -21,4 +21,12 @@ class ArgumentsController extends Controller
 
         return Argument::create($validatedData);
     }
+
+    public function update(Argument $argument, Request $request) {
+        $argument->update([
+            'reason' => $request['reason'],
+        ]);
+
+        return response('', 204);
+    }
 }

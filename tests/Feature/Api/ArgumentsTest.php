@@ -116,7 +116,8 @@ class ArgumentsTest extends TestCase
         $response->assertJsonValidationErrors('reason');
     }
 
-    public function test_sources_must_exist() {
+    public function test_sources_must_exist()
+    {
         $user = factory(User::class)->create();
 
         Passport::actingAs($user);
@@ -127,5 +128,23 @@ class ArgumentsTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('source_id');
+    }
+
+    public function test_a_user_can_edit_an_argument()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
+            'reason' => 'This is a good one',
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('arguments', [
+            'id' => $argument->id,
+            'reason' => 'This is a good one',
+        ]);
     }
 }

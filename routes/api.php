@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('/arguments', 'ArgumentsController@index');
         Route::post('/arguments', 'ArgumentsController@store');
+        Route::patch('/arguments/{argument}', 'ArgumentsController@update');
 
         Route::get('/arguments/{argument}/issues', 'ArgumentsIssuesController@index');
         Route::post('/arguments/{argument}/issues/{issue}', 'ArgumentsIssuesController@store');

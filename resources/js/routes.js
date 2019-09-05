@@ -14,6 +14,7 @@ import FactsView from '@/js/pages/Facts/View';
 import FactsEdit from '@/js/pages/Facts/Edit';
 import ArgumentsIndex from '@/js/pages/Arguments/Index';
 import ArgumentsView from '@/js/pages/Arguments/View';
+import ArgumentsEdit from '@/js/pages/Arguments/Edit';
 
 Vue.use(VueRouter);
 
@@ -85,6 +86,12 @@ const router = new VueRouter({
       path: '/arguments/:id',
       name: 'arguments.view',
       component: ArgumentsView,
+      props: true,
+    },
+    {
+      path: '/arguments/:id/edit',
+      name: 'arguments.edit',
+      component: ArgumentsEdit,
       props: true,
     },
   ],

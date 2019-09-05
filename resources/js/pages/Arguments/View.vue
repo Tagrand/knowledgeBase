@@ -12,7 +12,7 @@
       {{ issue.name }}
     </p>
 
-    <router-link :to="`/arguments`">
+    <router-link :to="`/arguments/${id}/edit`">
       Edit
     </router-link>
   </div>
