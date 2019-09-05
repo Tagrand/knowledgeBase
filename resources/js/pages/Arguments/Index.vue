@@ -42,7 +42,7 @@ export default {
     },
 
     editArgument(argument) {
-      console.log(argument);
+      this.$router.push({ name: 'arguments.edit', params: { id: argument.id } });
     },
   },
 };
