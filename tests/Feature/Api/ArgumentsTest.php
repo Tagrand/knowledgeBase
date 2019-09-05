@@ -233,4 +233,19 @@ class ArgumentsTest extends TestCase
             'summary' => null,
         ]);
     }
+
+    public function test_edited_summaries_must_be_strings()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
+            'summary' => 12121,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
 }
