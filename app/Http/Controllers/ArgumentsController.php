@@ -24,7 +24,7 @@ class ArgumentsController extends Controller
 
     public function update(Argument $argument, Request $request) {
         $validatedData = $request->validate([
-            'reason' => 'string',
+            'reason' => 'string|unique:arguments',
         ]);
 
         $argument->update([

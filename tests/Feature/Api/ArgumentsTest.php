@@ -177,4 +177,22 @@ class ArgumentsTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('reason');
     }
+
+    public function test_edited_reasons_must_be_unique()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        factory(Argument::class)->create([
+            'reason' =>'obvious',
+        ]);
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
+            'reason' => 'obvious',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('reason');
+    }
 }
