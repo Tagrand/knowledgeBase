@@ -157,11 +157,13 @@ class ArgumentsTest extends TestCase
         Passport::actingAs($user);
         $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
             'reason' => 'This is a good one',
+            'summary' => 'valid point',
         ]);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('arguments', [
             'id' => $argument->id,
+            'summary' => 'valid point',
             'reason' => 'This is a good one',
         ]);
     }
