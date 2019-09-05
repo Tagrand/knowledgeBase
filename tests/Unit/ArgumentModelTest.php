@@ -16,12 +16,14 @@ class ArgumentModelTest extends TestCase
     {
         $argument = new Argument([
             'reason' => 'Science',
+            'summary' => 'its normally OK',
         ]);
 
         $this->assertTrue($argument->save());
         $this->assertDatabaseHas('arguments', [
             'id' => $argument->id,
             'reason' => 'Science',
+            'summary' => 'its normally OK',
         ]);
     }
 

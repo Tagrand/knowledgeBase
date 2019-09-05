@@ -30,8 +30,8 @@
 [x] Show arguments that link to sources
 [x] Attach arguments to issues
 
-[ ] Set up a arguments view page
-[ ] Set up a arguments edit page
+[x] Set up a arguments view page
+[x] Set up a arguments edit page
 [ ] Arguments have a notes section
 
 [ ] facts - for argument
