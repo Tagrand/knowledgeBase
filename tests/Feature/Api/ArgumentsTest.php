@@ -118,6 +118,22 @@ class ArgumentsTest extends TestCase
         $response->assertJsonValidationErrors('reason');
     }
 
+    public function test_summaries_must_be_strings()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', '/api/v1/arguments', [
+            'reason' => '121212',
+            'summary' => 12121212,
+            'source_id' => $source->id,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
+
     public function test_sources_must_exist()
     {
         $user = factory(User::class)->create();
