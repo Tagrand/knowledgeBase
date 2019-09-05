@@ -147,4 +147,19 @@ class ArgumentsTest extends TestCase
             'reason' => 'This is a good one',
         ]);
     }
+
+    public function test_reasons_cannot_be_null()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
+            'reason' => '',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('reason');
+    }
 }

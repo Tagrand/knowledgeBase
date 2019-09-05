@@ -23,8 +23,12 @@ class ArgumentsController extends Controller
     }
 
     public function update(Argument $argument, Request $request) {
+        $validatedData = $request->validate([
+            'reason' => 'string',
+        ]);
+
         $argument->update([
-            'reason' => $request['reason'],
+            'reason' => $validatedData['reason'],
         ]);
 
         return response('', 204);
