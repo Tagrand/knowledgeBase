@@ -36,6 +36,7 @@
       :key="`${politicalArgument.id}${politicalArgument.reason}`"
     >
       {{ politicalArgument.reason }}
+      {{ politicalArgument.summary }}
     </p>
 
     <h2 class="mt-4">
