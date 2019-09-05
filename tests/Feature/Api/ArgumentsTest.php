@@ -141,7 +141,7 @@ class ArgumentsTest extends TestCase
             'reason' => 'This is a good one',
         ]);
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('arguments', [
             'id' => $argument->id,
             'reason' => 'This is a good one',

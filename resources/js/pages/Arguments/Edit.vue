@@ -65,7 +65,7 @@ export default {
         .patch(`/api/v1/arguments/${this.id}`, {
           reason: this.reason,
         })
-        .then(({ data }) => this.$store.commit('updateSelectedArgument', data));
+        .then(({ data }) => this.$store.commit('updateSelectedPoliticalArgument', data));
     },
   },
 };

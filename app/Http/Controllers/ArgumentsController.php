@@ -31,6 +31,6 @@ class ArgumentsController extends Controller
             'reason' => $validatedData['reason'],
         ]);
 
-        return response('', 204);
+        return $argument->fresh();
     }
 }

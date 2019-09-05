@@ -34,8 +34,6 @@
 [ ] Set up a arguments edit page
 [ ] Arguments have a notes section
 
-[ ] Check controller and model method tests - do they need extending?
-
 [ ] facts - for argument
 [ ] facts - against arguement
 [ ] Show arguments that link to issues
