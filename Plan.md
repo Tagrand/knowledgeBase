@@ -32,20 +32,19 @@
 
 [x] Set up a arguments view page
 [x] Set up a arguments edit page
-[ ] Arguments have a notes section
+[x] Arguments have a notes section
 
 [ ] facts - for argument
 [ ] facts - against arguement
 [ ] Show arguments that link to issues
 [ ] Show arguments that link to facts
 
-[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
-
 [ ] Make a basic design
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
 [ ] Start using - don't change for a bit (except bug fixes)
 
+[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
 [ ] Check controller and model method tests - do they need extending?
 
 ---- MVP reached ----
