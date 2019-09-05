@@ -1,6 +1,9 @@
 <template>
   <div>
     {{ politicalArgument.reason }}
+    {{ politicalArgument.summary }}
+
+    <br>
     <h2>Source</h2>
     {{ source.name }}
     <br>

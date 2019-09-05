@@ -6,6 +6,10 @@
       v-model="reason"
       type="text"
     >
+    <input
+      v-model="summary"
+      type="text"
+    >
     <button @click="save">
       Save
     </button>
@@ -37,12 +41,17 @@ export default {
   data() {
     return {
       reason: '',
+      summary: '',
     };
   },
 
   computed: {
     politicalArgument() {
       return this.$store.state.selectedPoliticalArgument;
+    },
+
+    reasonHasChanged() {
+      return this.reason !== this.politicalArgument.reason;
     },
   },
 
@@ -56,15 +65,18 @@ export default {
     this.$store.dispatch('setSelectedPoliticalArgument', this.id)
       .then(() => {
         this.reason = this.politicalArgument.reason;
+        this.summary = this.politicalArgument.summary;
       });
   },
 
   methods: {
     save() {
+      const changes = { summary: this.summary };
+      if (this.reasonHasChanged) {
+        changes.reason = this.reason;
+      }
       axios
-        .patch(`/api/v1/arguments/${this.id}`, {
-          reason: this.reason,
-        })
+        .patch(`/api/v1/arguments/${this.id}`, changes)
         .then(({ data }) => this.$store.commit('updateSelectedPoliticalArgument', data));
     },
   },
