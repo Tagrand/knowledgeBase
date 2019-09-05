@@ -24,7 +24,7 @@ export default {
 
   computed: {
     politicalArguments() {
-      return this.$store.state.arguments;
+      return this.$store.state.politicalArguments;
     },
   },
 

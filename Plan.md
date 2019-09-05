@@ -46,11 +46,12 @@
 [ ] Make a basic design
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
-[ ] Start using - don't change for a bit
+[ ] Start using - don't change for a bit (except bug fixes)
 
-[ ] Add a 404 page
+[ ] Check controller and model method tests - do they need extending?
 
 ---- MVP reached ----
+[ ] Add a 404 page
 [ ] Move create facts to factsController
 
 [ ] Look into adding front end tests
