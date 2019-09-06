@@ -148,4 +148,15 @@ class ArgumentsFactsTest extends TestCase
             'fact_id' => $fact->id,
         ]);
     }
+
+    public function test_guests_cannot_unset_facts_from_arguments()
+    {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->facts()->attach($fact, ['is_supportive' => false]);
+
+        $response = $this->json('DELETE', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}");
+
+        $response->assertStatus(401);
+    }
 }
