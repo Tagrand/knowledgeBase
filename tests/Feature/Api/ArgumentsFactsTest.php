@@ -168,6 +168,19 @@ class ArgumentsFactsTest extends TestCase
         $response->assertJsonValidationErrors('is_supportive');
     }
 
+    public function test_argument_must_exist_to_update()
+    {
+        $fact = factory(Fact::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/1212/facts/{$fact->id}", [
+            'is_supportive' => true,
+        ]);
+
+        $response->assertStatus(404);
+    }
+
     public function test_can_detach_facts_from_arguments()
     {
         $fact = factory(Fact::class)->create();
