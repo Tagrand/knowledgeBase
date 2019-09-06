@@ -70,4 +70,19 @@ class ArgumentsFactsTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_is_supportive_must_be_a_boolean() {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}", [
+            'is_supportive' => 12121,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('is_supportive');
+    }
+
 }
