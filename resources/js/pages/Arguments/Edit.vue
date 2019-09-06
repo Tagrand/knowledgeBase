@@ -19,6 +19,8 @@
       parent-name="argument"
     />
 
+    <argument-fact-picker-vue :political-argument="politicalArgument" />
+
     <router-link :to="`/arguments/${id}`">
       View
     </router-link>
@@ -27,9 +29,10 @@
 <script>
 import axios from 'axios';
 import IssuePickerVue from '../../components/IssuePicker.vue';
+import ArgumentFactPickerVue from '../../components/ArgumentFactPicker.vue';
 
 export default {
-  components: { IssuePickerVue },
+  components: { IssuePickerVue, ArgumentFactPickerVue },
 
   props: {
     id: {

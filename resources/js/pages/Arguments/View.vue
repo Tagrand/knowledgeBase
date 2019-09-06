@@ -15,6 +15,19 @@
       {{ issue.name }}
     </p>
 
+    <h2>Facts For</h2>
+    <p
+      v-for="fact in factsFor"
+      :key="`${fact.id}{fact.claim}`"
+      v-text="fact.claim"
+    />
+    <h2>Facts Against</h2>
+    <p
+      v-for="fact in factsAgainst"
+      :key="`${fact.id}{fact.claim}`"
+      v-text="fact.claim"
+    />
+
     <router-link :to="`/arguments/${id}/edit`">
       Edit
     </router-link>
@@ -34,6 +47,7 @@ export default {
   data() {
     return {
       issues: [],
+      facts: [],
     };
   },
 
@@ -44,6 +58,14 @@ export default {
 
     source() {
       return this.$store.state.selectedSource;
+    },
+
+    factsFor() {
+      return this.facts;
+    },
+
+    factsAgainst() {
+      return this.facts;
     },
   },
 
@@ -58,6 +80,11 @@ export default {
     axios
       .get(`/api/v1/arguments/${this.id}/issues`)
       .then(({ data }) => { this.issues = data; })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/v1/arguments/${this.id}/facts`)
+      .then(({ data }) => { this.facts = data; })
       .catch((error) => console.log(error));
   },
 };
