@@ -46,6 +46,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/issues', 'IssuesController@store');
         Route::patch('/issues/{issue}', 'IssuesController@update');
 
+        Route::get('/issues/{issue}/arguments', 'IssuesArgumentsController@index');
+
         Route::get('/issues/{issue}/facts', 'IssuesFactsController@index');
 
         Route::get('/sources', 'SourcesController@index');
