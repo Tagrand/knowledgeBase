@@ -131,4 +131,21 @@ class ArgumentsFactsTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_can_detach_facts_from_arguments()
+    {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+        $argument->facts()->attach($fact, ['is_supportive' => false]);
+
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}");
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('argument_fact', [
+            'argument_id' => $argument->id,
+            'fact_id' => $fact->id,
+        ]);
+    }
 }

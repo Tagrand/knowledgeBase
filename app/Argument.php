@@ -17,6 +17,10 @@ class Argument extends Model
     ];
 
     public function facts() {
+        return $this->belongsToMany(Fact::class);
+    }
+
+    public function factsWithSupport() {
         return $this->belongsToMany(Fact::class)->withPivotValue('is_supportive', true);
     }
 
