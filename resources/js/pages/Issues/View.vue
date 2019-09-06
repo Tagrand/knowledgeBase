@@ -18,6 +18,17 @@
       <span>({{ fact.source.name }})</span>
     </div>
 
+    <h2>
+      Arguments
+    </h2>
+    <div
+      v-for="politicalArgument in politicalArguments"
+      :key="politicalArgument.reason"
+    >
+      <span>{{ politicalArgument.reason }}</span>
+      <span>({{ politicalArgument.source.name }})</span>
+    </div>
+
     <h2 class="pt-4">
       Related issues
     </h2>
@@ -46,6 +57,7 @@ export default {
   data() {
     return {
       facts: [],
+      politicalArguments: [],
     };
   },
 
@@ -87,6 +99,10 @@ export default {
       axios
         .get(`/api/v1/issues/${this.id}/facts`)
         .then(({ data }) => { this.facts = data; });
+
+      axios
+        .get(`/api/v1/issues/${this.id}/arguments`)
+        .then(({ data }) => { this.politicalArguments = data; });
     },
   },
 };
