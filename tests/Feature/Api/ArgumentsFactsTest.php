@@ -181,6 +181,19 @@ class ArgumentsFactsTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function test_fact_must_exist_to_update()
+    {
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}/facts/1212", [
+            'is_supportive' => true,
+        ]);
+
+        $response->assertStatus(404);
+    }
+
     public function test_can_detach_facts_from_arguments()
     {
         $fact = factory(Fact::class)->create();
