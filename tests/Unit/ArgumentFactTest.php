@@ -16,11 +16,12 @@ class ArgumentFactTest extends TestCase
     {
         $argument = factory(Argument::class)->create();
         $fact = factory(Fact::class)->create();
-        $argument->facts()->attach($fact);
+        $argument->facts()->attach($fact, ['is_supportive' => true]);
 
         $this->assertDatabaseHas('argument_fact', [
             'argument_id' => $argument->id,
             'fact_id' => $fact->id,
+            'is_supportive' => true,
         ]);
     }
 
