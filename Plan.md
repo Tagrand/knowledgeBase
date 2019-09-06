@@ -50,6 +50,7 @@
 ---- MVP reached ----
 [ ] Add a 404 page
 [ ] Move create facts to factsController
+[ ] How do I add backups for my db data?
 
 [ ] Look into adding front end tests
 [ ] Can there be a way to autolink all facts to particular issues?

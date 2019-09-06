@@ -30,7 +30,6 @@ class ArgumentsFactsTest extends TestCase
     }
 
     public function test_can_make_facts_unsupportive_of_arguments() {
-        $this->withoutExceptionHandling();
         $fact = factory(Fact::class)->create();
         $argument = factory(Argument::class)->create();
         $user = factory(User::class)->create();
@@ -46,5 +45,17 @@ class ArgumentsFactsTest extends TestCase
             'fact_id' => $fact->id,
             'is_supportive' => false,
         ]);
+    }
+
+    public function test_fact_must_exist() {
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/facts/12121", [
+            'is_supportive' => false,
+        ]);
+
+        $response->assertStatus(404);
     }
 }
