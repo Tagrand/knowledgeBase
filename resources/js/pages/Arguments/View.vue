@@ -61,11 +61,11 @@ export default {
     },
 
     factsFor() {
-      return this.facts;
+      return this.facts.filter((fact) => fact.pivot.is_supportive);
     },
 
     factsAgainst() {
-      return this.facts;
+      return this.facts.filter((fact) => !fact.pivot.is_supportive);
     },
   },
 
@@ -73,8 +73,6 @@ export default {
     this.$store.dispatch('setSelectedPoliticalArgument', this.id)
       .then(() => {
         this.$store.dispatch('setSelectedSource', this.politicalArgument.source_id);
-
-        console.log(this.politicalArgument);
       });
 
     axios
