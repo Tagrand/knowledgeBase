@@ -28,4 +28,23 @@ class ArgumentsFactsTest extends TestCase
             'is_supportive' => true,
         ]);
     }
+
+    public function test_can_make_facts_unsupportive_of_arguments() {
+        $this->withoutExceptionHandling();
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}", [
+            'is_supportive' => false,
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('argument_fact', [
+            'argument_id' => $argument->id,
+            'fact_id' => $fact->id,
+            'is_supportive' => false,
+        ]);
+    }
 }
