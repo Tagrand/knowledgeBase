@@ -13,7 +13,8 @@ class ArgumentsFactsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_join_facts_and_arguments() {
+    public function test_can_join_facts_and_arguments()
+    {
         $fact = factory(Fact::class)->create();
         $argument = factory(Argument::class)->create();
         $user = factory(User::class)->create();
@@ -29,7 +30,8 @@ class ArgumentsFactsTest extends TestCase
         ]);
     }
 
-    public function test_can_make_facts_unsupportive_of_arguments() {
+    public function test_can_make_facts_unsupportive_of_arguments()
+    {
         $fact = factory(Fact::class)->create();
         $argument = factory(Argument::class)->create();
         $user = factory(User::class)->create();
@@ -47,7 +49,8 @@ class ArgumentsFactsTest extends TestCase
         ]);
     }
 
-    public function test_fact_must_exist() {
+    public function test_fact_must_exist()
+    {
         $argument = factory(Argument::class)->create();
         $user = factory(User::class)->create();
 
@@ -59,7 +62,8 @@ class ArgumentsFactsTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_argument_must_exist() {
+    public function test_argument_must_exist()
+    {
         $fact = factory(Fact::class)->create();
         $user = factory(User::class)->create();
 
@@ -71,7 +75,8 @@ class ArgumentsFactsTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_is_supportive_must_be_a_boolean() {
+    public function test_is_supportive_must_be_a_boolean()
+    {
         $fact = factory(Fact::class)->create();
         $argument = factory(Argument::class)->create();
         $user = factory(User::class)->create();
@@ -85,4 +90,15 @@ class ArgumentsFactsTest extends TestCase
         $response->assertJsonValidationErrors('is_supportive');
     }
 
+    public function test_guests_cannot_join_facts_and_arguments()
+    {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+
+        $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}", [
+            'is_supportive' => true,
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
