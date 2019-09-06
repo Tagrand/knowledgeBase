@@ -10,9 +10,10 @@ class ArgumentsFactsController extends Controller
 {
     public function store(Argument $argument, Fact $fact, Request $request)
     {
-        $request->validate(['is_supportive' => 'boolean']);
-        $argument->facts()->attach($fact, ['is_supportive' => $request['is_supportive']]);
+        $validatedRequest = $request->validate(['is_supportive' => 'boolean']);
 
-        return response('', 200);
+        $argument->facts()->attach($fact, $validatedRequest);
+
+        return response('', 204);
     }
 }

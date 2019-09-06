@@ -21,7 +21,7 @@ class ArgumentsFactsTest extends TestCase
         Passport::actingAs($user);
         $response = $this->json('POST', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}");
 
-        $response->assertStatus(200);
+        $response->assertStatus(204);
         $this->assertDatabaseHas('argument_fact', [
             'argument_id' => $argument->id,
             'fact_id' => $fact->id,
@@ -39,7 +39,7 @@ class ArgumentsFactsTest extends TestCase
             'is_supportive' => false,
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(204);
         $this->assertDatabaseHas('argument_fact', [
             'argument_id' => $argument->id,
             'fact_id' => $fact->id,
