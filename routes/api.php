@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/arguments', 'ArgumentsController@store');
         Route::patch('/arguments/{argument}', 'ArgumentsController@update');
 
+        Route::get('/arguments/{argument}/facts', 'ArgumentsFactsController@index');
         Route::post('/arguments/{argument}/facts/{fact}', 'ArgumentsFactsController@store');
 
         Route::get('/arguments/{argument}/issues', 'ArgumentsIssuesController@index');

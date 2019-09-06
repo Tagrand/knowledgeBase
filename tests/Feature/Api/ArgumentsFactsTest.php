@@ -101,4 +101,21 @@ class ArgumentsFactsTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_users_can_see_all_connected_facts_to_arguments()
+    {
+        $user = factory(User::class)->create();
+        $unconnectedFact = factory(Fact::class)->create();
+        $fact1 = factory(Fact::class)->create();
+        $fact2 = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->facts()->attach([$fact1->id, $fact2->id]);
+
+        Passport::actingAs($user);
+        $response = $this->json('GET', "/api/v1/arguments/{$argument->id}/facts");
+
+        $response->assertStatus(200);
+        $this->assertCount(2, $response->json());
+        $this->assertEquals($fact1->id, $response->json()[0]['id']);
+    }
 }

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ArgumentsFactsController extends Controller
 {
+    public function index(Argument $argument) {
+        return $argument->facts;
+    }
+
     public function store(Argument $argument, Fact $fact, Request $request)
     {
         $validatedRequest = $request->validate(['is_supportive' => 'boolean']);
