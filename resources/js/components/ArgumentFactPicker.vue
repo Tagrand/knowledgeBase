@@ -12,21 +12,28 @@
         <div
           v-for="fact in argumentFacts"
           :key="fact.claim"
-          class="text-green-700 mr-8"
-          @click="unsetFact(fact)"
+          class="mr-8"
+          :class="fact.pivot.is_supportive ? 'text-green-700' : 'text-red-700'"
         >
-          {{ fact.claim }}
+          <span v-text="fact.claim" />
+          <span
+            v-show="!fact.pivot.is_supportive"
+            @click="setFact(fact, true)"
+          >Set for</span>
+          <span
+            v-show="fact.pivot.is_supportive"
+            @click="setFact(fact, false)"
+          >Set against</span>
         </div>
 
         <div
           v-for="fact in unrelatedFacts"
           :key="fact.claim"
           class="mr-8"
-          @click="setFact(fact)"
         >
           <span v-text="fact.claim" />
-          <span>Set for</span>
-          <span >Set against</span>
+          <span @click="setFact(fact, true)">Set for</span>
+          <span @click="setFact(fact, false)">Set against</span>
         </div>
       </div>
     </div>
@@ -81,12 +88,18 @@ export default {
 
   created() {
     this.$store.dispatch('getFacts');
+
+    axios
+      .get(`/api/v1/arguments/${this.politicalArgument.id}/facts`)
+      .then(({ data }) => { this.argumentFacts = data; })
+      .catch((error) => console.log(error));
   },
 
   methods: {
-    setFact(fact) {
+    // eslint-disable-next-line camelcase
+    setFact(fact, is_supportive) {
       axios
-        .post(`/api/v1/arguments/${this.politicalArgument.id}/facts/${fact.id}/`)
+        .post(`/api/v1/arguments/${this.politicalArgument.id}/facts/${fact.id}/`, { is_supportive })
         .then(() => this.argumentFacts.push(fact))
         .catch((error) => console.log(error));
     },
