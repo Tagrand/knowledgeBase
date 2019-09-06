@@ -58,4 +58,16 @@ class ArgumentsFactsTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_argument_must_exist() {
+        $fact = factory(Fact::class)->create();
+        $user = factory(User::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/arguments/12121/facts/{$fact->id}", [
+            'is_supportive' => false,
+        ]);
+
+        $response->assertStatus(404);
+    }
 }
