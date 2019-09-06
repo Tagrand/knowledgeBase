@@ -132,6 +132,42 @@ class ArgumentsFactsTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_can_update_fact_arguments_links()
+    {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+        $argument->facts()->attach($fact, ['is_supportive' => false]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}", [
+            'is_supportive' => true,
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('argument_fact', [
+            'argument_id' => $argument->id,
+            'fact_id' => $fact->id,
+            'is_supportive' => true
+        ]);
+    }
+
+    public function test_supportive_must_be_a_boolean()
+    {
+        $fact = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $user = factory(User::class)->create();
+        $argument->facts()->attach($fact, ['is_supportive' => false]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}/facts/{$fact->id}", [
+            'is_supportive' => 'not a boolean',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('is_supportive');
+    }
+
     public function test_can_detach_facts_from_arguments()
     {
         $fact = factory(Fact::class)->create();

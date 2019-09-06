@@ -23,6 +23,15 @@ class ArgumentsFactsController extends Controller
         return response('', 204);
     }
 
+    public function update(Argument $argument, Fact $fact, Request $request)
+    {
+        $validatedRequest = $request->validate(['is_supportive' => 'boolean']);
+
+        $argument->facts()->updateExistingPivot($fact->id, $validatedRequest);
+
+        return response('', 204);
+    }
+
     public function destroy(Argument $argument, Fact $fact) {
         $argument->facts()->detach($fact);
 
