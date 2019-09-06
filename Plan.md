@@ -34,12 +34,26 @@
 [x] Set up a arguments edit page
 [x] Arguments have a notes section
 
-[ ] facts - for argument
-[ ] facts - against arguement
-[ ] Show arguments that link to issues
-[ ] Show arguments that link to facts
+[x] facts - for argument
+[x] facts - against arguement
+[x] - Can unlink arguments and facts
+[x] - Can edit links between arguments and facts
+[x] - can set negative links between arguments and facts
 
+[ ] Show arguments that link to issues
+[ ] Be able to edit linked arguments
+[ ] Be able to show linked facts
+[ ] Use arguments Issues in related issues
+
+[ ] Show arguments that link to facts
+[ ] Show if they're for or against
+[ ] Be able to change relationship
+[ ] Be able to show linked facts
+
+[ ] Plan out how exactly to use
 [ ] Make a basic design
+
+<<<REMOVE REGISTER>>>
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
 [ ] Start using - don't change for a bit (except bug fixes)
