@@ -118,4 +118,17 @@ class ArgumentsFactsTest extends TestCase
         $this->assertCount(2, $response->json());
         $this->assertEquals($fact1->id, $response->json()[0]['id']);
     }
+
+    public function test_guests_cannot_see_facts()
+    {
+        $unconnectedFact = factory(Fact::class)->create();
+        $fact1 = factory(Fact::class)->create();
+        $fact2 = factory(Fact::class)->create();
+        $argument = factory(Argument::class)->create();
+        $argument->facts()->attach([$fact1->id, $fact2->id]);
+
+        $response = $this->json('GET', "/api/v1/arguments/{$argument->id}/facts");
+
+        $response->assertStatus(401);
+    }
 }
