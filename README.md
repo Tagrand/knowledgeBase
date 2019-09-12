@@ -30,6 +30,17 @@ The main thing I am wondering, is how to extract out all the designs into templa
 
 I've found this approach quite good, but I would like to be a bit more disciplined and have more refactor/tidy points. There are certainly places I rushed too - which has led to more technical debt that I had to fix later. But having said that, letting it be messy at the start meant I followed through more with the project. And it's more substansive than anything else I've made before in my spare time.
 
+(Thursday 12/09/2019)
+
+A few key points to tidy
+1) The store.js is getting very heavy, I'd also like to improve the dispatch/mutate methods. 
+
+2) Looking to use Vue slots to tidy up the components, make them more reusable. 
+
+3) I'm currently working on the design in figma. So that's currently a work in progress. 
+
+4) Need to find a good UI approach to linking facts and arguements (as you can have both facts for and against arguments.)
+
 ## Approach
 
 Two key things I'm focusing on developing:
