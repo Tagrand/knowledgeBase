@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1 class="font-headline pl-12 text-4xl font-semibold">
+      Check the Arguments
+    </h1>
     <search-vue
       class="text-blue"
       search-key="reason"

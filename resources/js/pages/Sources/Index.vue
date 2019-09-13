@@ -22,12 +22,24 @@
           type="checkbox"
         >
       </div>
-      <div> Filter</div>
+      <div>
+        <h2 text="font-headline text-2xl pt-24">
+          Filter
+        </h2>
+        <div
+          v-for="author in authors"
+          :key="`${author.id}${author.first_name}`"
+        >
+          {{ author.first_name }} {{ author.last_name }}
+        </div>
+      </div>
     </div>
+  </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
+import _ from 'lodash';
 import SearchVue from '../../components/Search.vue';
 
 export default {
@@ -42,6 +54,15 @@ export default {
   computed: {
     sources() {
       return this.$store.state.sources;
+    },
+
+    authors() {
+      const authors = [];
+      this.sources.forEach((source) => {
+        source.authors.forEach((author) => authors.push(author));
+      });
+
+      return _.uniqBy(authors, 'id');
     },
   },
 
