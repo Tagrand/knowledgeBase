@@ -10,12 +10,16 @@
 
     <title>{{ config('app.name', 'KnowledgeBase') }}</title>
 
+    <style>
+    </style>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <div>
+        @guest
         <nav>
             <div class="flex justify-between px-4 pt-2 text-lg">
                 <a href="{{ url('/') }}">
@@ -24,7 +28,6 @@
 
                 <div>
                     <ul class="flex flex-end">
-                        @guest
                         <li class="pr-4">
                             <a href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
@@ -33,22 +36,15 @@
                             <a href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
-                        @else
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
+        @else
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @endguest
 
         <main>
             @yield('content')

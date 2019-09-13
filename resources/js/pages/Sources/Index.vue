@@ -1,21 +1,29 @@
 <template>
   <div>
-    <search-vue
-      class="text-blue"
-      data-type="source"
-      extra-info="summary"
-      :collection="sources"
-      @source-save="saveSource"
-      @source-select="setSelectedSource"
-      @source-edit="editSource"
-    />
+    <div class="flex">
+      <div style="width: 50%">
+        <h1 class="font-headline pl-12 text-blue-100 text-4xl font-semibold">
+          Find your Source
+        </h1>
+        <search-vue
+          class="w-full pt-4"
+          data-type="source"
+          extra-info="summary"
+          :collection="sources"
+          @source-save="saveSource"
+          @source-select="setSelectedSource"
+          @source-edit="editSource"
+        />
 
-    <label>Redirect when saving new source?</label>
-    <input
-      id="redirect"
-      v-model="redirect"
-      type="checkbox"
-    >
+        <label>Redirect when saving new source?</label>
+        <input
+          id="redirect"
+          v-model="redirect"
+          type="checkbox"
+        >
+      </div>
+      <div> Filter</div>
+    </div>
   </div>
 </template>
 <script>

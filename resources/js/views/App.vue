@@ -1,43 +1,63 @@
 <template>
   <div>
-    <div class="px-4">
-      <div class="flex pb-4 justify-between pt-2 text-md">
+    <div class="flex pb-4 justify-between pt-2 px-8 text-md">
+      <div>
         <router-link
-          class="hover:text-blue-400"
-          to="/"
+          v-for="link in links"
+          :key="link.name"
+          class="hover:text-blue-400 text-weight-300"
+          style="font-size: 18px;"
+          :to="link.route"
+          v-text="link.name"
         >
-          Home
-        </router-link>
-        <router-link
-          class="hover:text-blue-400"
-          to="/sources"
-        >
-          Sources
-        </router-link>
-        <router-link
-          class="hover:text-blue-400"
-          to="/facts"
-        >
-          Facts
-        </router-link>
-        <router-link
-          class="hover:text-blue-400"
-          to="/arguments"
-        >
-          Arguments
-        </router-link>
-        <router-link
-          class="hover:text-blue-400"
-          to="/issues"
-        >
-          Issues
+          link.name
         </router-link>
       </div>
-      <router-view />
+      <div>
+        <a
+          href="/logout"
+          class="hover:text-blue-400 text-weight-300"
+          style="font-size: 18px;"
+          onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+        >
+          Log out
+        </a>
+      </div>
     </div>
+    <router-view class="px-8" />
   </div>
 </template>
 
+<style scoped>
+</style>
+
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      links: [
+        {
+          name: 'Home |',
+          route: '/',
+        },
+        {
+          name: ' Sources |',
+          route: '/sources',
+        },
+        {
+          name: ' Facts |',
+          route: '/facts',
+        },
+        {
+          name: ' Arguments |',
+          route: '/arguments',
+        },
+        {
+          name: ' Issues',
+          route: '/issues',
+        },
+      ],
+    };
+  },
+};
 </script>

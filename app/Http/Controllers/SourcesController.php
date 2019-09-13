@@ -10,7 +10,7 @@ class SourcesController extends Controller
 {
     public function index()
     {
-        return response(Source::all(), 200);
+        return Source::with(['authors'])->get();
     }
 
     public function store(Request $request)

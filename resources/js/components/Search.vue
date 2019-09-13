@@ -1,35 +1,52 @@
 <template>
   <div>
-    <input
-      v-model="search"
-      type="text"
-      :placeholder="dataType"
-    >
-    <button
-      v-show="isNewOption"
-      @click="saveOption"
-    >
-      Save as new
-    </button>
+    <div class="flex">
+      <input
+        v-model="search"
+        class="bg-grey w-full"
+        style="width: 500px"
+        type="text"
+        :placeholder="dataType"
+      >
+      <button
+        class="ml-8 bg-grey_dark text-green-100 hover:bg-grey_light"
+        style="width: 100px; height: 50px"
+        @click="saveOption"
+      >
+        Save as new
+      </button>
+    </div>
 
     <div
-      class="overflow-y-auto"
-      style="max-height: 100px"
+      class="overflow-y-auto mt-4"
+      style="max-height: 800px"
     >
       <div
         v-for="option in filteredCollection"
         :key="option[searchKey]"
+        class="flex pt-4"
       >
-        <span
+        <div style="width: 528px; overflow-x: auto">
+          <span v-text="option[searchKey]" />
+          <span
+            v-show="!!option[extraInfo]"
+            v-text="`(${option[extraInfo]})`"
+          />
+        </div>
+        <button
+          class="ml-8 bg-grey_dark text-green-100 p-1 hover:bg-grey_light"
+          style="width: 128px; height: 50px"
           @click="selectOption(option)"
-          v-text="option[searchKey]"
-        />
-        <span
-          v-show="!!option[extraInfo]"
-          @click="selectOption(option)"
-          v-text="`(${option[extraInfo]})`"
-        />
-        <span @click="editOption(option)">Edit</span>
+        >
+          View
+        </button>
+        <button
+          class="ml-8 bg-grey_dark hover:bg-grey_light"
+          style="width: 128px; height: 50px"
+          @click="editOption(option)"
+        >
+          Edit
+        </button>
       </div>
     </div>
   </div>
