@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex pb-4 justify-between pt-2 px-8 text-md">
+    <div class="flex text-gray-800 pb-4 justify-between pt-2 px-8 text-md">
       <div>
         <router-link
           v-for="link in links"

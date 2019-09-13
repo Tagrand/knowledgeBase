@@ -3,13 +3,13 @@
     <div class="flex">
       <input
         v-model="search"
-        class="bg-grey w-full"
+        class="bg-grey w-full pl-2"
         style="width: 500px"
         type="text"
         :placeholder="dataType"
       >
       <button
-        class="ml-8 bg-grey_dark text-green-100 hover:bg-grey_light"
+        class="ml-8 bg-grey_dark text-white hover:bg-grey_light"
         style="width: 100px; height: 50px"
         @click="saveOption"
       >
@@ -26,7 +26,7 @@
         :key="option[searchKey]"
         class="flex pt-4"
       >
-        <div style="width: 528px; overflow-x: auto">
+        <div style="width: 500px; overflow-x: auto">
           <span v-text="option[searchKey]" />
           <span
             v-show="!!option[extraInfo]"
@@ -34,15 +34,15 @@
           />
         </div>
         <button
-          class="ml-8 bg-grey_dark text-green-100 p-1 hover:bg-grey_light"
-          style="width: 128px; height: 50px"
+          class="ml-8 bg-grey_dark text-white p-1 hover:bg-grey_light"
+          style="width: 132px; height: 50px"
           @click="selectOption(option)"
         >
           View
         </button>
         <button
-          class="ml-8 bg-grey_dark hover:bg-grey_light"
-          style="width: 128px; height: 50px"
+          class="ml-8 bg-grey_dark text-white hover:bg-grey_light"
+          style="width: 132px; height: 50px"
           @click="editOption(option)"
         >
           Edit

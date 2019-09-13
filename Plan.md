@@ -40,7 +40,7 @@
 [x] - Can edit links between arguments and facts
 [x] - can set negative links between arguments and facts
 
-[ ] Show arguments that link to issues
+[x] Show arguments that link to issues
 [ ] Be able to edit linked arguments
 [ ] Be able to show linked facts
 [ ] Use arguments Issues in related issues
@@ -53,6 +53,8 @@
 [ ] Plan out how exactly to use
 [ ] Make a basic design
 
+[ ] Add Hotkeys to speed up editing
+
 <<<REMOVE REGISTER>>>
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
@@ -62,6 +64,7 @@
 [ ] Check controller and model method tests - do they need extending?
 
 ---- MVP reached ----
+[ ] Could I add a newsfeed
 [ ] Add a 404 page
 [ ] Move create facts to factsController
 [ ] How do I add backups for my db data?

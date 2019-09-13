@@ -2,7 +2,7 @@
   <div>
     <div class="flex">
       <div style="width: 50%">
-        <h1 class="font-headline pl-12 text-blue-100 text-4xl font-semibold">
+        <h1 class="font-headline pl-12 text-4xl font-semibold">
           Find your Source
         </h1>
         <search-vue
