@@ -37,7 +37,7 @@
         </div>
         <div>
           <button
-            class="md:mx-4 md:w-32 w-12 bg-grey_dark text-white p-1 hover:bg-grey_light"
+            class="md:ml-4 md:mr-8  md:w-32 w-12 bg-grey_dark text-white p-1 hover:bg-grey_light"
             style="height: 50px"
             @click="selectOption(option)"
           >

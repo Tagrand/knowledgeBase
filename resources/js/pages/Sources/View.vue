@@ -3,11 +3,17 @@
     <h1 class="font-headline text-center text-5xl font-bold">
       Source: {{ source.name }}
     </h1>
-    <div class="text-center">
-      <router-link :to="`/sources/${source.id}/edit`">
+    <div class="text-center mb-4">
+      <router-link
+        :to="`/sources/${source.id}/edit`"
+        class="hover:text-blue-300"
+      >
         Edit |
       </router-link>
-      <router-link to="/sources">
+      <router-link
+        to="/sources"
+        class="hover:text-blue-300"
+      >
         All
       </router-link>
     </div>
@@ -20,22 +26,14 @@
     </div>
 
     <div class="md:flex w-full justify-between">
-      <div class="bg-grey md:w-9/20 pb-2">
-        <h2 class="font-headline text-center text-2xl font-bold my-2">
-          Authors
-        </h2>
-        <div
-          v-for="(author, index) in authors"
-          :key="`${author.id}${author.first_name}`"
-          class="text-center"
-        >
-          <span>{{ index + 1 }}.</span>
-          <span>
-            {{ author.first_name }}
-            {{ author.last_name }}
-          </span>
-        </div>
-      </div>
+      <info-box-vue
+        title="Authors"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="authors"
+        info-name="first_name"
+        extra-info="last_name"
+      />
+
       <div class="bg-grey md:w-9/20 pb-2">
         <h2 class="font-headline text-center text-2xl font-bold my-2">
           Related Issues
@@ -54,46 +52,30 @@
     </div>
 
     <div class="md:flex w-full justify-between mt-6">
-      <div class="bg-grey md:w-9/20 pb-2">
-        <h2 class="font-headline text-center text-2xl font-bold my-2">
-          Facts
-        </h2>
-        <div
-          v-for="(fact, index) in facts"
-          :key="`${fact.id}${fact.claim}`"
-          class="text-center"
-        >
-          <span>{{ index + 1 }}.</span>
-          <span>
-            {{ fact.claim }}
-          </span>
-        </div>
-      </div>
+      <info-box-vue
+        title="Facts"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="facts"
+        info-name="claim"
+      />
 
-      <div class="bg-grey md:w-9/20 pb-2">
-        <h2 class="font-headline text-center text-2xl font-bold my-2">
-          Arguments
-        </h2>
-        <div
-          v-for="(politicalArgument, index) in politicalArguments"
-          :key="`${politicalArgument.id}${politicalArgument.reason}`"
-          class="text-center"
-        >
-          <span>{{ index + 1 }}.</span>
-          <span>
-            {{ politicalArgument.reason }}
-            {{ politicalArgument.summary }}
-          </span>
-        </div>
-      </div>
+      <info-box-vue
+        title="Arguments"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="politicalArguments"
+        info-name="reason"
+        extra-info="summary"
+      />
     </div>
   </div>
 </template>
 <script>
 import _ from 'lodash';
 import axios from 'axios';
+import InfoBoxVue from '../../components/InfoBox.vue';
 
 export default {
+  components: { InfoBoxVue },
   props: {
     id: {
       required: true,
