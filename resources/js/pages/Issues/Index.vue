@@ -1,24 +1,44 @@
 <template>
   <div>
-    <h1 class="font-headline pl-12 text-4xl font-semibold">
+    <h1 class="font-headline pl-12 text-center text-5xl font-bold">
       Understand the Issues
     </h1>
-    <search-vue
-      class="text-blue"
-      data-type="issue"
-      extra-info="summary"
-      :collection="issues"
-      @issue-save="saveIssue"
-      @issue-select="selectIssue"
-      @issue-edit="editIssue"
-    />
+    <div class="md:flex justify-between">
+      <div class="md:w-3/4">
+        <search-vue
+          class="w-full pt-4"
+          data-type="issue"
+          extra-info="summary"
+          :collection="issues"
+          @issue-save="saveIssue"
+          @issue-select="selectIssue"
+          @issue-edit="editIssue"
+        />
 
-    <label>Redirect when saving new issue?</label>
-    <input
-      id="redirect"
-      v-model="redirect"
-      type="checkbox"
-    >
+        <div class="mt-4">
+          <label>Redirect when saving new issue?</label>
+          <input
+            id="redirect"
+            v-model="redirect"
+            type="checkbox"
+          >
+        </div>
+      </div>
+      <div>
+        <h2 text="font-headline text-2xl pt-24">
+          Filter
+        </h2>
+        <h3>
+          Clear all
+        </h3>
+        <div class="font-bold">
+          author.first_name author.last_name
+        </div>
+        <div>
+          author.first_name author.last_name
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

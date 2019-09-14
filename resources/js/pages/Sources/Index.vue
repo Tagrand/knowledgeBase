@@ -24,27 +24,38 @@
           >
         </div>
       </div>
-      <div>
-        <h2 text="font-headline text-2xl pt-24">
-          Filter
+      <div class="md:w-1/5">
+        <h2 class="font-headline text-center text-3xl font-bold">
+          Filters
         </h2>
-        <h3 @click="clearFilters">
+        <h3
+          class="text-center hover:text-blue-400 mb-4"
+          @click="clearFilters"
+        >
           Clear all
         </h3>
+        <h2 class="font-headline text-center text-2xl">
+          Authors
+        </h2>
         <div
           v-for="author in selectedAuthors"
           :key="`${author.id}${author.first_name}`"
-          class="font-bold"
           @click="unSelectAuthor(author)"
         >
-          {{ author.first_name }} {{ author.last_name }}
+          <span class="font-bold hover:text-blue-400">
+            {{ author.first_name }} {{ author.last_name }}
+          </span>
+          <span>|</span>
         </div>
         <div
-          v-for="author in unselectedAuthors"
+          v-for="(author, index) in unselectedAuthors"
           :key="`${author.id}${author.first_name}`"
           @click="selectAuthor(author)"
         >
-          {{ author.first_name }} {{ author.last_name }}
+          <span class="hover:text-blue-400">
+            {{ author.first_name }} {{ author.last_name }}
+          </span>
+          <span v-show="index + 1 !== unselectedAuthors.length">|</span>
         </div>
       </div>
     </div>
