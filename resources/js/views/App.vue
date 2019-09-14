@@ -7,14 +7,13 @@
           :key="link.name"
         >
           <router-link
-            class="hover:text-blue-400 text-weight-300 pl-2"
+            class="hover:text-blue-400 text-weight-300 px-2"
             style="font-size: 18px;"
             :to="link.route"
             v-text="link.name"
           >
             link.name
-          </router-link>
-          <span v-show="index + 1 !== links.length">|</span>
+          </router-link><span v-show="index + 1 !== links.length">|</span>
         </div>
       </div>
       <div>
