@@ -6,6 +6,9 @@ module.exports = {
         grey: '#E1E1E1',
         grey_dark: '#747474',
       },
+      width: {
+        '9/20': '45%',
+      },
     },
     fontFamily: {
       headline: ['News\\ Cycle', 'Times'],

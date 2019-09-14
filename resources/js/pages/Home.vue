@@ -7,15 +7,25 @@
       <news-block-vue
         name="First Check"
         :news-list="firstCheck"
-        class="bg-grey md:w-2/5"
+        class="bg-grey md:w-9/20 pb-2"
+      />
+      <news-block-vue
+        name="Balance"
+        :news-list="balance"
+        class="bg-grey md:w-9/20 pb-2"
       />
     </div>
-    <div class="bg-grey w-2/5">
-      <h2>Up to date</h2>
-    </div>
-    <div>
-      <div>Balance</div>
-      <div>Humourous</div>
+    <div class="md:flex w-full justify-between mt-6">
+      <news-block-vue
+        name="Depth"
+        :news-list="depth"
+        class="bg-grey md:w-9/20 pb-2"
+      />
+      <news-block-vue
+        name="Humourous"
+        :news-list="humorous"
+        class="bg-grey md:w-9/20 pb-2"
+      />
     </div>
   </div>
 </template>

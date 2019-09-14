@@ -64,6 +64,7 @@
 
 [ ] Check mobile view/performance
 
+[ ] Look to add RSS feeds for top writers
 <<<REMOVE REGISTER>>>
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
