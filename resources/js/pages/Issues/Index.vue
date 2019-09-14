@@ -37,26 +37,11 @@
         <h2 class="font-headline text-center text-2xl">
           Sources
         </h2>
-        <div
-          v-for="source in selectedSources"
-          :key="`${source.id}${source.name}`"
-          @click="unSelectSource(source)"
-        >
-          <span class="font-bold hover:text-blue-400">
-            {{ source.name }}
-          </span>
-          <span>|</span>
-        </div>
-        <div
-          v-for="(source, index) in unSelectedSources"
-          :key="`${source.id}${source.name}`"
-          @click="selectSource(source)"
-        >
-          <span class="hover:text-blue-400">
-            {{ source.name }}
-          </span>
-          <span v-show="index + 1 !== unSelectedSources.length">|</span>
-        </div>
+        <filter-vue
+          :collection="sources"
+          :selected="selectedSources"
+          type="source"
+        />
       </div>
     </div>
   </div>
@@ -66,9 +51,10 @@
 import axios from 'axios';
 import _ from 'lodash';
 import SearchVue from '../../components/Search.vue';
+import FilterVue from '../../components/Filter.vue';
 
 export default {
-  components: { SearchVue },
+  components: { SearchVue, FilterVue },
 
   data() {
     return {
@@ -109,10 +95,6 @@ export default {
 
       return _.uniqBy(sources, 'id');
     },
-
-    unSelectedSources() {
-      return _.differenceBy(this.sources, this.selectedSources, 'id');
-    },
   },
 
   created() {
@@ -140,16 +122,6 @@ export default {
 
     editIssue(issue) {
       this.$router.push({ name: 'issues.edit', params: { id: issue.id } });
-    },
-
-    selectSource(source) {
-      this.selectedSources.push(source);
-    },
-
-    unSelectSource(source) {
-      const index = _.findIndex(this.selectedAuthors,
-        (selectedSource) => selectedSource.id === source.id);
-      this.selectedSources.splice(index);
     },
 
     clearAll() {

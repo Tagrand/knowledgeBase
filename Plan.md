@@ -46,7 +46,7 @@
 [x] Do design for each page
 [x] Source index
 [ ] SOurce Edit
-[ ] SOurce View
+[x] SOurce View
 
 [ ] Fact index
 [ ] Fact Edit
@@ -56,7 +56,7 @@
 [ ] Argument Edit
 [ ] Argument View
 
-[ ] Issue index
+[x] Issue index
 [ ] Issue Edit
 [ ] Issue View
 
