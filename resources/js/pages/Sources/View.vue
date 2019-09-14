@@ -8,8 +8,9 @@
         :to="`/sources/${source.id}/edit`"
         class="hover:text-blue-300"
       >
-        Edit |
+        Edit
       </router-link>
+      <span>|</span>
       <router-link
         to="/sources"
         class="hover:text-blue-300"
