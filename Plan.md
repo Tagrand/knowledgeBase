@@ -43,8 +43,8 @@
 [x] Show arguments that link to issues
 [x] Make a basic design
 
-[ ] Do design for each page
-[ ] Source index
+[x] Do design for each page
+[x] Source index
 [ ] SOurce Edit
 [ ] SOurce View
 
