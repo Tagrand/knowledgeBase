@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex">
-      <div style="width: 50%">
+    <div class="md:flex justify-between">
+      <div class="md:w-3/4">
         <h1 class="font-headline pl-12 text-4xl font-semibold">
           Find your Source
         </h1>
@@ -15,17 +15,22 @@
           @source-edit="editSource"
         />
 
-        <label>Redirect when saving new source?</label>
-        <input
-          id="redirect"
-          v-model="redirect"
-          type="checkbox"
-        >
+        <div class="mt-4">
+          <label>Redirect when saving new source?</label>
+          <input
+            id="redirect"
+            v-model="redirect"
+            type="checkbox"
+          >
+        </div>
       </div>
       <div>
         <h2 text="font-headline text-2xl pt-24">
           Filter
         </h2>
+        <h3 @click="clearFilters">
+          Clear all
+        </h3>
         <div
           v-for="author in selectedAuthors"
           :key="`${author.id}${author.first_name}`"
@@ -122,6 +127,10 @@ export default {
       const index = _.findIndex(this.selectedAuthors,
         (selectedAuthor) => selectedAuthor.id === author.id);
       this.selectedAuthors.splice(index, 1);
+    },
+
+    clearFilters() {
+      this.selectedAuthors = [];
     },
   },
 };
