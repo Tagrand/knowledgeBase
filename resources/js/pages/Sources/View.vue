@@ -39,15 +39,15 @@
         <h2 class="font-headline text-center text-2xl font-bold my-2">
           Related Issues
         </h2>
-        <div
-          v-for="(issue, index) in issues"
-          :key="`${issue.id}${issue.name}`"
-          class="text-center"
-        >
-          <span>{{ index + 1 }}.</span>
-          <span>
-            {{ issue.name }}
-          </span>
+        <div class="flex justify-center px-4">
+          <div
+            v-for="(issue, index) in issues"
+            :key="`${issue.id}${issue.name}`"
+            class="text-center"
+          >
+            <span>{{ issue.name }}</span>
+            <span v-show="index + 1 !== issues.length">|</span>
+          </div>
         </div>
       </div>
     </div>
