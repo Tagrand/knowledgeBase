@@ -41,19 +41,28 @@
 [x] - can set negative links between arguments and facts
 
 [x] Show arguments that link to issues
-[ ] Be able to edit linked arguments
-[ ] Be able to show linked facts
-[ ] Use arguments Issues in related issues
+[x] Make a basic design
 
-[ ] Show arguments that link to facts
-[ ] Show if they're for or against
-[ ] Be able to change relationship
-[ ] Be able to show linked facts
+[ ] Do design for each page
+[ ] Source index
+[ ] SOurce Edit
+[ ] SOurce View
 
-[ ] Plan out how exactly to use
-[ ] Make a basic design
+[ ] Fact index
+[ ] Fact Edit
+[ ] Fact View
+
+[ ] Argument index
+[ ] Argument Edit
+[ ] Argument View
+
+[ ] Issue index
+[ ] Issue Edit
+[ ] Issue View
 
 [ ] Add Hotkeys to speed up editing
+
+[ ] Check mobile view/performance
 
 <<<REMOVE REGISTER>>>
 [ ] Set up heroku
