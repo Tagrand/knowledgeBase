@@ -1,53 +1,92 @@
 <template>
   <div>
-    <h1>{{ source.name }}</h1>
-    <h2>{{ source.summary }}</h2>
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Source: {{ source.name }}
+    </h1>
+    <div class="text-center">
+      <router-link :to="`/sources/${source.id}/edit`">
+        Edit |
+      </router-link>
+      <router-link to="/sources">
+        All
+      </router-link>
+    </div>
 
-    <router-link :to="`/sources/${source.id}/edit`">
-      Edit
-    </router-link>
-
-    <h2 class="mt-4">
-      Authors
-    </h2>
-    <p
-      v-for="author in authors"
-      :key="`${author.id}${author.first_name}`"
+    <div
+      v-show="source.summary"
+      class="bg-grey w-full pb-2"
     >
-      {{ author.first_name }}
-      {{ author.last_name }}
-    </p>
+      <p>{{ source.summary }}</p>
+    </div>
 
-    <h2 class="mt-4">
-      Facts
-    </h2>
-    <p
-      v-for="fact in facts"
-      :key="`${fact.id}${fact.claim}`"
-    >
-      {{ fact.claim }}
-    </p>
+    <div class="md:flex w-full justify-between">
+      <div class="bg-grey md:w-9/20 pb-2">
+        <h2 class="font-headline text-center text-2xl font-bold my-2">
+          Authors
+        </h2>
+        <div
+          v-for="(author, index) in authors"
+          :key="`${author.id}${author.first_name}`"
+          class="text-center"
+        >
+          <span>{{ index + 1 }}.</span>
+          <span>
+            {{ author.first_name }}
+            {{ author.last_name }}
+          </span>
+        </div>
+      </div>
+      <div class="bg-grey md:w-9/20 pb-2">
+        <h2 class="font-headline text-center text-2xl font-bold my-2">
+          Related Issues
+        </h2>
+        <div
+          v-for="(issue, index) in issues"
+          :key="`${issue.id}${issue.name}`"
+          class="text-center"
+        >
+          <span>{{ index + 1 }}.</span>
+          <span>
+            {{ issue.name }}
+          </span>
+        </div>
+      </div>
+    </div>
 
-    <h2 class="mt-4">
-      Arguments
-    </h2>
-    <p
-      v-for="politicalArgument in politicalArguments"
-      :key="`${politicalArgument.id}${politicalArgument.reason}`"
-    >
-      {{ politicalArgument.reason }}
-      {{ politicalArgument.summary }}
-    </p>
+    <div class="md:flex w-full justify-between mt-6">
+      <div class="bg-grey md:w-9/20 pb-2">
+        <h2 class="font-headline text-center text-2xl font-bold my-2">
+          Facts
+        </h2>
+        <div
+          v-for="(fact, index) in facts"
+          :key="`${fact.id}${fact.claim}`"
+          class="text-center"
+        >
+          <span>{{ index + 1 }}.</span>
+          <span>
+            {{ fact.claim }}
+          </span>
+        </div>
+      </div>
 
-    <h2 class="mt-4">
-      Issues
-    </h2>
-    <p
-      v-for="issue in issues"
-      :key="issue.name"
-    >
-      {{ issue.name }}
-    </p>
+      <div class="bg-grey md:w-9/20 pb-2">
+        <h2 class="font-headline text-center text-2xl font-bold my-2">
+          Arguments
+        </h2>
+        <div
+          v-for="(politicalArgument, index) in politicalArguments"
+          :key="`${politicalArgument.id}${politicalArgument.reason}`"
+          class="text-center"
+        >
+          <span>{{ index + 1 }}.</span>
+          <span>
+            {{ politicalArgument.reason }}
+            {{ politicalArgument.summary }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
