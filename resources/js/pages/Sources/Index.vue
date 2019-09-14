@@ -1,10 +1,10 @@
 <template>
   <div>
+    <h1 class="font-headline pl-12 text-center text-5xl font-bold">
+      Find your Source
+    </h1>
     <div class="md:flex justify-between">
       <div class="md:w-3/4">
-        <h1 class="font-headline pl-12 text-4xl font-semibold">
-          Find your Source
-        </h1>
         <search-vue
           class="w-full pt-4"
           data-type="source"
