@@ -83,7 +83,7 @@ export default {
     },
 
     selectedSources() {
-      if (_.isEmpty(this.selectedAuthors)) {
+      if (this.selectedAuthors.length === 0) {
         return this.sources;
       }
 

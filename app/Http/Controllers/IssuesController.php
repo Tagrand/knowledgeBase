@@ -9,7 +9,7 @@ class IssuesController extends Controller
 {
     public function index()
     {
-        return Issue::all();
+        return Issue::with(['arguments.source'])->get();
     }
 
     public function store(Request $request)
