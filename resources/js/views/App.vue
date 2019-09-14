@@ -1,17 +1,21 @@
 <template>
   <div>
     <div class="flex text-gray-800 pb-4 justify-between pt-2 px-8 text-md">
-      <div>
-        <router-link
-          v-for="link in links"
+      <div class="flex">
+        <div
+          v-for="(link, index) in links"
           :key="link.name"
-          class="hover:text-blue-400 text-weight-300"
-          style="font-size: 18px;"
-          :to="link.route"
-          v-text="link.name"
         >
-          link.name
-        </router-link>
+          <router-link
+            class="hover:text-blue-400 text-weight-300 pl-2"
+            style="font-size: 18px;"
+            :to="link.route"
+            v-text="link.name"
+          >
+            link.name
+          </router-link>
+          <span v-show="index + 1 !== links.length">|</span>
+        </div>
       </div>
       <div>
         <a
@@ -37,19 +41,19 @@ export default {
     return {
       links: [
         {
-          name: 'Home |',
+          name: 'Home',
           route: '/',
         },
         {
-          name: ' Sources |',
+          name: ' Sources',
           route: '/sources',
         },
         {
-          name: ' Facts |',
+          name: ' Facts',
           route: '/facts',
         },
         {
-          name: ' Arguments |',
+          name: ' Arguments',
           route: '/arguments',
         },
         {
