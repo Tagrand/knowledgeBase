@@ -9,7 +9,7 @@
           class="w-full pt-4"
           data-type="source"
           extra-info="summary"
-          :collection="sources"
+          :collection="selectedSources"
           @source-save="saveSource"
           @source-select="setSelectedSource"
           @source-edit="editSource"
@@ -27,14 +27,22 @@
           Filter
         </h2>
         <div
-          v-for="author in authors"
+          v-for="author in selectedAuthors"
           :key="`${author.id}${author.first_name}`"
+          class="font-bold"
+          @click="unSelectAuthor(author)"
+        >
+          {{ author.first_name }} {{ author.last_name }}
+        </div>
+        <div
+          v-for="author in unselectedAuthors"
+          :key="`${author.id}${author.first_name}`"
+          @click="selectAuthor(author)"
         >
           {{ author.first_name }} {{ author.last_name }}
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 <script>
@@ -48,12 +56,25 @@ export default {
   data() {
     return {
       redirect: false,
+
+      selectedAuthors: [],
     };
   },
 
   computed: {
     sources() {
       return this.$store.state.sources;
+    },
+
+    selectedSources() {
+      if (_.isEmpty(this.selectedAuthors)) {
+        return this.sources;
+      }
+
+      const authorId = _.map(this.selectedAuthors, (author) => author.id);
+
+      return _.filter(this.sources,
+        (source) => _.some(source.authors, (author) => authorId.includes(author.id)));
     },
 
     authors() {
@@ -63,6 +84,10 @@ export default {
       });
 
       return _.uniqBy(authors, 'id');
+    },
+
+    unselectedAuthors() {
+      return _.differenceBy(this.authors, this.selectedAuthors, 'id');
     },
   },
 
@@ -87,6 +112,16 @@ export default {
 
     editSource(source) {
       this.$router.push({ name: 'source.edit', params: { id: source.id } });
+    },
+
+    selectAuthor(author) {
+      this.selectedAuthors.push(author);
+    },
+
+    unSelectAuthor(author) {
+      const index = _.findIndex(this.selectedAuthors,
+        (selectedAuthor) => selectedAuthor.id === author.id);
+      this.selectedAuthors.splice(index, 1);
     },
   },
 };
