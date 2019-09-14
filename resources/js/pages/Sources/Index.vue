@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="font-headline pl-12 text-center text-5xl font-bold">
+    <h1 class="font-headline text-center text-5xl font-bold">
       Find your Source
     </h1>
     <div class="md:flex justify-between">
