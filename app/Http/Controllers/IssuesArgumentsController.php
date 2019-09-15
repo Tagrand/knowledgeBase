@@ -7,6 +7,6 @@ use App\Issue;
 class IssuesArgumentsController extends Controller
 {
     public function index(Issue $issue) {
-        return $issue->arguments()->with('source')->get();
+        return $issue->arguments()->with('source', 'issues')->get();
     }
 }

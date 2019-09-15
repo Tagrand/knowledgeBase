@@ -1,52 +1,74 @@
 <template>
   <div>
-    <h1>{{ issue.name }}</h1>
-    <h2>{{ issue.summary }}</h2>
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Issue: {{ issue.name }}
+    </h1>
 
-    <router-link :to="`/issues/${id}/edit`">
-      Edit
-    </router-link>
-
-    <h2 class="pt-4">
-      Facts
-    </h2>
-    <div
-      v-for="fact in facts"
-      :key="fact.claim"
-    >
-      <span>{{ fact.claim }}</span>
-      <span>({{ fact.source.name }})</span>
-    </div>
-
-    <h2>
-      Arguments
-    </h2>
-    <div
-      v-for="politicalArgument in politicalArguments"
-      :key="politicalArgument.reason"
-    >
-      <span>{{ politicalArgument.reason }}</span>
-      <span>({{ politicalArgument.source.name }})</span>
-    </div>
-
-    <h2 class="pt-4">
-      Related issues
-    </h2>
-    <div
-      v-for="relatedIssue in relatedIssues"
-      :key="relatedIssue.name"
-    >
-      <router-link :to="`/issues/${relatedIssue.id}`">
-        {{ relatedIssue.name }}
+    <div class="text-center mb-4">
+      <router-link
+        :to="`/issues/${issue.id}/edit`"
+        class="hover:text-blue-300"
+      >
+        Edit
       </router-link>
+      <span>|</span>
+      <router-link
+        to="/issues"
+        class="hover:text-blue-300"
+      >
+        All
+      </router-link>
+    </div>
+
+    <div
+      v-if="issue.summary"
+      class="bg-grey w-full mb-4"
+    >
+      <p>{{ issue.summary }}</p>
+    </div>
+
+    <div class="md:flex w-full justify-between">
+      <info-box-vue
+        title="Facts"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="facts"
+        info-name="claim"
+      />
+      <info-box-vue
+        title="Arguments"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="politicalArguments"
+        info-name="reason"
+      />
+    </div>
+
+    <div class="bg-grey pb-2">
+      <h2 class="font-headline text-center text-2xl font-bold my-2">
+        Related Issues
+      </h2>
+      <div class="flex justify-center px-4">
+        <div
+          v-for="(relatedIssue, index) in relatedIssues"
+          :key="`${relatedIssue.id}${relatedIssue.name}`"
+          class="text-center"
+        >
+          <router-link :to="`/issues/${relatedIssue.id}`">
+            {{ relatedIssue.name }}
+          </router-link>
+          <span v-show="index + 1 !== relatedIssues.length">|</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import _ from 'lodash';
 import axios from 'axios';
+import InfoBoxVue from '../../components/InfoBox.vue';
 
 export default {
+  components: { InfoBoxVue },
+
   props: {
     id: {
       required: true,
@@ -67,18 +89,11 @@ export default {
     },
 
     relatedIssues() {
-      const related = [];
-      this.facts.forEach((fact) => {
-        fact.issues.forEach((issue) => {
-          if (
-            !_.some(related, (option) => option.id === issue.id)
-            && issue.id !== this.id
-          ) {
-            related.push(issue);
-          }
-        });
-      });
-      return related;
+      const issues = _.map(this.politicalArguments,
+        (politicalArgument) => _.filter(politicalArgument.issues,
+          (issue) => issue.id !== this.issue.id));
+
+      return _.uniqBy(_.flatten(issues), 'id');
     },
   },
 
