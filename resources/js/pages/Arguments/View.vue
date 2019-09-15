@@ -31,7 +31,7 @@
 
     <div
       v-else
-      class="bg-grey w-full pb-2"
+      class="bg-grey w-full mb-4"
     >
       <p>{{ politicalArgument.summary }}</p>
       <p>Source: {{ source.name }}</p>
