@@ -45,7 +45,9 @@
           :key="`${issue.id}${issue.name}`"
           class="text-center"
         >
-          <span>{{ issue.name }}</span>
+          <router-link :to="`/issues/${issue.id}`">
+            {{ issue.name }}
+          </router-link>
           <span v-show="index + 1 !== issues.length">|</span>
         </div>
       </div>
