@@ -6,7 +6,7 @@
     <div class="md:flex justify-between">
       <div class="md:w-3/4">
         <search-vue
-          class="text-blue"
+          class="w-full pt-4"
           data-type="fact"
           search-key="claim"
           :collection="selectedFacts"
