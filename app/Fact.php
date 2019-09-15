@@ -20,6 +20,10 @@ class Fact extends Model
         return $this->belongsToMany(Argument::class);
     }
 
+    public function argumentsWithSupport() {
+        return $this->belongsToMany(Argument::class)->withPivot('is_supportive');
+    }
+
     public function issues() {
         return $this->belongsToMany(Issue::class);
     }
