@@ -38,7 +38,7 @@
           Authors
         </h2>
         <filter-vue
-          class="flex"
+          class="flex flex-wrap"
           :collection="authors"
           :selected="selectedAuthors"
           name="first_name"

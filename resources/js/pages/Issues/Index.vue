@@ -38,6 +38,7 @@
           Sources
         </h2>
         <filter-vue
+          class="flex flex-wrap"
           :collection="sources"
           :selected="selectedSources"
           type="source"

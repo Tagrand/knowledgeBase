@@ -9,7 +9,7 @@ class ArgumentsController extends Controller
 {
     public function index()
     {
-        return Argument::all();
+        return Argument::with(['issues', 'source'])->get();
     }
 
     public function store(Request $request)

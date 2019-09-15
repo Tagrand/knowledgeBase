@@ -32,7 +32,7 @@
           Sources
         </h2>
         <filter-vue
-          class="flex"
+          class="flex flex-wrap"
           :collection="sources"
           :selected="selectedSources"
           type="source"
@@ -41,7 +41,7 @@
           Issues
         </h2>
         <filter-vue
-          class="flex"
+          class="flex flex-wrap"
           :collection="issues"
           :selected="selectedIssues"
           type="issue"
@@ -76,8 +76,6 @@ export default {
 
       return this.filterByIssue(filteredBySource);
     },
-
-
     sources() {
       return _.uniqBy(this.facts.map((fact) => fact.source), 'id');
     },
