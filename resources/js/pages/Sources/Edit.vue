@@ -219,7 +219,7 @@ export default {
     },
 
     editOption(option) {
-      this.$router.push({ name: `${this.linkOption.name}.edit`, params: { id: option.id } });
+      this.$router.push({ name: `${this.linkOption.name}s.edit`, params: { id: option.id } });
     },
 
     clearOption() {
