@@ -19,6 +19,22 @@
         All
       </router-link>
     </div>
+    <div class="md:flex w-full justify-between">
+      <info-box-vue
+        title="Arguments For"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="argumentsFor"
+        info-name="reason"
+        extra-info="summary"
+      />
+      <info-box-vue
+        title="Arguments Against"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="argumentsAgainst"
+        info-name="reason"
+        extra-info="summary"
+      />
+    </div>
     <div class="bg-grey pb-2">
       <h2 class="font-headline text-center text-2xl font-bold my-2">
         Related Issues
@@ -38,8 +54,12 @@
 </template>
 <script>
 import axios from 'axios';
+import _ from 'lodash';
+import InfoBoxVue from '../../components/InfoBox.vue';
 
 export default {
+  components: { InfoBoxVue },
+
   props: {
     id: {
       required: true,
@@ -50,6 +70,7 @@ export default {
   data() {
     return {
       issues: [],
+      politicalArguments: [],
     };
   },
 
@@ -61,6 +82,16 @@ export default {
     source() {
       return this.$store.state.selectedSource;
     },
+
+    argumentsFor() {
+      return _.filter(this.politicalArguments,
+        (politicalArgument) => politicalArgument.pivot.is_supportive);
+    },
+
+    argumentsAgainst() {
+      return _.filter(this.politicalArguments,
+        (politicalArgument) => !politicalArgument.pivot.is_supportive);
+    },
   },
 
   created() {
@@ -70,6 +101,11 @@ export default {
     axios
       .get(`/api/v1/facts/${this.id}/issues`)
       .then(({ data }) => { this.issues = data; })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`/api/v1/facts/${this.id}/arguments`)
+      .then(({ data }) => { this.politicalArguments = data; })
       .catch((error) => console.log(error));
   },
 };
