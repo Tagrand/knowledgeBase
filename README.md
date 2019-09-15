@@ -33,13 +33,23 @@ I've found this approach quite good, but I would like to be a bit more disciplin
 (Thursday 12/09/2019)
 
 A few key points to tidy
-1) The store.js is getting very heavy, I'd also like to improve the dispatch/mutate methods. 
+1) The store.js is getting very heavy, I'd also like to improve the dispatch/mutate methods.
 
-2) Looking to use Vue slots to tidy up the components, make them more reusable. 
+2) Looking to use Vue slots to tidy up the components, make them more reusable.
 
-3) I'm currently working on the design in figma. So that's currently a work in progress. 
+3) I'm currently working on the design in figma. So that's currently a work in progress.
 
 4) Need to find a good UI approach to linking facts and arguements (as you can have both facts for and against arguments.)
+
+(Sunday 15/09/2019)
+
+One big reflection I'm having, is I should have designed earlier on. I'm removing some functionality, but also having to add more. This would have been clearer had I started a more coherent design rather than putting functions in.
+
+It would also have made refactoring components more clear too, there are points I've duplicated work. As I would have spotted more patterns with that higher level view.
+
+However, it's looking quite nice. I've gone for an FT colour background and given it a bit of a newspaper feel. The search functionality is more usable and the filters were a nice addition. Vue and lodash has made filters super easy.
+
+I also tried to start applying some more functional programming style to the filters (just) treating data as immutable and chaining new objects not just mutating the original data.
 
 ## Approach
 
