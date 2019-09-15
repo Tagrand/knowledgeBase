@@ -1,40 +1,56 @@
 <template>
   <div>
     <div>
-      <h1 class="text-xl font-bold">
+      <h2 class="font-headline text-center text-2xl font-bold  pt-2">
         Issues
-      </h1>
+      </h2>
+      <h3
+        class="text-center hover:text-blue-300 mb-2 cursor-pointer"
+        @click="addIssue = !addIssue"
+      >
+        {{ addIssue ? 'Close' : 'Create Issue' }}
+      </h3>
 
       <div
-        class="overflow-y-auto flex flex-wrap"
-        style="max-height: 100px"
+        v-if="!addIssue"
+        style="max-height: 200px"
+        class="overflow-y-auto"
       >
-        <div
-          v-for="issue in parentIssues"
-          :key="issue.name"
-          class="text-green-700 mr-8"
-          @click="unsetIssue(issue)"
-        >
-          {{ issue.name }}
-        </div>
+        <div class="flex justify-between">
+          <div class="w-9/20 text-center">
+            <h3 class="text-1xl">
+              Connected
+            </h3>
+            <div
+              v-for="issue in parentIssues"
+              :key="issue.name"
+              class="font-bold hover:text-red-500 cursor-pointer"
+              @click="unsetIssue(issue)"
+            >
+              {{ issue.name }}
+            </div>
+          </div>
 
-        <div
-          v-for="issue in unrelatedIssues"
-          :key="issue.name"
-          class="mr-8"
-          @click="setIssue(issue)"
-        >
-          {{ issue.name }}
+          <div class="w-9/20 text-center">
+            <h3 class="text-1xl">
+              Rest
+            </h3>
+            <div
+              v-for="issue in unrelatedIssues"
+              :key="issue.name"
+              class="hover:text-green-500 cursor-pointer"
+              @click="setIssue(issue)"
+            >
+              {{ issue.name }}
+            </div>
+          </div>
         </div>
       </div>
 
-      <button
-        v-show="!addIssue"
-        @click="addIssue = true"
+      <div
+        v-else
+        class="flex justify-center"
       >
-        Add Issue
-      </button>
-      <div v-show="addIssue">
         <input
           v-model="issueName"
           placeholder="name"
@@ -42,14 +58,15 @@
         >
         <input
           v-model="issueSummary"
+          class="ml-4"
           placeholder="summary"
           type="text"
         >
-        <button @click="saveIssue">
+        <button
+          class="px-4 ml-4 bg-grey_dark text-white hover:bg-grey_light"
+          @click="saveIssue"
+        >
           Save
-        </button>
-        <button @click="addIssue = false">
-          Close
         </button>
       </div>
     </div>
