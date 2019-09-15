@@ -9,7 +9,7 @@ class FactsController extends Controller
 {
     public function index()
     {
-        return Fact::all();
+        return Fact::with(['source', 'issues'])->get();
     }
 
     public function update(Fact $fact, Request $request)
