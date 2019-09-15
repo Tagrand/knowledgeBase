@@ -119,16 +119,6 @@ export default {
       this.$router.push({ name: 'source.edit', params: { id: source.id } });
     },
 
-    selectAuthor(author) {
-      this.selectedAuthors.push(author);
-    },
-
-    unSelectAuthor(author) {
-      const index = _.findIndex(this.selectedAuthors,
-        (selectedAuthor) => selectedAuthor.id === author.id);
-      this.selectedAuthors.splice(index, 1);
-    },
-
     clearFilters() {
       this.selectedAuthors = [];
     },

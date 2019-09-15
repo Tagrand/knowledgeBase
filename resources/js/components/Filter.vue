@@ -58,7 +58,7 @@ export default {
     unSelect(item) {
       const index = _.findIndex(this.selected,
         (selectedSource) => selectedSource.id === item.id);
-      this.selected.splice(index);
+      this.selected.splice(index, 1);
     },
 
     select(item) {
