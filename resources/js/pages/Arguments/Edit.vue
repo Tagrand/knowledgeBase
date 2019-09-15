@@ -1,6 +1,24 @@
 <template>
   <div>
-    <h1>{{ politicalArgument.reason }}</h1>
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Argument: {{ politicalArgument.reason }}
+    </h1>
+
+    <div class="text-center mb-4">
+      <router-link
+        :to="`/arguments/${politicalArgument.id}`"
+        class="hover:text-blue-300"
+      >
+        View
+      </router-link>
+      <span>|</span>
+      <router-link
+        to="/arguments"
+        class="hover:text-blue-300"
+      >
+        All
+      </router-link>
+    </div>
 
     <input
       v-model="reason"

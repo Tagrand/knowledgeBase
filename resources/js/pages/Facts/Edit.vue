@@ -1,6 +1,24 @@
 <template>
   <div>
-    <h1>{{ fact.claim }}</h1>
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Fact: {{ fact.claim }}
+    </h1>
+
+    <div class="text-center mb-4">
+      <router-link
+        :to="`/facts/${fact.id}`"
+        class="hover:text-blue-300"
+      >
+        View
+      </router-link>
+      <span>|</span>
+      <router-link
+        to="/facts"
+        class="hover:text-blue-300"
+      >
+        All
+      </router-link>
+    </div>
 
     <input
       v-model="claim"
