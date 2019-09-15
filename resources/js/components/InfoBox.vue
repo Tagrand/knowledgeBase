@@ -9,9 +9,9 @@
       class="text-center"
     >
       <span>{{ index + 1 }}.</span>
-      <span>
+      <router-link :to="`/${type}/${item.id}`">
         {{ item[infoName] }}
-      </span>
+      </router-link>
       <span v-show="extraInfo">
         {{ item[extraInfo] }}
       </span>
@@ -30,6 +30,10 @@ export default {
       type: Array,
     },
     infoName: {
+      required: true,
+      type: String,
+    },
+    type: {
       required: true,
       type: String,
     },

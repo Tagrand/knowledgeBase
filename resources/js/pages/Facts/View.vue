@@ -22,6 +22,7 @@
     <div class="md:flex w-full justify-between">
       <info-box-vue
         title="Arguments For"
+        type="arguments"
         class="bg-grey md:w-9/20 pb-2"
         :collection="argumentsFor"
         info-name="reason"
@@ -29,6 +30,7 @@
       />
       <info-box-vue
         title="Arguments Against"
+        type="arguments"
         class="bg-grey md:w-9/20 pb-2"
         :collection="argumentsAgainst"
         info-name="reason"

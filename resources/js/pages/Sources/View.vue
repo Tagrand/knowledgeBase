@@ -29,6 +29,7 @@
     <div class="md:flex w-full justify-between">
       <info-box-vue
         title="Authors"
+        type="authors"
         class="bg-grey md:w-9/20 pb-2"
         :collection="authors"
         info-name="first_name"
@@ -57,6 +58,7 @@
     <div class="md:flex w-full justify-between mt-6">
       <info-box-vue
         title="Facts"
+        type="facts"
         class="bg-grey md:w-9/20 pb-2"
         :collection="facts"
         info-name="claim"
@@ -64,6 +66,7 @@
 
       <info-box-vue
         title="Arguments"
+        type="arguments"
         class="bg-grey md:w-9/20 pb-2"
         :collection="politicalArguments"
         info-name="reason"
