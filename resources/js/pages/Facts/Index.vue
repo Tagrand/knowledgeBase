@@ -37,6 +37,15 @@
           :selected="selectedSources"
           type="source"
         />
+        <h2 class="font-headline text-center text-2xl mt-2">
+          Issues
+        </h2>
+        <filter-vue
+          class="flex"
+          :collection="issues"
+          :selected="selectedIssues"
+          type="issue"
+        />
       </div>
     </div>
   </div>
@@ -53,6 +62,7 @@ export default {
   data() {
     return {
       selectedSources: [],
+      selectedIssues: [],
     };
   },
 
@@ -62,23 +72,24 @@ export default {
     },
 
     selectedFacts() {
-      if (this.selectedSources.length === 0) {
-        return this.facts;
-      }
+      const filteredBySource = this.filterBySource(this.facts);
 
-      const sourceId = _.map(this.selectedSources, (source) => source.id);
-
-      return _.filter(this.facts, (fact) => sourceId.includes(fact.source_id));
+      return this.filterByIssue(filteredBySource);
     },
 
 
     sources() {
       return _.uniqBy(this.facts.map((fact) => fact.source), 'id');
     },
+
+    issues() {
+      return this.$store.state.issues;
+    },
   },
 
   created() {
     this.$store.dispatch('getFacts');
+    this.$store.dispatch('getIssues');
   },
 
   methods: {
@@ -96,6 +107,28 @@ export default {
 
     clearAll() {
       this.selectedSources = [];
+      this.selectedIssues = [];
+    },
+
+    filterBySource(collection) {
+      if (this.selectedSources.length === 0) {
+        return collection;
+      }
+
+      const sourceId = _.map(this.selectedSources, (source) => source.id);
+
+      return _.filter(collection, (fact) => sourceId.includes(fact.source_id));
+    },
+
+    filterByIssue(collection) {
+      if (this.selectedIssues.length === 0) {
+        return collection;
+      }
+
+      const issueId = _.map(this.selectedIssues, (issue) => issue.id);
+
+      return _.filter(collection,
+        (fact) => _.some(fact.issues, (issue) => issueId.includes(issue.id)));
     },
   },
 };
