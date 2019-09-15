@@ -6,9 +6,7 @@
       @click="unSelect(item)"
     >
       <span class="font-bold hover:text-blue-400">
-        {{ item[name] }}
-      </span>
-      <span>|</span>
+        {{ formatInfo(item) }}</span><span class="px-1">|</span>
     </div>
     <div
       v-for="(item, index) in unSelected"
@@ -16,9 +14,10 @@
       @click="select(item)"
     >
       <span class="hover:text-blue-400">
-        {{ item[name] }}
-      </span>
-      <span v-show="index + 1 !== unSelected.length">|</span>
+        {{ formatInfo(item) }}</span><span
+        v-show="index + 1 !== unSelected.length"
+        class="px-1"
+      >|</span>
     </div>
   </div>
 </template>
@@ -43,6 +42,10 @@ export default {
       default: 'name',
       type: String,
     },
+    secondaryInfo: {
+      default: null,
+      type: String,
+    },
   },
 
   computed: {
@@ -60,6 +63,13 @@ export default {
 
     select(item) {
       this.selected.push(item);
+    },
+
+    formatInfo(item) {
+      if (!this.secondaryInfo) {
+        return item[this.name];
+      }
+      return `${item[this.name]} ${item[this.secondaryInfo]}`;
     },
   },
 };

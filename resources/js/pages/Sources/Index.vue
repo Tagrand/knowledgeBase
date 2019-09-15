@@ -37,26 +37,14 @@
         <h2 class="font-headline text-center text-2xl">
           Authors
         </h2>
-        <div
-          v-for="author in selectedAuthors"
-          :key="`${author.id}${author.first_name}`"
-          @click="unSelectAuthor(author)"
-        >
-          <span class="font-bold hover:text-blue-400">
-            {{ author.first_name }} {{ author.last_name }}
-          </span>
-          <span>|</span>
-        </div>
-        <div
-          v-for="(author, index) in unselectedAuthors"
-          :key="`${author.id}${author.first_name}`"
-          @click="selectAuthor(author)"
-        >
-          <span class="hover:text-blue-400">
-            {{ author.first_name }} {{ author.last_name }}
-          </span>
-          <span v-show="index + 1 !== unselectedAuthors.length">|</span>
-        </div>
+        <filter-vue
+          class="flex"
+          :collection="authors"
+          :selected="selectedAuthors"
+          name="first_name"
+          secondary-info="last_name"
+          type="source"
+        />
       </div>
     </div>
   </div>
@@ -65,9 +53,10 @@
 import axios from 'axios';
 import _ from 'lodash';
 import SearchVue from '../../components/Search.vue';
+import FilterVue from '../../components/Filter.vue';
 
 export default {
-  components: { SearchVue },
+  components: { SearchVue, FilterVue },
 
   data() {
     return {
