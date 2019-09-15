@@ -52,15 +52,15 @@
 
 [x] Fact index
 [ ] Fact Edit
-[ ] Fact View
+[x] Fact View
 
 [x] Argument index
 [ ] Argument Edit
-[ ] Argument View
+[x] Argument View
 
 [x] Issue index
 [ ] Issue Edit
-[ ] Issue View
+[x] Issue View
 
 [ ] Add Hotkeys to speed up editing
 
