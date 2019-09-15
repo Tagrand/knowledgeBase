@@ -1,33 +1,41 @@
 <template>
   <div>
-    <div class="flex justify-between">
-      <h1 class="text-xl font-bold">
-        Source
-      </h1>
-      <h1 class="text-xl font-bold">
-        Author
-      </h1>
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Source: {{ source.name }}
+    </h1>
+
+    <div class="text-center mb-4">
+      <router-link
+        :to="`/sources/${source.id}`"
+        class="hover:text-blue-300"
+      >
+        View
+      </router-link>
+      <span>|</span>
+      <router-link
+        to="/sources"
+        class="hover:text-blue-300"
+      >
+        All
+      </router-link>
     </div>
 
-    <div class="flex justify-between mb-4">
-      <div>
-        <div>
-          <span>{{ selectedSource.name }}</span>
-          <span
-            v-show="!!selectedSource.summary"
-            class="mr-4"
-          >({{ selectedSource.summary }})</span>
-        </div>
-
-        <router-link
-          class="hover:text-blue-400"
-          :to="`/sources/${id}`"
+    <div class="md:flex w-full justify-between">
+      <div class="bg-grey md:w-9/20 pb-2">
+        <p>{{ source.name }}</p>
+        <p>{{ source.summary }}</p>
+        <button
+          class="w-24 h-12 ml-4 bg-grey_dark text-white hover:bg-grey_light"
+          @click="save"
         >
-          View
-        </router-link>
+          Save
+        </button>
       </div>
 
-      <author-picker-vue :source="selectedSource" />
+      <author-picker-vue
+        class="bg-grey md:w-9/20 pb-2"
+        :source="source"
+      />
     </div>
 
     <div class="flex justify-between">
@@ -145,7 +153,7 @@ export default {
       return !_.isEmpty(this.selectedFact);
     },
 
-    selectedSource() {
+    source() {
       return this.$store.state.selectedSource;
     },
 
@@ -177,7 +185,7 @@ export default {
 
     saveFact(claim) {
       axios
-        .post(`/api/v1/sources/${this.selectedSource.id}/facts`, { claim })
+        .post(`/api/v1/sources/${this.source.id}/facts`, { claim })
         .then(({ data }) => {
           this.sourceFacts.push(data);
           this.$store.commit('addFact', data);
@@ -201,7 +209,7 @@ export default {
       axios
         .post('/api/v1/arguments', {
           reason,
-          source_id: this.selectedSource.id,
+          source_id: this.source.id,
         })
         .then(({ data }) => {
           this.sourceArguments.push(data);
@@ -214,6 +222,9 @@ export default {
       console.log();
     },
 
+    save() {
+      console.log();
+    },
   },
 };
 </script>

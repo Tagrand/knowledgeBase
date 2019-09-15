@@ -1,35 +1,56 @@
 <template>
   <div>
-    <div>
-      <div
-        class="overflow-y-auto flex flex-wrap"
-        style="max-height: 100px"
-      >
-        <div
-          v-for="author in sourceAuthors"
-          :key="author.first_name + author.last_name"
-          class="text-green-700 mr-8"
-          @click="unsetAuthor(author)"
-        >
-          {{ author.first_name + ' ' + author.last_name }}
+    <h2 class="font-headline text-center text-2xl font-bold ">
+      Authors
+    </h2>
+    <h3
+      class="text-center hover:text-blue-300 mb-2"
+      @click="addAuthor = !addAuthor"
+    >
+      {{ addAuthor ? 'Close' : 'Create Author' }}
+    </h3>
+
+    <div
+      v-if="!addAuthor"
+      style="max-height: 200px"
+      class="overflow-y-auto"
+    >
+      <div class="flex justify-between">
+        <div class="w-9/20 text-center">
+          <h3 class="text-1xl">
+            Connected
+          </h3>
+          <div
+            v-for="author in sourceAuthors"
+            :key="author.first_name + author.last_name"
+            class="font-bold hover:text-red-500 cursor-pointer"
+            @click="unsetAuthor(author)"
+          >
+            {{ author.first_name + ' ' + author.last_name }}
+          </div>
         </div>
 
-        <div
-          v-for="author in otherAuthors"
-          :key="author.first_name + author.last_name"
-          @click="setAuthor(author)"
-        >
-          {{ author.first_name + ' ' + author.last_name }}
+        <div class="w-9/20 text-center">
+          <h3 class="text-1xl">
+            Rest
+          </h3>
+          <div
+            v-for="author in otherAuthors"
+            :key="author.first_name + author.last_name"
+            class="hover:text-green-500 cursor-pointer"
+            @click="setAuthor(author)"
+          >
+            {{ author.first_name + ' ' + author.last_name }}
+          </div>
         </div>
       </div>
+    </div>
 
-      <button
-        v-show="!addAuthor"
-        @click="addAuthor = true"
-      >
-        Add Author
-      </button>
-      <div v-show="addAuthor">
+    <div
+      v-else
+      class="flex justify-center"
+    >
+      <div>
         <input
           v-model="firstName"
           placeholder="first name"
@@ -37,14 +58,15 @@
         >
         <input
           v-model="lastName"
+          class="ml-4"
           placeholder="last name"
           type="text"
         >
-        <button @click="saveAuthor">
+        <button
+          class="px-4 ml-4 bg-grey_dark text-white hover:bg-grey_light"
+          @click="saveAuthor"
+        >
           Save
-        </button>
-        <button @click="addAuthor = false">
-          Close
         </button>
       </div>
     </div>
@@ -76,7 +98,7 @@ export default {
 
   computed: {
     authors() {
-      return this.$store.state.authors;
+      return _.orderBy(this.$store.state.authors, ['last_name', 'first_name']);
     },
 
     otherAuthors() {

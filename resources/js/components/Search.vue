@@ -9,7 +9,7 @@
       >
       <button
         class="w-32 ml-8 bg-grey_dark text-white hover:bg-grey_light"
-        style=" height: 50px"
+        style="height: 50px"
         @click="saveOption"
       >
         Save as new
