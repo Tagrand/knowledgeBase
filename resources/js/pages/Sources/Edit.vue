@@ -38,64 +38,71 @@
       />
     </div>
 
-    <div class="flex justify-between">
-      <button
-        v-for="option in linkedOptions"
-        :key="option.name"
-        :class="option.name === linkOption.name ? 'font-bold' : ''"
-        @click="setOption(option)"
-      >
-        {{ option.name[0] }}
-      </button>
-
-      <div>
-        <h1 class="text-xl font-bold">
-          Connected {{ linkOption.name }}
-        </h1>
-
-        <search-vue
-          v-show="linkOption.name === 'argument' && !isOptionSelected"
-          :data-type="argument"
-          :search-key="reason"
-          :collection="sourceArguments"
-          style="max-height: 200px; overflow-y: auto;"
-          @argument-save="saveArgument"
-          @argument-select="setSelectedArgument"
-          @argument-edit="editArgument"
-        />
-
-        <search-vue
-          v-show="linkOption.name === 'fact' && !isOptionSelected"
-          data-type="fact"
-          search-key="claim"
-          :collection="sourceFacts"
-          style="max-height: 200px; overflow-y: auto;"
-          @fact-save="saveFact"
-          @fact-select="setSelectedFact"
-          @fact-edit="editFact"
-        />
-
-        <div v-show="isOptionSelected">
-          <div class="flex mb-4">
-            <p class="mr-4">
-              {{ selectedOption[linkOption.key] }}
-            </p>
-
-            <router-link :to="`/${linkOption.name}s/${selectedOption.id}/edit`">
-              Edit
-            </router-link>
-
-            <button @click="clearOption">
-              Reset
-            </button>
+    <div class="md:flex w-full justify-between my-4">
+      <div class="bg-grey md:w-9/20 p-4">
+        <div class="flex">
+          <div
+            v-for="option in linkedOptions"
+            :key="option.name"
+          >
+            <button
+              :class="option.name === linkOption.name ? 'font-bold' : ''"
+              class="hover:text-blue-300"
+              @click="setOption(option)"
+            >
+              {{ option.name[0].toUpperCase() }}
+            </button><span
+              v-if="option.name === 'fact'"
+              class="px-2"
+            >|</span>
           </div>
         </div>
 
-        <issue-picker-vue
-          :parent-name="linkOption.name"
-          :parent="selectedOption"
+        <h2
+          class="font-headline text-center text-2xl font-bold"
+          :class="isOptionSelected ? 'pb-1' : 'pb-4'"
+          style="margin-top: -1em"
+        >
+          Connected {{ linkOption.name }}
+        </h2>
+
+        <p
+          v-show="isOptionSelected"
+          class="cursor-pointer pb-4 text-center"
+          @click="clearOption"
+        >
+          Reset
+        </p>
+
+        <select-vue
+          v-if="!isOptionSelected"
+          :data-type="linkOption.name"
+          :search-key="linkOption.key"
+          :collection="linkCollection"
+          @save="saveOption"
+          @select="setSelectedOption"
+          @edit="editOption"
         />
+
+        <div
+          v-show="isOptionSelected"
+          class="flex mb-4"
+        >
+          <p class="mr-4">
+            {{ selectedOption[linkOption.key] }}
+          </p>
+
+          <p v-show="linkOption.name === 'argument'">
+            {{ selectedOption.summary }}
+          </p>
+        </div>
       </div>
+
+      <issue-picker-vue
+        class="bg-grey md:w-9/20 pb-2"
+        :parent-name="linkOption.name"
+        :parent="selectedOption"
+      />
     </div>
   </div>
 </template>
@@ -103,12 +110,12 @@
 <script>
 import _ from 'lodash';
 import axios from 'axios';
-import SearchVue from '../../components/Search.vue';
+import SelectVue from '../../components/Select.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
 import AuthorPickerVue from '../../components/AuthorPicker.vue';
 
 export default {
-  components: { SearchVue, IssuePickerVue, AuthorPickerVue },
+  components: { SelectVue, IssuePickerVue, AuthorPickerVue },
 
   props: {
     id: {
@@ -133,6 +140,7 @@ export default {
       linkOption:
       {
         name: 'fact',
+        key: 'claim',
       },
 
       sourceFacts: [],
@@ -147,6 +155,7 @@ export default {
       if (this.linkOption.name === 'fact') {
         return this.$store.state.selectedFact;
       }
+
       return this.selectedArgument;
     },
 
@@ -156,6 +165,14 @@ export default {
 
     source() {
       return this.$store.state.selectedSource;
+    },
+
+    linkCollection() {
+      if (this.linkOption.name === 'fact') {
+        return this.sourceFacts;
+      }
+
+      return this.sourceArguments;
     },
   },
 
@@ -175,57 +192,47 @@ export default {
   },
 
   methods: {
-    setSelectedFact(fact) {
-      console.log(fact.id);
-      this.$store.commit('setSelectedFact', fact.id);
+    setSelectedOption(option) {
+      if (this.linkOption.name === 'fact') {
+        this.$store.commit('setSelectedFact', option.id);
+      }
+
+      this.selectedArgument = option;
     },
 
-    saveFact(claim) {
+    saveOption(name) {
+      const newOption = {};
+      newOption[this.linkOption.key] = name;
       axios
-        .post(`/api/v1/sources/${this.source.id}/facts`, { claim })
+        .post(`/api/v1/sources/${this.source.id}/${this.linkOption.name}s`, newOption)
         .then(({ data }) => {
-          this.sourceFacts.push(data);
-          this.$store.commit('addFact', data);
-          this.$store.commit('setSelectedFact', data.id);
+          if (this.linkOption.name === 'fact') {
+            this.sourceFacts.push(data);
+            this.$store.commit('addFact', data);
+            this.$store.commit('setSelectedFact', data.id);
+          } else {
+            this.sourceArguments.push(data);
+            this.$store.commit('addArgument', data);
+            this.selectedArgument = data;
+          }
         });
     },
 
-    editFact(fact) {
-      this.$router.push({ name: 'facts.edit', params: { id: fact.id } });
+    editOption(option) {
+      this.$router.push({ name: `${this.linkOption.name}.edit`, params: { id: option.id } });
     },
 
-    clearSelectedOption() {
+    clearOption() {
       this.$store.commit('clearSelectedFact');
       this.selectedArgument = {};
     },
 
-    setSelectedArgument(argument) {
-      this.selectedArgument = argument;
-    },
-
-    saveArgument(reason) {
-      axios
-        .post('/api/v1/arguments', {
-          reason,
-          source_id: this.source.id,
-        })
-        .then(({ data }) => {
-          this.sourceArguments.push(data);
-          this.$store.commit('addArgument', data);
-          this.selectedArgument = data;
-        });
-    },
-
-    editArgument() {
-      console.log();
+    setOption(option) {
+      this.linkOption = option;
     },
 
     save() {
       console.log();
-    },
-
-    setOption(option) {
-      this.linkOption = option;
     },
   },
 };
