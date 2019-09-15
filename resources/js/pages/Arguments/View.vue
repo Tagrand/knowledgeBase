@@ -39,13 +39,13 @@
 
     <div class="md:flex w-full justify-between">
       <info-box-vue
-        title="For"
+        title="Facts For"
         class="bg-grey md:w-9/20 pb-2"
         :collection="factsFor"
         info-name="claim"
       />
       <info-box-vue
-        title="Against"
+        title="Facts Against"
         class="bg-grey md:w-9/20 pb-2"
         :collection="factsAgainst"
         info-name="claim"
