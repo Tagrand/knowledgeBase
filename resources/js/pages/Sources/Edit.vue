@@ -25,7 +25,7 @@
         <p>{{ source.name }}</p>
         <p>{{ source.summary }}</p>
         <button
-          class="w-24 h-12 ml-4 bg-grey_dark text-white hover:bg-grey_light"
+          class="w-24 ml-4 bg-grey_dark text-white hover:bg-grey_light"
           @click="save"
         >
           Save
@@ -39,15 +39,24 @@
     </div>
 
     <div class="flex justify-between">
+      <button
+        v-for="option in linkedOptions"
+        :key="option.name"
+        :class="option.name === linkOption.name ? 'font-bold' : ''"
+        @click="setOption(option)"
+      >
+        {{ option.name[0] }}
+      </button>
+
       <div>
         <h1 class="text-xl font-bold">
-          Connected arguments
+          Connected {{ linkOption.name }}
         </h1>
 
         <search-vue
-          v-show="!isArgumentSelected"
-          data-type="argument"
-          search-key="reason"
+          v-show="linkOption.name === 'argument' && !isOptionSelected"
+          :data-type="argument"
+          :search-key="reason"
           :collection="sourceArguments"
           style="max-height: 200px; overflow-y: auto;"
           @argument-save="saveArgument"
@@ -55,35 +64,8 @@
           @argument-edit="editArgument"
         />
 
-        <div v-show="isArgumentSelected">
-          <div class="flex mb-4">
-            <p class="mr-4">
-              {{ selectedArgument.reason }}
-            </p>
-
-            <router-link to="/arguments">
-              Edit
-            </router-link>
-
-            <button @click="setSelectedArgument({})">
-              Reset
-            </button>
-          </div>
-        </div>
-
-        <issue-picker-vue
-          parent-name="argument"
-          :parent="selectedArgument"
-        />
-      </div>
-
-      <div>
-        <h1 class="text-xl font-bold">
-          Connected facts
-        </h1>
-
         <search-vue
-          v-show="!isFactSelected"
+          v-show="linkOption.name === 'fact' && !isOptionSelected"
           data-type="fact"
           search-key="claim"
           :collection="sourceFacts"
@@ -93,25 +75,25 @@
           @fact-edit="editFact"
         />
 
-        <div v-show="isFactSelected">
+        <div v-show="isOptionSelected">
           <div class="flex mb-4">
             <p class="mr-4">
-              {{ selectedFact.claim }}
+              {{ selectedOption[linkOption.key] }}
             </p>
 
-            <router-link :to="`/facts/${selectedFact}/edit`">
+            <router-link :to="`/${linkOption.name}s/${selectedOption.id}/edit`">
               Edit
             </router-link>
 
-            <button @click="clearSelectedFact">
+            <button @click="clearOption">
               Reset
             </button>
           </div>
         </div>
 
         <issue-picker-vue
-          parent-name="fact"
-          :parent="selectedFact"
+          :parent-name="linkOption.name"
+          :parent="selectedOption"
         />
       </div>
     </div>
@@ -137,6 +119,22 @@ export default {
 
   data() {
     return {
+      linkedOptions: [
+        {
+          name: 'fact',
+          key: 'claim',
+        },
+        {
+          name: 'argument',
+          key: 'reason',
+        },
+      ],
+
+      linkOption:
+      {
+        name: 'fact',
+      },
+
       sourceFacts: [],
 
       sourceArguments: [],
@@ -145,20 +143,19 @@ export default {
   },
 
   computed: {
-    selectedFact() {
-      return this.$store.state.selectedFact;
+    selectedOption() {
+      if (this.linkOption.name === 'fact') {
+        return this.$store.state.selectedFact;
+      }
+      return this.selectedArgument;
     },
 
-    isFactSelected() {
-      return !_.isEmpty(this.selectedFact);
+    isOptionSelected() {
+      return !_.isEmpty(this.selectedOption);
     },
 
     source() {
       return this.$store.state.selectedSource;
-    },
-
-    isArgumentSelected() {
-      return !_.isEmpty(this.selectedArgument);
     },
   },
 
@@ -197,8 +194,9 @@ export default {
       this.$router.push({ name: 'facts.edit', params: { id: fact.id } });
     },
 
-    clearSelectedFact() {
+    clearSelectedOption() {
       this.$store.commit('clearSelectedFact');
+      this.selectedArgument = {};
     },
 
     setSelectedArgument(argument) {
@@ -224,6 +222,10 @@ export default {
 
     save() {
       console.log();
+    },
+
+    setOption(option) {
+      this.linkOption = option;
     },
   },
 };

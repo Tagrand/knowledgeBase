@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="font-headline text-center text-2xl font-bold ">
+    <h2 class="font-headline text-center text-2xl font-bold  pt-2">
       Authors
     </h2>
     <h3
