@@ -43,16 +43,18 @@
 [x] Show arguments that link to issues
 [x] Make a basic design
 
+[x] Add a news center for all my key points
+
 [x] Do design for each page
 [x] Source index
 [ ] SOurce Edit
 [x] SOurce View
 
-[ ] Fact index
+[x] Fact index
 [ ] Fact Edit
 [ ] Fact View
 
-[ ] Argument index
+[x] Argument index
 [ ] Argument Edit
 [ ] Argument View
 
@@ -65,6 +67,7 @@
 [ ] Check mobile view/performance
 
 [ ] Look to add RSS feeds for top writers
+[ ] Bug fixing/Refactoring code
 <<<REMOVE REGISTER>>>
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku

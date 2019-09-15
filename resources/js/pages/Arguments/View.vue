@@ -1,42 +1,81 @@
 <template>
   <div>
-    {{ politicalArgument.reason }}
-    {{ politicalArgument.summary }}
+    <h1 class="font-headline text-center text-5xl font-bold">
+      Argument: {{ politicalArgument.reason }}
+    </h1>
 
-    <br>
-    <h2>Source</h2>
-    {{ source.name }}
-    <br>
-    <h2>Issues</h2>
-    <p
-      v-for="issue in issues"
-      :key="issue.name"
+    <div
+      class="text-center"
+      :class="politicalArgument.summary ? 'mb-2' : 'mb-2'"
     >
-      {{ issue.name }}
-    </p>
+      <router-link
+        :to="`/arguments/${politicalArgument.id}/edit`"
+        class="hover:text-blue-300"
+      >
+        Edit
+      </router-link>
+      <span>|</span>
+      <router-link
+        to="/arguments"
+        class="hover:text-blue-300"
+      >
+        All
+      </router-link>
+    </div>
+    <div
+      v-if="!politicalArgument.summary"
+      class="text-center mb-4"
+    >
+      Source: {{ source.name }}
+    </div>
 
-    <h2>Facts For</h2>
-    <p
-      v-for="fact in factsFor"
-      :key="`${fact.id}{fact.claim}`"
-      v-text="fact.claim"
-    />
-    <h2>Facts Against</h2>
-    <p
-      v-for="fact in factsAgainst"
-      :key="`${fact.id}{fact.claim}`"
-      v-text="fact.claim"
-    />
+    <div
+      v-else
+      class="bg-grey w-full pb-2"
+    >
+      <p>{{ politicalArgument.summary }}</p>
+      <p>Source: {{ source.name }}</p>
+    </div>
 
-    <router-link :to="`/arguments/${id}/edit`">
-      Edit
-    </router-link>
+    <div class="md:flex w-full justify-between">
+      <info-box-vue
+        title="For"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="factsFor"
+        info-name="claim"
+      />
+      <info-box-vue
+        title="Against"
+        class="bg-grey md:w-9/20 pb-2"
+        :collection="factsAgainst"
+        info-name="claim"
+      />
+    </div>
+
+    <div class="bg-grey pb-2">
+      <h2 class="font-headline text-center text-2xl font-bold my-2">
+        Related Issues
+      </h2>
+      <div class="flex justify-center px-4">
+        <div
+          v-for="(issue, index) in issues"
+          :key="`${issue.id}${issue.name}`"
+          class="text-center"
+        >
+          <span>{{ issue.name }}</span>
+          <span v-show="index + 1 !== issues.length">|</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
+import InfoBoxVue from '../../components/InfoBox.vue';
 
 export default {
+  components: { InfoBoxVue },
+
   props: {
     id: {
       required: true,
