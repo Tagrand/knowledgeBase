@@ -38,6 +38,13 @@ const store = new Vuex.Store({
       state.selectedSource = source;
     },
 
+    updateSelectedSource(state, updateSource) {
+      const index = _.findIndex(state.sources, (source) => source.id === Number(updateSource.id));
+      state.sources[index] = updateSource;
+      this.state.selectedSource = updateSource;
+    },
+
+
     setAuthors(state, authors = []) {
       state.authors = authors;
     },
@@ -136,10 +143,10 @@ const store = new Vuex.Store({
     setSelectedSource({ dispatch, commit, state }, id) {
       if (state.sources.length !== 0) {
         commit('setSelectedSource', id);
-        return;
+        return Promise.resolve();
       }
 
-      dispatch('getSources').then(() => commit('setSelectedSource', id));
+      return dispatch('getSources').then(() => commit('setSelectedSource', id));
     },
 
     getIssues({ commit, state }) {

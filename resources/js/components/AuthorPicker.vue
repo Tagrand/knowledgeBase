@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="font-headline text-center text-2xl font-bold  pt-2">
+    <h2 class="font-headline text-center text-2xl font-bold pt-2">
       Authors
     </h2>
     <h3
@@ -46,28 +46,44 @@
       </div>
     </div>
 
-    <div
-      v-else
-      class="flex justify-center"
-    >
+    <div v-else>
       <div>
-        <input
-          v-model="firstName"
-          placeholder="first name"
-          type="text"
-        >
-        <input
-          v-model="lastName"
-          class="ml-4"
-          placeholder="last name"
-          type="text"
-        >
-        <button
-          class="px-4 ml-4 bg-grey_dark text-white hover:bg-grey_light"
-          @click="saveAuthor"
-        >
-          Save
-        </button>
+        <div class="flex mb-2">
+          <label
+            for="first-name"
+            class="mx-2"
+          >First name:</label>
+          <input
+            id="first-name"
+            v-model="firstName"
+            placeholder="first name"
+            class="w-full mx-2 bg-grey_light pl-2"
+            type="text"
+          >
+        </div>
+        <div class="flex mb-2">
+          <label
+            for="last-name"
+            class="mx-2"
+          >Last name:</label>
+          <input
+            id="last-name"
+            v-model="lastName"
+            class="w-full mx-2 bg-grey_light pl-2"
+            placeholder="last name"
+            type="text"
+          >
+        </div>
+
+        <div class="flex justify-end">
+          <button
+            class="w-16 ml-8 mr-2 bg-grey_dark text-white hover:bg-grey_light"
+            style="height: 40px;"
+            @click="saveAuthor"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>

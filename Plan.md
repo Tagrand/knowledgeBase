@@ -47,19 +47,25 @@
 
 [x] Do design for each page
 [x] Source index
-[ ] SOurce Edit
+[ ] Source Edit
+   - Can edit source summary
 [x] SOurce View
 
 [x] Fact index
 [ ] Fact Edit
+   - Can edit arguments
+   - Can edit source
 [x] Fact View
 
 [x] Argument index
 [ ] Argument Edit
+   - Can edit facts
+   - Can edit source
 [x] Argument View
 
 [x] Issue index
 [ ] Issue Edit
+   - Design page
 [x] Issue View
 
 [ ] Add Hotkeys to speed up editing
@@ -72,6 +78,7 @@
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
 [ ] Start using - don't change for a bit (except bug fixes)
+[ ] Rating arguments and sources
 
 [ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
 [ ] Check controller and model method tests - do they need extending?

@@ -4,7 +4,7 @@
       <input
         v-model="search"
         type="text"
-        class="w-4/5 pl-2"
+        class="w-4/5 pl-2 bg-grey_light"
         style="height: 40px"
         :placeholder="dataType"
       >

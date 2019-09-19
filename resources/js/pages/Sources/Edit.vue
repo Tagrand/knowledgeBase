@@ -4,7 +4,7 @@
       Source: {{ source.name }}
     </h1>
 
-    <div class="text-center mb-4">
+    <div class="text-center  md:mb-4 mb-8">
       <router-link
         :to="`/sources/${source.id}`"
         class="hover:text-blue-300"
@@ -21,15 +21,45 @@
     </div>
 
     <div class="md:flex w-full justify-between">
-      <div class="bg-grey md:w-9/20 pb-2">
-        <p>{{ source.name }}</p>
-        <p>{{ source.summary }}</p>
-        <button
-          class="w-24 ml-4 bg-grey_dark text-white hover:bg-grey_light"
-          @click="save"
-        >
-          Save
-        </button>
+      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
+        <h2 class="font-headline text-center text-2xl font-bold  pt-2">
+          Source Information
+        </h2>
+
+        <div class="flex mb-2">
+          <label
+            for="name"
+            class="mx-2"
+          >Name:</label>
+          <input
+            id="name"
+            v-model="name"
+            class="w-full mx-2 bg-grey_light pl-2"
+            type="text"
+          >
+        </div>
+        <div class="flex mb-2">
+          <label
+            for="summary"
+            class="mx-2"
+          >Summary:</label>
+          <textarea
+            id="summary"
+            v-model="summary"
+            placeholder="summary"
+            class="w-full mx-2 h-1/2 bg-grey_light pl-2"
+          />
+        </div>
+
+        <div class="flex justify-end">
+          <button
+            class="w-16 ml-8 mr-2 bg-grey_dark text-white hover:bg-grey_light"
+            style="height: 40px;"
+            @click="save"
+          >
+            Save
+          </button>
+        </div>
       </div>
 
       <author-picker-vue
@@ -39,7 +69,7 @@
     </div>
 
     <div class="md:flex w-full justify-between my-4">
-      <div class="bg-grey md:w-9/20 p-4">
+      <div class="bg-grey md:w-9/20 p-4 md:mb-0 mb-4">
         <div class="flex">
           <div
             v-for="option in linkedOptions"
@@ -147,6 +177,9 @@ export default {
 
       sourceArguments: [],
       selectedArgument: {},
+
+      name: '',
+      summary: '',
     };
   },
 
@@ -176,19 +209,14 @@ export default {
     },
   },
 
+  watch: {
+    id() {
+      this.resetSource();
+    },
+  },
+
   created() {
-    this.$store.dispatch('setSelectedSource', this.id);
-    this.$store.dispatch('getFacts');
-
-    axios
-      .get(`/api/v1/sources/${this.id}/facts`)
-      .then(({ data }) => { this.sourceFacts = data; })
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`/api/v1/sources/${this.id}/arguments`)
-      .then(({ data }) => { this.sourceArguments = data; })
-      .catch((error) => console.log(error));
+    this.resetSource();
   },
 
   methods: {
@@ -232,8 +260,32 @@ export default {
     },
 
     save() {
-      console.log();
+      axios.patch(`/api/v1/sources/${this.id}`, {
+        summary: this.summary,
+        name: this.name,
+      }).then(({ data }) => {
+        this.$store.commit('updateSelectedSource', data);
+      });
     },
+
+    resetSource() {
+      this.$store.dispatch('setSelectedSource', this.id).then(() => {
+        this.name = this.source.name;
+        this.summary = this.source.summary;
+      });
+      this.$store.dispatch('getFacts');
+
+      axios
+        .get(`/api/v1/sources/${this.id}/facts`)
+        .then(({ data }) => { this.sourceFacts = data; })
+        .catch((error) => console.log(error));
+
+      axios
+        .get(`/api/v1/sources/${this.id}/arguments`)
+        .then(({ data }) => { this.sourceArguments = data; })
+        .catch((error) => console.log(error));
+    },
+
   },
 };
 </script>
