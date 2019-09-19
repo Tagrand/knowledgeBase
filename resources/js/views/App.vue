@@ -7,13 +7,14 @@
           :key="link.name"
         >
           <router-link
-            class="hover:text-blue-400 text-weight-300 px-2"
+            class="hover:text-blue-400 text-weight-300"
             style="font-size: 18px;"
+            :class="shouldUnderline(link) ? 'highlight' : ''"
             :to="link.route"
             v-text="link.name"
           >
             link.name
-          </router-link><span v-show="index + 1 !== links.length">|</span>
+          </router-link><span v-show="index + 1 !== links.length" class="px-2">|</span>
         </div>
       </div>
       <div>
@@ -32,6 +33,9 @@
 </template>
 
 <style scoped>
+.highlight {
+  border-bottom: 2px solid currentColor;
+}
 </style>
 
 <script>
@@ -61,6 +65,12 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    shouldUnderline(link) {
+      return this.$route.path.indexOf(link.name.toLowerCase().trim()) !== -1;
+    },
   },
 };
 </script>
