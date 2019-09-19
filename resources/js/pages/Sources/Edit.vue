@@ -21,46 +21,14 @@
     </div>
 
     <div class="md:flex w-full justify-between">
-      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
-        <h2 class="font-headline text-center text-2xl font-bold  pt-2">
-          Source Information
-        </h2>
-
-        <div class="flex mb-2">
-          <label
-            for="name"
-            class="mx-2"
-          >Name:</label>
-          <input
-            id="name"
-            v-model="name"
-            class="w-full mx-2 bg-grey_light pl-2"
-            type="text"
-          >
-        </div>
-        <div class="flex mb-2">
-          <label
-            for="summary"
-            class="mx-2"
-          >Summary:</label>
-          <textarea
-            id="summary"
-            v-model="summary"
-            placeholder="summary"
-            class="w-full mx-2 h-1/2 bg-grey_light pl-2"
-          />
-        </div>
-
-        <div class="flex justify-end">
-          <button
-            class="w-16 ml-8 mr-2 bg-grey_dark text-white hover:bg-grey_light"
-            style="height: 40px;"
-            @click="save"
-          >
-            Save
-          </button>
-        </div>
-      </div>
+      <edit-information-vue
+        :id="id"
+        :has-summary="true"
+        type="source"
+        :primary-information="source.name"
+        :summary="source.summary"
+        class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2"
+      />
 
       <author-picker-vue
         class="bg-grey md:w-9/20 pb-2"
@@ -143,9 +111,12 @@ import axios from 'axios';
 import SelectVue from '../../components/Select.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
 import AuthorPickerVue from '../../components/AuthorPicker.vue';
+import EditInformationVue from '../../components/EditInformation.vue';
 
 export default {
-  components: { SelectVue, IssuePickerVue, AuthorPickerVue },
+  components: {
+    SelectVue, IssuePickerVue, AuthorPickerVue, EditInformationVue,
+  },
 
   props: {
     id: {
@@ -259,15 +230,6 @@ export default {
       this.linkOption = option;
     },
 
-    save() {
-      axios.patch(`/api/v1/sources/${this.id}`, {
-        summary: this.summary,
-        name: this.name,
-      }).then(({ data }) => {
-        this.$store.commit('updateSelectedSource', data);
-      });
-    },
-
     resetSource() {
       this.$store.dispatch('setSelectedSource', this.id).then(() => {
         this.name = this.source.name;
@@ -285,7 +247,6 @@ export default {
         .then(({ data }) => { this.sourceArguments = data; })
         .catch((error) => console.log(error));
     },
-
   },
 };
 </script>

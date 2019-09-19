@@ -67,22 +67,23 @@
    - Design page
 [x] Issue View
 
-[ ] Add Hotkeys to speed up editing
-
 [ ] Check mobile view/performance
 
-[ ] Look to add RSS feeds for top writers
-[ ] Bug fixing/Refactoring code
-<<<REMOVE REGISTER>>>
+[ ] <<<REMOVE REGISTER>>>
+
 [ ] Set up heroku
 [ ] Write guide, laravel to heroku
-[ ] Start using - don't change for a bit (except bug fixes)
-[ ] Rating arguments and sources
-
-[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
-[ ] Check controller and model method tests - do they need extending?
 
 ---- MVP reached ----
+[ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
+[ ] Check controller and model method tests - do they need extending?
+[ ] Look to add RSS feeds for top writers
+[ ] Bug fixing/Refactoring code
+
+[ ] Rating arguments and sources
+
+[ ] Add Hotkeys to speed up editing
+
 [ ] Could I add a newsfeed
 [ ] Add a 404 page
 [ ] Move create facts to factsController
