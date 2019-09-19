@@ -63,11 +63,11 @@
 [x] Argument View
 
 [x] Issue index
-[ ] Issue Edit
-   - Design page
+[x] Issue Edit
+[x] Design page
 [x] Issue View
 
-[ ] Check mobile view/performance
+[ ] get underlining to work
 
 [ ] <<<REMOVE REGISTER>>>
 
@@ -75,6 +75,7 @@
 [ ] Write guide, laravel to heroku
 
 ---- MVP reached ----
+[ ] Check mobile view/performance
 [ ] Frontend Refactoring check point - how is everything? Could this be tidied up further? Should the Store be being broken up?
 [ ] Check controller and model method tests - do they need extending?
 [ ] Look to add RSS feeds for top writers
