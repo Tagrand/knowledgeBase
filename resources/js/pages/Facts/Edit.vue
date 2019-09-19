@@ -20,30 +20,31 @@
       </router-link>
     </div>
 
-    <input
-      v-model="claim"
-      type="text"
-    >
-    <button @click="save">
-      Save
-    </button>
+    <div class="md:flex w-full justify-between">
+      <edit-information-vue
+        :id="id"
+        :has-summary="false"
+        type="fact"
+        :primary-information="fact.name"
+        name="claim"
+        class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2"
+      />
 
-    <issue-picker-vue
-      :parent="fact"
-      parent-name="fact"
-    />
-
-    <router-link :to="`/facts/${id}`">
-      View
-    </router-link>
+      <issue-picker-vue
+        :parent="fact"
+        parent-name="fact"
+        class="bg-grey md:w-9/20 pb-2"
+      />
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
 import IssuePickerVue from '../../components/IssuePicker.vue';
+import EditInformationVue from '../../components/EditInformation.vue';
 
 export default {
-  components: { IssuePickerVue },
+  components: { IssuePickerVue, EditInformationVue },
 
   props: {
     id: {
