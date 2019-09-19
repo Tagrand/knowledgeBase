@@ -168,6 +168,27 @@ class ArgumentsTest extends TestCase
         ]);
     }
 
+    public function test_users_can_edit_a_facts_source()
+    {
+        $user= factory(User::class)->create();
+        $argument = factory(Argument::class)->create([
+            'reason' => 'i like to know the truth',
+        ]);
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/arguments/{$argument->id}", [
+            'source_id' => $source->id,
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('arguments', [
+            'id' => $argument->id,
+            'reason' => 'i like to know the truth',
+            'source_id' => $source->id,
+        ]);
+    }
+
     public function test_reasons_cannot_be_null()
     {
         $user = factory(User::class)->create();
