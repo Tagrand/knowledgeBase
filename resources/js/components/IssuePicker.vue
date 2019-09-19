@@ -47,27 +47,42 @@
         </div>
       </div>
 
-      <div
-        v-else
-        class="flex justify-center"
-      >
-        <input
-          v-model="issueName"
-          placeholder="name"
-          type="text"
-        >
-        <input
-          v-model="issueSummary"
-          class="ml-4"
-          placeholder="summary"
-          type="text"
-        >
-        <button
-          class="px-4 ml-4 bg-grey_dark text-white hover:bg-grey_light"
-          @click="saveIssue"
-        >
-          Save
-        </button>
+      <div v-else>
+        <div class="flex mb-2">
+          <label
+            for="name"
+            class="mx-2"
+          >Name:</label>
+          <input
+            :id="name"
+            v-model="issueName"
+            class="w-full mx-2 bg-grey_light pl-2"
+            placeholder="name"
+            type="text"
+          >
+        </div>
+        <div class="flex mb-2">
+          <label
+            for="summary"
+            class="mx-2"
+          >Summary:</label>
+          <textarea
+            id="summary"
+            v-model="issueSummary"
+            placeholder="summary"
+            class="w-full mx-2 h-1/2 bg-grey_light pl-2"
+          />
+        </div>
+
+        <div class="flex justify-end">
+          <button
+            class="w-16 ml-8 mr-2 bg-grey_dark text-white hover:bg-grey_light"
+            style="height: 40px;"
+            @click="saveIssue"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>

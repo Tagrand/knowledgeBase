@@ -8,7 +8,7 @@
       <label
         for="name"
         class="mx-2"
-      >{{ capitalize(name) }}</label>
+      >{{ capitalize(name) }}:</label>
       <input
         :id="name"
         v-model="informationName"
@@ -16,7 +16,10 @@
         type="text"
       >
     </div>
-    <div class="flex mb-2">
+    <div
+      v-if="hasSummary"
+      class="flex mb-2"
+    >
       <label
         for="summary"
         class="mx-2"
