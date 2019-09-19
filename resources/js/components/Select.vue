@@ -77,6 +77,11 @@ export default {
       type: String,
       default: null,
     },
+
+    showSave: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {

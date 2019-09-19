@@ -21,14 +21,43 @@
     </div>
 
     <div class="md:flex w-full justify-between">
-      <edit-information-vue
-        :id="id"
-        :has-summary="false"
-        type="fact"
-        :primary-information="fact.name"
-        name="claim"
-        class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2"
-      />
+      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
+        <edit-information-vue
+          :id="id"
+          :has-summary="false"
+          type="fact"
+          :primary-information="fact.claim"
+          name="claim"
+        />
+
+        <p class="mx-2 pb-2">
+          Current Source: {{ source.name }}
+        </p>
+
+        <select-vue
+          v-if="showSourceSelect"
+          class="mx-2"
+          data-type="source"
+          search-key="name"
+          :collection="sources"
+          :show-save="false"
+          @select="setSource"
+          @edit="editSource"
+        />
+
+        <div
+          class="flex justify-end"
+          :class="showSourceSelect ? 'mt-2' : ''"
+        >
+          <button
+            class="w-16 ml-8 mr-2 bg-grey_dark text-white hover:bg-grey_light"
+            style="height: 40px;"
+            @click="showSourceSelect = !showSourceSelect"
+          >
+            {{ showSourceSelect ? 'Hide' : 'Edit' }}
+          </button>
+        </div>
+      </div>
 
       <issue-picker-vue
         :parent="fact"
@@ -36,15 +65,19 @@
         class="bg-grey md:w-9/20 pb-2"
       />
     </div>
+    <div class="md:flex w-full justify-between pt-4">
+      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2" />
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
+import SelectVue from '../../components/Select.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
 import EditInformationVue from '../../components/EditInformation.vue';
 
 export default {
-  components: { IssuePickerVue, EditInformationVue },
+  components: { IssuePickerVue, EditInformationVue, SelectVue },
 
   props: {
     id: {
@@ -56,6 +89,10 @@ export default {
   data() {
     return {
       claim: '',
+
+      source: {},
+
+      showSourceSelect: false,
     };
   },
 
@@ -63,15 +100,27 @@ export default {
     fact() {
       return this.$store.state.selectedFact;
     },
+
+    sources() {
+      return this.$store.state.sources;
+    },
   },
 
   watch: {
     id() {
       this.claim = this.fact.claim;
     },
+
+    'fact.source': {
+      handler() {
+        this.source = this.fact.source;
+      },
+      deep: true,
+    },
   },
 
   created() {
+    this.$store.dispatch('getSources');
     this.$store.dispatch('setSelectedFact', this.id)
       .then(() => {
         this.claim = this.fact.claim;
@@ -85,6 +134,21 @@ export default {
           claim: this.claim,
         })
         .then(({ data }) => this.$store.commit('updateSelectedFact', data));
+    },
+
+    setSource(source) {
+      axios.patch(`/api/v1/facts/${this.id}`, {
+        source_id: source.id,
+      }).then(() => {
+        this.fact.source = source;
+        this.$store.commit('updateSelectedFact', this.fact);
+        this.$store.commit('updateSelectedSource', source.id);
+        this.showSourceSelect = false;
+      });
+    },
+
+    editSource(source) {
+      this.$router.push({ name: 'source.edit', params: { id: source.id } });
     },
   },
 };
