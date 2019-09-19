@@ -65,12 +65,12 @@
         class="bg-grey md:w-9/20 pb-2"
       />
     </div>
-    <div class="w-full bg-grey py-2 my-4">
-      <argument-fact-picker-vue
-        other-relation="argument"
-        type="fact"
-      />
-    </div>
+
+    <argument-fact-picker-vue
+      other-relation="argument"
+      type="fact"
+      class="w-full bg-grey py-2 my-4"
+    />
   </div>
 </template>
 <script>
