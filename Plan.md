@@ -51,15 +51,15 @@
 [x] SOurce View
 
 [x] Fact index
-[ ] Fact Edit
-   - Can edit arguments
-   - Can edit source
+[x] Fact Edit
+[x] Can edit arguments
+[x] Can edit source
 [x] Fact View
 
 [x] Argument index
-[ ] Argument Edit
-   - Can edit facts
-   - Can edit source
+[x] Argument Edit
+[x] Can edit facts
+[x] Can edit source
 [x] Argument View
 
 [x] Issue index
