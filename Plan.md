@@ -47,8 +47,7 @@
 
 [x] Do design for each page
 [x] Source index
-[ ] Source Edit
-   - Can edit source summary
+[x] Source Edit
 [x] SOurce View
 
 [x] Fact index
