@@ -1,41 +1,78 @@
 <template>
   <div>
     <div>
-      <h1 class="text-xl font-bold">
-        Facts
-      </h1>
+      <h2 class="font-headline text-center text-2xl font-bold pt-2">
+        {{ capitalize(type) }}s
+      </h2>
 
       <div
-        class="overflow-y-auto flex flex-wrap"
-        style="max-height: 100px"
+        class="w-full flex justify-between px-2"
+        style="max-height: 500px overflow-y-scroll"
       >
-        <div
-          v-for="fact in factsFor"
-          :key="fact.claim"
-          class="mr-8 text-green-700"
-        >
-          <span v-text="fact.claim" />
-          <span @click="updateFact(fact, false)">Set against</span>
-          <span @click="deleteFact(fact)">Remove</span>
+        <div class="w-1/3">
+          <h2 class="text-center text-xl pt-2">
+            {{ capitalize(otherRelation) }}s For
+          </h2>
+
+          <div
+            v-for="point in pointsFor"
+            :key="point[otherRelationInfo.name]"
+            class="text-green-700 text-center"
+          >
+            <span v-text="point[otherRelationInfo.name]" />
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="updatePoint(point, false)"
+            >Set against</span>
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="unlinkPoint(point)"
+            >Remove</span>
+          </div>
         </div>
 
-        <div
-          v-for="fact in factsAgainst"
-          :key="fact.claim"
-          class="mr-8 text-red-700"
-        >
-          <span v-text="fact.claim" />
-          <span @click="deleteFact(fact)">Remove</span>
+        <div class="w-1/3">
+          <h2 class="text-center text-xl pt-2">
+            {{ capitalize(otherRelation) }}s Against
+          </h2>
+
+          <div
+            v-for="point in pointsAgainst"
+            :key="point[otherRelationInfo.name]"
+            class="text-red-700 text-center"
+          >
+            <span v-text="point[otherRelationInfo.name]" />
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="updatePoint(point, true)"
+            >Set for</span>
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="unlinkPoint(point)"
+            >Remove</span>
+          </div>
         </div>
 
-        <div
-          v-for="fact in unrelatedFacts"
-          :key="fact.claim"
-          class="mr-8"
-        >
-          <span v-text="fact.claim" />
-          <span @click="setFact(fact, true)">Set for</span>
-          <span @click="setFact(fact, false)">Set against</span>
+        <div class="w-1/3">
+          <h2 class="text-center text-xl pt-2">
+            Other {{ capitalize(otherRelation) }}s
+          </h2>
+
+          <div
+            v-for="point in unrelatedPoints"
+            :key="point[otherRelationInfo.name]"
+            class="text-center"
+          >
+            <span v-text="point[otherRelationInfo.name]" />
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="setPoint(point, true)"
+            >Set for</span>
+            <span
+              class="cursor-pointer hover:text-blue-300"
+              @click="setPoint(point, false)"
+            >Set against</span>
+          </div>
         </div>
       </div>
     </div>
@@ -49,104 +86,141 @@ import axios from 'axios';
 
 export default {
   props: {
-    politicalArgument: {
-      type: Object,
+    type: {
+      type: String,
+      required: true,
+    },
+
+    otherRelation: {
+      type: String,
       required: true,
     },
   },
 
   data() {
     return {
-      argumentFacts: [],
-      factsFor: [],
-      factsAgainst: [],
+      keys: {
+        fact: {
+          alias: 'fact',
+          name: 'claim',
+        },
+
+        argument: {
+          alias: 'politicalArgument',
+          name: 'reason',
+        },
+      },
+
+      relatedPoints: [],
+      pointsFor: [],
+      pointsAgainst: [],
     };
   },
 
   computed: {
-    facts() {
-      return this.$store.state.facts;
+    baseRelation() {
+      return this.$store.state[`selected${this.capitalize(this.baseRelationInfo.alias)}`];
     },
 
-    unrelatedFacts() {
-      return _.differenceBy(this.facts, this.argumentFacts, 'id');
+    baseRelationInfo() {
+      return this.keys[this.type];
     },
 
-    noFact() {
-      return _.isEmpty(this.politicalArgument);
+    otherRelationInfo() {
+      return this.keys[this.otherRelation];
+    },
+
+    points() {
+      return this.$store.state[`${this.otherRelationInfo.alias}s`];
+    },
+
+    unrelatedPoints() {
+      return _.differenceBy(this.points, this.relatedPoints, 'id');
+    },
+
+    noPoint() {
+      return _.isEmpty(this.baseRelation);
     },
   },
 
   watch: {
-    politicalArgument() {
-      if (this.noFact) {
-        this.argumentFacts = [];
+    baseRelation() {
+      if (this.noPoint) {
+        this.relatedPoints = [];
         return;
       }
 
       axios
-        .get(`/api/v1/arguments/${this.politicalArgument.id}/facts`)
-        .then(({ data }) => { this.argumentFacts = data; })
+        .get(`/api/v1/${this.type}s/${this.baseRelation.id}/${this.otherRelation}s`)
+        .then(({ data }) => {
+          this.relatedPoints = data;
+          this.sortPointsBySupport();
+        })
         .catch((error) => console.log(error));
     },
   },
 
   created() {
-    this.$store.dispatch('getFacts');
-
-    this.$nextTick(() => {
-      console.log(this.politicalArgument);
-      axios
-        .get(`/api/v1/arguments/${this.politicalArgument.id}/facts`)
-        .then(({ data }) => {
-          this.argumentFacts = data;
-          this.sortFactsBySupport();
-        })
-        .catch((error) => console.log(error));
-    });
+    this.$store.dispatch(`get${this.capitalize(this.otherRelation)}s`);
   },
 
   methods: {
-    setFact(fact, is_supportive) {
+    capitalize(s) {
+      return s[0].toUpperCase() + s.slice(1);
+    },
+
+    setPoint(point, is_supportive) {
       axios
-        .post(`/api/v1/arguments/${this.politicalArgument.id}/facts/${fact.id}/`, { is_supportive })
+        .post(this.rudUrl(point), { is_supportive })
         .then(() => {
-          this.argumentFacts.push(fact);
-          this.sortFactsBySupport();
+          const newPoint = point;
+          newPoint.pivot = {};
+          newPoint.pivot.is_supportive = is_supportive;
+          this.relatedPoints.push(newPoint);
+          this.sortPointsBySupport();
         })
         .catch((error) => console.log(error));
     },
 
-    updateFact(fact, is_supportive) {
+    updatePoint(point, is_supportive) {
       axios
-        .patch(`/api/v1/arguments/${this.politicalArgument.id}/facts/${fact.id}/`, { is_supportive })
+        .patch(this.rudUrl(point), { is_supportive })
         .then(() => {
           // eslint-disable-next-line no-param-reassign
-          fact.pivot.is_supportive = is_supportive;
-          this.sortFactsBySupport();
+          point.pivot.is_supportive = is_supportive;
+          this.sortPointsBySupport();
         })
         .catch((error) => console.log(error));
     },
 
-    deleteFact(fact) {
+    unlinkPoint(point) {
       axios
-        .delete(`/api/v1/arguments/${this.politicalArgument.id}/facts/${fact.id}/`)
+        .delete(this.rudUrl(point))
         .then(() => {
-          const index = this.argumentFacts.indexOf(fact);
-          this.argumentFacts.splice(index, 1);
-          this.sortFactsBySupport();
+          const index = this.relatedPoints.indexOf(point);
+          this.relatedPoints.splice(index, 1);
+          this.sortPointsBySupport();
         })
         .catch((error) => console.log(error));
     },
 
-    sortFactsBySupport() {
-      this.factsFor = [];
-      this.factsAgainst = [];
-      this.argumentFacts.forEach((fact) => {
+    sortPointsBySupport() {
+      this.pointsFor = [];
+      this.pointsAgainst = [];
+      this.relatedPoints.forEach((point) => {
         // eslint-disable-next-line no-unused-expressions
-        fact.pivot.is_supportive ? this.factsFor.push(fact) : this.factsAgainst.push(fact);
+        point.pivot.is_supportive ? this.pointsFor.push(point) : this.pointsAgainst.push(point);
       });
     },
+
+    rudUrl(point) {
+      if (this.type === 'fact') {
+        return `/api/v1/${this.otherRelation}s/${point.id}/${this.type}s/${this.baseRelation.id}`;
+      }
+
+      return `/api/v1/${this.type}s/${this.baseRelation.id}/${this.otherRelation}s/${point.id}`;
+    },
+
   },
 };
 </script>

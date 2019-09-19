@@ -65,8 +65,11 @@
         class="bg-grey md:w-9/20 pb-2"
       />
     </div>
-    <div class="md:flex w-full justify-between pt-4">
-      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2" />
+    <div class="w-full bg-grey py-2 my-4">
+      <argument-fact-picker-vue
+        other-relation="argument"
+        type="fact"
+      />
     </div>
   </div>
 </template>
@@ -75,9 +78,12 @@ import axios from 'axios';
 import SelectVue from '../../components/Select.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
 import EditInformationVue from '../../components/EditInformation.vue';
+import ArgumentFactPickerVue from '../../components/ArgumentFactPicker.vue';
 
 export default {
-  components: { IssuePickerVue, EditInformationVue, SelectVue },
+  components: {
+    IssuePickerVue, EditInformationVue, SelectVue, ArgumentFactPickerVue,
+  },
 
   props: {
     id: {

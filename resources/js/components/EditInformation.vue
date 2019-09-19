@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="font-headline text-center text-2xl font-bold  pt-2">
+    <h2 class="font-headline text-center text-2xl font-bold pt-2">
       {{ capitalize(type) }} Information
     </h2>
 
