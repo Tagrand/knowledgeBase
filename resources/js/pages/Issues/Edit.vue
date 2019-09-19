@@ -20,31 +20,39 @@
       </router-link>
     </div>
 
-    <input
-      v-model="name"
-      type="text"
-    >
-    <input
-      v-model="summary"
-      type="text"
-    >
-    <button @click="save">
-      Save
-    </button>
+    <edit-information-vue
+      :id="id"
+      :has-summary="true"
+      type="issue"
+      :primary-information="issue.name"
+      :summary="issue.summary"
+      class="bg-grey w-full pb-2 md:mb-0 mb-4 pb-2"
+    />
 
-    <fact-picker-vue :issue="issue" />
+    <div class="md:flex w-full justify-between my-4">
+      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
+        <issue-link-picker-vue
+          :issue="issue"
+          type="fact"
+        />
+      </div>
 
-    <router-link :to="`/issues/${id}`">
-      View
-    </router-link>
+      <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
+        <issue-link-picker-vue
+          :issue="issue"
+          type="argument"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
-import FactPickerVue from '../../components/FactPicker.vue';
+import EditInformationVue from '../../components/EditInformation.vue';
+import IssueLinkPickerVue from '../../components/IssueLinkPicker.vue';
 
 export default {
-  components: { FactPickerVue },
+  components: { IssueLinkPickerVue, EditInformationVue },
   props: {
     id: {
       required: true,
