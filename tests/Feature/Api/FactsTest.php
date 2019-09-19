@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Fact;
 use App\User;
+use App\Source;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,6 +50,27 @@ class FactsTest extends TestCase
         $this->assertDatabaseHas('facts', [
             'id' => $fact->id,
             'claim' => 'it is not',
+        ]);
+    }
+
+    public function test_users_can_edit_a_facts_source()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'this is true',
+        ]);
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'source_id' => $source->id,
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
+            'claim' => 'this is true',
+            'source_id' => $source->id,
         ]);
     }
 

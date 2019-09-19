@@ -5,10 +5,12 @@
         v-model="search"
         type="text"
         class="w-4/5 pl-2 bg-grey_light"
+        :class="showSave ? 'w-4/5' : 'w-full'"
         style="height: 40px"
         :placeholder="dataType"
       >
       <button
+        v-if="showSave"
         class="w-16 ml-8 bg-grey_dark text-white hover:bg-grey_light"
         style="height: 40px; margin-right: 12px"
         @click="saveOption"
