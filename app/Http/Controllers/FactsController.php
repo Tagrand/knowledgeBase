@@ -16,7 +16,7 @@ class FactsController extends Controller
     {
         $validatedData = $request->validate([
            'claim' => 'string|unique:facts',
-           'source_id' => 'integer',
+           'source_id' => 'integer|exists:sources,id',
         ]);
 
         $fact->update($validatedData);

@@ -149,4 +149,20 @@ class FactsTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('claim');
     }
+
+    public function test_source_must_exist_to_be_added()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'this is false',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'source_id' => 12612,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('source_id');
+    }
 }
