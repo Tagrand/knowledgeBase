@@ -13,8 +13,6 @@ class CreateFactsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('facts');
-
         Schema::create('facts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('claim');

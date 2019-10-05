@@ -15,8 +15,8 @@ class CreateFactIssueTable extends Migration
     {
         Schema::create('fact_issue', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('fact_id')->unsigned();
-            $table->integer('issue_id')->unsigned();
+            $table->unsignedBigInteger('fact_id');
+            $table->unsignedBigInteger('issue_id');
             $table->timestamps();
 
             $table->unique(['fact_id', 'issue_id']);

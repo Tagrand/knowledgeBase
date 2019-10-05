@@ -13,8 +13,6 @@ class CreateArgumentsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('arguments');
-
         Schema::create('arguments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('reason')->unique();
