@@ -2,21 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$host = '';
-$port = '';
-$database = '';
-$username = '';
-$pass = '';
-
-$url = parse_url(getenv('DATABASE_URL'));
-if (array_key_exists('host', $url)) {
-    $host = $url['host'];
-    $port = $url['port'];
-    $database = $url['database'];
-    $username = $url['username'];
-    $pass = $url['pass'];
-}
-
 return [
 
     /*
@@ -30,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -87,11 +72,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', $host),
-            'port' => env('DB_PORT', $port),
-            'database' => env('DB_DATABASE', $database),
-            'username' => env('DB_USERNAME', $username),
-            'password' => env('DB_PASSWORD', $pass),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
