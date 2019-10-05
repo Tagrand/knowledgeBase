@@ -31,11 +31,6 @@
                         <li class="pr-4">
                             <a href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                        <li>
-                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
                     </ul>
                 </div>
             </div>
