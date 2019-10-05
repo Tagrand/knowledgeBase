@@ -13,6 +13,8 @@ class CreateFactIssueTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('fact_issue');
+
         Schema::create('fact_issue', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('fact_id');
