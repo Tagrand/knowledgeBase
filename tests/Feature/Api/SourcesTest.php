@@ -240,6 +240,22 @@ class SourcesTest extends TestCase
         $response->assertJsonValidationErrors('summary');
     }
 
+    public function test_links_must_be_strings_when_editing()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'link' => 'kjashdkjhasd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'link' => 121212,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('link');
+    }
+
     public function test_names_cannot_be_null()
     {
         $user = factory(User::class)->create();
