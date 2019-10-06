@@ -44,9 +44,12 @@ const store = new Vuex.Store({
       this.state.selectedSource = updateSource;
     },
 
-
     setAuthors(state, authors = []) {
       state.authors = authors;
+    },
+
+    addAuthor(state, author) {
+      state.authors.push(author);
     },
 
     setIssues(state, issues = []) {

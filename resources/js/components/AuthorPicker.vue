@@ -152,7 +152,7 @@ export default {
           last_name: this.lastName,
         })
         .then(({ data }) => {
-          this.authors.push(data);
+          this.$store.commit('addAuthor', data);
           this.firstName = '';
           this.lastName = '';
         });
