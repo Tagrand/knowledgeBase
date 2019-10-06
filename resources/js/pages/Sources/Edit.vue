@@ -122,8 +122,8 @@
 
       <issue-picker-vue
         class="bg-grey md:w-9/20 pb-2"
-        parent-name="fact"
-        :parent="selectedFact"
+        parent-name="argument"
+        :parent="selectedArgument"
       />
     </div>
   </div>
