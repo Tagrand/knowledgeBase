@@ -153,6 +153,21 @@ class FactsTest extends TestCase
         $response->assertJsonValidationErrors('summary');
     }
 
+    public function test_images_must_be_strings()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'image' => 'kajsdkjaskd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'image' => 125151,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('image');
+    }
 
     public function test_claims_cannot_be_duplicated()
     {
