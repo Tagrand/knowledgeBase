@@ -131,6 +131,7 @@
 
 <script>
 import _ from 'lodash';
+import Noty from 'noty';
 import axios from 'axios';
 import SelectVue from '../../components/Select.vue';
 import IssuePickerVue from '../../components/IssuePicker.vue';
@@ -205,6 +206,7 @@ export default {
       axios
         .post(`/api/v1/sources/${this.source.id}/facts`, { claim })
         .then(({ data }) => {
+          this.successNotificaion('Fact created succesfully');
           this.sourceFacts.unshift(data);
           this.$store.commit('addFact', data);
           this.$store.commit('setSelectedFact', data.id);
@@ -215,6 +217,7 @@ export default {
       axios
         .post(`/api/v1/sources/${this.source.id}/arguments`, { reason })
         .then(({ data }) => {
+          this.successNotificaion('Argument created succesfully');
           this.sourceArguments.unshift(data);
           this.$store.commit('addArgument', data);
           this.$store.commit('setPoliticalArgument', data.id);
@@ -248,12 +251,28 @@ export default {
       axios
         .get(`/api/v1/sources/${this.id}/facts`)
         .then(({ data }) => { this.sourceFacts = data; })
-        .catch((error) => console.log(error));
+        .catch((error) => this.errorNotification(error));
 
       axios
         .get(`/api/v1/sources/${this.id}/arguments`)
         .then(({ data }) => { this.sourceArguments = data; })
-        .catch((error) => console.log(error));
+        .catch((error) => this.errorNotification(error));
+    },
+
+    successNotificaion(message) {
+      new Noty({
+        type: 'success',
+        theme: 'metroui',
+        text: message,
+      }).show();
+    },
+
+    errorNotification(error) {
+      new Noty({
+        type: 'error',
+        theme: 'metroui',
+        text: error.message,
+      }).show();
     },
   },
 };

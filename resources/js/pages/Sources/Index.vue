@@ -50,8 +50,9 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import _ from 'lodash';
+import Noty from 'noty';
+import axios from 'axios';
 import SearchVue from '../../components/Search.vue';
 import FilterVue from '../../components/Filter.vue';
 
@@ -102,13 +103,17 @@ export default {
 
   methods: {
     saveSource(name) {
-      axios.post('/api/v1/sources', { name }).then(({ data }) => {
-        this.$store.commit('addSource', data);
+      axios
+        .post('/api/v1/sources', { name })
+        .then(({ data }) => {
+          this.$store.commit('addSource', data);
+          this.successNotification();
 
-        if (this.redirect) {
-          this.$router.push({ name: 'source.edit', params: { id: data.id } });
-        }
-      });
+          if (this.redirect) {
+            this.$router.push({ name: 'source.edit', params: { id: data.id } });
+          }
+        })
+        .catch((error) => this.errorNotification(error));
     },
 
     setSelectedSource(source) {
@@ -121,6 +126,22 @@ export default {
 
     clearFilters() {
       this.selectedAuthors = [];
+    },
+
+    successNotification() {
+      new Noty({
+        type: 'success',
+        theme: 'metroui',
+        text: 'Source successfully made',
+      }).show();
+    },
+
+    errorNotification(error) {
+      new Noty({
+        type: 'error',
+        theme: 'metroui',
+        text: error.message,
+      }).show();
     },
   },
 };

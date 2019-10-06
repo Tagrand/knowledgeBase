@@ -54,6 +54,7 @@
 
 <script>
 import _ from 'lodash';
+import Noty from 'noty';
 import SearchVue from '../../components/Search.vue';
 import FilterVue from '../../components/Filter.vue';
 
@@ -93,8 +94,12 @@ export default {
   },
 
   methods: {
-    saveArgument(claim) {
-      console.log(claim);
+    saveArgument() {
+      new Noty({
+        type: 'info',
+        theme: 'metroui',
+        text: 'Need to create a source to save a argument',
+      }).show();
     },
 
     selectArgument(argument) {

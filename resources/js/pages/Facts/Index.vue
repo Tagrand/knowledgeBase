@@ -53,6 +53,7 @@
 
 <script>
 import _ from 'lodash';
+import Noty from 'noty';
 import SearchVue from '../../components/Search.vue';
 import FilterVue from '../../components/Filter.vue';
 
@@ -91,8 +92,12 @@ export default {
   },
 
   methods: {
-    saveFact(claim) {
-      console.log(claim);
+    saveFact() {
+      new Noty({
+        type: 'info',
+        theme: 'metroui',
+        text: 'Need to create a source to save a fact',
+      }).show();
     },
 
     selectFact(fact) {

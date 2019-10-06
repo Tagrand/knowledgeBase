@@ -72,7 +72,7 @@
             placeholder="summary"
             class="w-full mx-2 h-1/2 bg-grey_light pl-2"
           />
-        </div>
+          </div>
 
         <div class="flex justify-end">
           <button
@@ -90,6 +90,7 @@
 
 <script>
 import _ from 'lodash';
+import Noty from 'noty';
 import axios from 'axios';
 
 export default {
@@ -139,7 +140,7 @@ export default {
       axios
         .get(`/api/v1/${this.parentName}s/${this.parent.id}/issues`)
         .then(({ data }) => { this.parentIssues = data; })
-        .catch((error) => console.log(error));
+        .catch((error) => this.errorNotification(error));
     },
   },
 
@@ -164,8 +165,10 @@ export default {
     setIssue(issue) {
       axios
         .post(`/api/v1/${this.parentName}s/${this.parent.id}/issues/${issue.id}`)
-        .then(() => this.parentIssues.unshift(issue))
-        .catch((error) => console.log(error));
+        .then(() => {
+          this.parentIssues.unshift(issue);
+        })
+        .catch((error) => this.errorNotification(error));
     },
 
     unsetIssue(issue) {
@@ -175,8 +178,17 @@ export default {
           const index = this.parentIssues.indexOf(issue);
           this.parentIssues.splice(index, 1);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => this.errorNotification(error));
     },
+
+    errorNotification(error) {
+      new Noty({
+        type: 'error',
+        theme: 'metroui',
+        text: error.message,
+      }).show();
+    },
+
   },
 };
 </script>

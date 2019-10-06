@@ -3,6 +3,7 @@
     <h1 class="font-headline text-center text-5xl font-bold">
       Understand the Issues
     </h1>
+
     <div class="md:flex justify-between">
       <div class="md:w-3/4">
         <search-vue
@@ -49,8 +50,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import _ from 'lodash';
+import Noty from 'noty';
+import axios from 'axios';
 import SearchVue from '../../components/Search.vue';
 import FilterVue from '../../components/Filter.vue';
 
@@ -99,6 +101,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch('getSources');
     this.$store.dispatch('getIssues');
   },
 
@@ -110,11 +113,13 @@ export default {
         })
         .then(({ data }) => {
           this.$store.commit('addIssue', data);
+          this.successNotification();
 
           if (this.redirect) {
             this.$router.push({ name: 'issues.edit', params: { id: data.id } });
           }
-        });
+        })
+        .catch((error) => this.errorNotification(error));
     },
 
     selectIssue(issue) {
@@ -127,6 +132,22 @@ export default {
 
     clearAll() {
       this.selectedSources = [];
+    },
+
+    successNotification() {
+      new Noty({
+        type: 'success',
+        theme: 'metroui',
+        text: 'Issue successfully made',
+      }).show();
+    },
+
+    errorNotification(error) {
+      new Noty({
+        type: 'error',
+        theme: 'metroui',
+        text: error.message,
+      }).show();
     },
   },
 };

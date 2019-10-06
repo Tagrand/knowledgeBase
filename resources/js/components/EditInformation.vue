@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+import Noty from 'noty';
 import axios from 'axios';
 
 export default {
@@ -156,9 +157,29 @@ export default {
     },
 
     save() {
-      axios.patch(`/api/v1/${this.type}s/${this.id}`, this.updatedInformation()).then(({ data }) => {
-        this.$store.commit(`updateSelected${this.capitalize(this.type)}`, data);
-      });
+      axios
+        .patch(`/api/v1/${this.type}s/${this.id}`, this.updatedInformation())
+        .then(({ data }) => {
+          this.successNotification();
+          this.$store.commit(`updateSelected${this.capitalize(this.type)}`, data);
+        })
+        .catch((error) => this.errorNotification(error));
+    },
+
+    successNotification() {
+      new Noty({
+        type: 'success',
+        theme: 'metroui',
+        text: `${this.type} was edited successfully!`,
+      }).show();
+    },
+
+    errorNotification(error) {
+      new Noty({
+        type: 'error',
+        theme: 'metroui',
+        text: error.message,
+      }).show();
     },
   },
 };
