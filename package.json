@@ -26,9 +26,10 @@
     },
     "dependencies": {
         "axios": "^0.19",
-        "tailwindcss": "^1.1.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
+        "noty": "^3.2.0-beta",
+        "tailwindcss": "^1.1.2",
         "vue": "^2.6.10",
         "vue-router": "^3.1.2",
         "vuex": "^3.1.1"
