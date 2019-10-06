@@ -11,17 +11,22 @@ class Source extends Model
     protected $casts = [
         'id' => 'int',
         'name' => 'string',
+        'summary' => 'string',
+        'link' => 'string',
     ];
 
-    public function facts() {
+    public function facts()
+    {
         return $this->hasMany(Fact::class);
     }
 
-    public function arguments() {
+    public function arguments()
+    {
         return $this->hasMany(Argument::class);
     }
 
-    public function authors() {
+    public function authors()
+    {
         return $this->belongsToMany(Author::class);
     }
 }
