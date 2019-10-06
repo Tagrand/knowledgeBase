@@ -31,7 +31,10 @@
       >
     </div>
 
-    <div class="md:flex w-full justify-between">
+    <div
+      v-show="politicalArguments.length !== 0"
+      class="md:flex w-full justify-between"
+    >
       <info-box-vue
         title="Arguments For"
         type="arguments"

@@ -37,7 +37,10 @@
       <p>Source: {{ source.name }}</p>
     </div>
 
-    <div class="md:flex w-full justify-between">
+    <div
+      v-show="facts.length !== 0"
+      class="md:flex w-full justify-between"
+    >
       <info-box-vue
         title="Facts For"
         type="facts"

@@ -29,6 +29,7 @@
 
     <div class="md:flex w-full justify-between">
       <info-box-vue
+        v-show="facts.length !== 0"
         title="Facts"
         type="facts"
         class="bg-grey md:w-9/20 pb-2"
@@ -36,6 +37,7 @@
         info-name="claim"
       />
       <info-box-vue
+        v-show="arguments.length !== 0"
         title="Arguments"
         type="arguments"
         class="bg-grey md:w-9/20 pb-2"

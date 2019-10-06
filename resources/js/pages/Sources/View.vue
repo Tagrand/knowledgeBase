@@ -65,6 +65,7 @@
 
     <div class="md:flex w-full justify-between mt-6">
       <info-box-vue
+        v-show="facts.length !== 0"
         title="Facts"
         type="facts"
         class="bg-grey md:w-9/20 pb-2"
@@ -73,6 +74,7 @@
       />
 
       <info-box-vue
+        v-show="politicalArguments.length !== 0"
         title="Arguments"
         type="arguments"
         class="bg-grey md:w-9/20 pb-2"
