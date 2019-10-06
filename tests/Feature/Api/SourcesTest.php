@@ -187,6 +187,28 @@ class SourcesTest extends TestCase
         ]);
     }
 
+    public function test_link_can_be_null()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create([
+            'name' => 'Great',
+            'link' => 'kjashdkjhasd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
+            'name' => 'testing',
+            'link' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('sources', [
+            'id' => $source->id,
+            'name' => 'testing',
+            'link' => null,
+        ]);
+    }
+
     public function test_guests_cannot_edit_sources()
     {
         $source = factory(Source::class)->create([
