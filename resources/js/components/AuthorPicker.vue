@@ -155,6 +155,7 @@ export default {
           this.$store.commit('addAuthor', data);
           this.firstName = '';
           this.lastName = '';
+          this.addAuthor = false;
         });
     },
 
