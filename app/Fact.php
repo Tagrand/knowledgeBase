@@ -11,24 +11,30 @@ class Fact extends Model
     protected $casts = [
         'id' => 'int',
         'claim' => 'string',
+        'summary' => 'string',
+        'image' => 'string',
         'source_id' => 'id',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function arguments() {
+    public function arguments()
+    {
         return $this->belongsToMany(Argument::class);
     }
 
-    public function argumentsWithSupport() {
+    public function argumentsWithSupport()
+    {
         return $this->belongsToMany(Argument::class)->withPivot('is_supportive');
     }
 
-    public function issues() {
+    public function issues()
+    {
         return $this->belongsToMany(Issue::class);
     }
 
-    public function source() {
+    public function source()
+    {
         return $this->belongsTo(Source::class);
     }
 }
