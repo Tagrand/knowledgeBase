@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Source;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 class SourcesController extends Controller
 {
@@ -18,12 +17,14 @@ class SourcesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'summary' => 'nullable|string',
+            'link' => 'string',
         ]);
 
         return Source::create($validatedData);
     }
 
-    public function update(Source $source, Request $request) {
+    public function update(Source $source, Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'string',
             'summary' => 'nullable|string',

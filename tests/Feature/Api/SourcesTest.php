@@ -43,12 +43,14 @@ class SourcesTest extends TestCase
         $response = $this->json('POST', '/api/v1/sources', [
             'name' => 'the guardian',
             'summary' => 'the guardian',
+            'link' => 'www.guardian.co.uk',
         ]);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('sources', [
             'name' => 'the guardian',
             'summary' => 'the guardian',
+            'link' => 'www.guardian.co.uk',
         ]);
     }
 
