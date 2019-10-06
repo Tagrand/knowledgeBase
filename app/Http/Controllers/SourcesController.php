@@ -28,6 +28,7 @@ class SourcesController extends Controller
         $validatedData = $request->validate([
             'name' => 'string',
             'summary' => 'nullable|string',
+            'link' => 'string',
         ]);
 
         $source->update($validatedData);

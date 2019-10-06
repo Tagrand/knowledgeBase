@@ -146,12 +146,14 @@ class SourcesTest extends TestCase
         $source = factory(Source::class)->create([
             'name' => 'Great',
             'summary' => 'Great',
+            'link' => 'www.test.com',
         ]);
 
         Passport::actingAs($user);
         $response = $this->json('PATCH', "/api/v1/sources/{$source->id}", [
             'name' => 'testing',
             'summary' => 'another',
+            'link' => 'www.testing.com',
         ]);
 
         $response->assertStatus(200);
@@ -159,6 +161,7 @@ class SourcesTest extends TestCase
             'id' => $source->id,
             'name' => 'testing',
             'summary' => 'another',
+            'link' => 'www.testing.com',
         ]);
     }
 
