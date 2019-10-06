@@ -137,6 +137,23 @@ class FactsTest extends TestCase
         $response->assertJsonValidationErrors('claim');
     }
 
+    public function test_summaries_must_be_strings()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'summary' => 'kajsdkjaskd',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'summary' => 125151,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
+
+
     public function test_claims_cannot_be_duplicated()
     {
         $user= factory(User::class)->create();
