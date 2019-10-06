@@ -24,9 +24,11 @@
       <edit-information-vue
         :id="id"
         :has-summary="true"
+        :has-link="true"
         type="source"
         :primary-information="source.name"
         :summary="source.summary"
+        :link="source.link"
         class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2"
       />
 

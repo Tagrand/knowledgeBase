@@ -30,6 +30,22 @@
         placeholder="summary"
         class="w-full mx-2 h-1/2 bg-grey_light pl-2"
       />
+      </div>
+
+    <div
+      v-if="hasLink"
+      class="flex mb-2"
+    >
+      <label
+        for="link"
+        class="mx-2"
+      >Link:</label>
+      <textarea
+        id="link"
+        v-model="informationLink"
+        placeholder="link"
+        class="w-full mx-2 h-1/2 bg-grey_light pl-2"
+      />
     </div>
 
     <div class="flex justify-end">
@@ -58,6 +74,11 @@ export default {
       type: Boolean,
     },
 
+    hasLink: {
+      required: true,
+      type: Boolean,
+    },
+
     type: {
       required: true,
       type: String,
@@ -73,6 +94,11 @@ export default {
       type: String,
     },
 
+    link: {
+      default: '',
+      type: String,
+    },
+
     primaryInformation: {
       type: String,
       required: true,
@@ -83,6 +109,7 @@ export default {
     return {
       informationName: '',
       informationSummary: '',
+      informationLink: '',
     };
   },
 
@@ -90,12 +117,14 @@ export default {
     primaryInformation() {
       this.informationName = this.primaryInformation;
       this.informationSummary = this.summary;
+      this.informationLink = this.link;
     },
   },
 
   created() {
     this.informationName = this.primaryInformation;
     this.informationSummary = this.summary;
+    this.informationLink = this.link;
   },
 
   methods: {
@@ -108,6 +137,10 @@ export default {
 
       if (this.hasSummary) {
         information.summary = this.informationSummary;
+      }
+
+      if (this.hasLink) {
+        information.link = this.informationLink;
       }
 
       information[this.name] = this.informationName;
