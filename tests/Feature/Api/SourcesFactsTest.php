@@ -111,4 +111,19 @@ class SourcesFactsTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('claim');
     }
+
+    public function test_a_summary_must_be_a_string()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/facts", [
+            'claim' => 'asdasd',
+            'summary' => 121212,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('summary');
+    }
 }
