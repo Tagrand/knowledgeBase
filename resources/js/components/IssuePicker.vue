@@ -164,7 +164,7 @@ export default {
     setIssue(issue) {
       axios
         .post(`/api/v1/${this.parentName}s/${this.parent.id}/issues/${issue.id}`)
-        .then(() => this.parentIssues.push(issue))
+        .then(() => this.parentIssues.unshift(issue))
         .catch((error) => console.log(error));
     },
 

@@ -176,7 +176,7 @@ export default {
           const newPoint = point;
           newPoint.pivot = {};
           newPoint.pivot.is_supportive = is_supportive;
-          this.relatedPoints.push(newPoint);
+          this.relatedPoints.unshift(newPoint);
           this.sortPointsBySupport();
         })
         .catch((error) => console.log(error));
@@ -209,7 +209,7 @@ export default {
       this.pointsAgainst = [];
       this.relatedPoints.forEach((point) => {
         // eslint-disable-next-line no-unused-expressions
-        point.pivot.is_supportive ? this.pointsFor.push(point) : this.pointsAgainst.push(point);
+        point.pivot.is_supportive ? this.pointsFor.unshift(point) : this.pointsAgainst.unshift(point);
       });
     },
 
