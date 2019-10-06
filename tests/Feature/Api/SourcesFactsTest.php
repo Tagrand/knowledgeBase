@@ -48,12 +48,16 @@ class SourcesFactsTest extends TestCase
         Passport::actingAs($user);
         $response = $this->json('POST', "/api/v1/sources/{$source->id}/facts", [
             'claim' => 'This is a claim',
+            'summary' => 'its a good claim',
+            'image' => '1111.com',
         ]);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('facts', [
              'source_id' => $source->id,
              'claim' => 'This is a claim',
+             'summary' => 'its a good claim',
+             'image' => '1111.com',
          ]);
     }
 

@@ -17,11 +17,12 @@ class SourcesFactsController extends Controller
     {
         $validatedRequest = $request->validate([
            'claim' => 'required|string',
+           'summary' => 'string',
+           'image' => 'string',
         ]);
 
-        return Fact::create([
-         'source_id' => $source->id,
-         'claim' => $validatedRequest['claim'],
-        ]);
+        return Fact::create(
+            array_merge($validatedRequest, ['source_id' => $source->id])
+        );
     }
 }
