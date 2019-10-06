@@ -80,6 +80,27 @@ class FactsTest extends TestCase
         ]);
     }
 
+    public function test_summary_can_be_null()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'yes is true',
+            'summary' => 'trying',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'summary' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
+            'claim' => 'yes is true',
+            'summary' => null,
+        ]);
+    }
+
     public function test_facts_must_exist_to_be_edited()
     {
         $user= factory(User::class)->create();
@@ -103,22 +124,6 @@ class FactsTest extends TestCase
         ]);
 
         $response->assertStatus(401);
-    }
-
-    public function test_claims_cannot_be_null()
-    {
-        $user= factory(User::class)->create();
-        $fact = factory(Fact::class)->create([
-            'claim' => 'kajsdkjaskd',
-        ]);
-
-        Passport::actingAs($user);
-        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
-            'claim' => '',
-        ]);
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('claim');
     }
 
     public function test_claims_must_be_strings()
