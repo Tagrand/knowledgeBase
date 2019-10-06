@@ -21,9 +21,17 @@
 
     <div
       v-show="source.summary"
-      class="bg-grey w-full pb-2"
+      class="bg-grey w-full p-2 px mb-4"
     >
       <p>{{ source.summary }}</p>
+      <p class="text-right">
+        <a
+          class="text-blue-700 hover:text-blue-400 text-center"
+          :href="source.link"
+          target="blank"
+          rel="noopener noreferrer"
+        >view source</a>
+      </p>
     </div>
 
     <div class="md:flex w-full justify-between">
