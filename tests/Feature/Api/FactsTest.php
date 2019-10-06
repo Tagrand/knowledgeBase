@@ -101,6 +101,27 @@ class FactsTest extends TestCase
         ]);
     }
 
+    public function test_images_can_be_null()
+    {
+        $user= factory(User::class)->create();
+        $fact = factory(Fact::class)->create([
+            'claim' => 'yes is true',
+            'image' => 'trying',
+        ]);
+
+        Passport::actingAs($user);
+        $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
+            'image' => '',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('facts', [
+            'id' => $fact->id,
+            'claim' => 'yes is true',
+            'image' => null,
+        ]);
+    }
+
     public function test_facts_must_exist_to_be_edited()
     {
         $user= factory(User::class)->create();

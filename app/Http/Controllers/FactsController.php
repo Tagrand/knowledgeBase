@@ -17,7 +17,7 @@ class FactsController extends Controller
         $validatedData = $request->validate([
            'claim' => 'string|unique:facts',
            'summary' => 'nullable|string',
-           'image' => 'string',
+           'image' => 'nullable|string',
            'source_id' => 'integer|exists:sources,id',
         ]);
 
