@@ -39,17 +39,23 @@ class FactsTest extends TestCase
         $user= factory(User::class)->create();
         $fact = factory(Fact::class)->create([
             'claim' => 'this is true',
+            'summary' => 'is true',
+            'image' => 'true',
         ]);
 
         Passport::actingAs($user);
         $response = $this->json('PATCH', "/api/v1/facts/{$fact->id}", [
             'claim' => 'it is not',
+            'summary' => 'not',
+            'image' => 'thinking',
         ]);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('facts', [
             'id' => $fact->id,
             'claim' => 'it is not',
+            'summary' => 'not',
+            'image' => 'thinking',
         ]);
     }
 
