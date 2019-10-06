@@ -20,7 +20,7 @@
     </div>
 
     <div
-      v-show="source.summary"
+      v-show="source.summary || source.link"
       class="bg-grey w-full p-2 px mb-4"
     >
       <p>{{ source.summary }}</p>
