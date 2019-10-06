@@ -9,7 +9,10 @@
       class="text-center"
     >
       <span>{{ index + 1 }}.</span>
-      <router-link :to="`/${type}/${item.id}`">
+      <router-link
+        :to="`/${type}/${item.id}`"
+        class="hover:text-blue-300"
+      >
         {{ item[infoName] }}
       </router-link>
       <span v-show="extraInfo">
