@@ -25,7 +25,7 @@
     >
       <div
         v-for="option in filteredCollection"
-        :key="option[searchKey]"
+        :key="`${option.id}${option[searchKey]}`"
         class="flex justify-between pt-4 content-center"
       >
         <div

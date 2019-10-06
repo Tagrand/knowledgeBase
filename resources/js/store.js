@@ -110,6 +110,10 @@ const store = new Vuex.Store({
       state.selectedPoliticalArgument = politicalArgument;
     },
 
+    clearSelectedPoliticalArgument(state) {
+      state.selectedPoliticalArgument = {};
+    },
+
     updateSelectedPoliticalArgument(state, updatedArgument) {
       const index = _.findIndex(state.politicalArguments,
         (storedArgument) => storedArgument.id === Number(updatedArgument.id));
