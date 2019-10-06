@@ -19,6 +19,18 @@
         All
       </router-link>
     </div>
+
+    <div
+      v-show="fact.summary || fact.image"
+      class="bg-grey w-full p-2 px mb-4"
+    >
+      <p>{{ fact.summary }}</p>
+      <img
+        v-show="fact.image"
+        :src="fact.link"
+      >
+    </div>
+
     <div class="md:flex w-full justify-between">
       <info-box-vue
         title="Arguments For"
