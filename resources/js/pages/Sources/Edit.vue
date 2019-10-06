@@ -40,13 +40,14 @@
 
     <div class="md:flex w-full justify-between my-4">
       <div class="bg-grey md:w-9/20 p-4 md:mb-0 mb-4">
-        <h2
-          class="font-headline text-center text-2xl font-bold"
-          :class="isFactSelected ? 'mb-2' : 'mb-4'"
-          v-text="isFactSelected ? 'Fact: ' + selectedFact.claim : 'Select Fact'"
-        />
-
         <div v-if="isFactSelected">
+          <edit-information-vue
+            :id="id"
+            name="claim"
+            type="fact"
+            :primary-information="selectedFact.claim"
+          />
+
           <p
             class="cursor-pointer pb-4 text-center hover:text-blue-300"
             @click="clearFact"
@@ -55,15 +56,20 @@
           </p>
         </div>
 
-        <select-vue
-          v-else
-          data-type="fact"
-          search-key="claim"
-          :collection="sourceFacts"
-          @save="saveFact"
-          @select="setSelectedFact"
-          @edit="editFact"
-        />
+        <div v-else>
+          <h2 class="font-headline text-center text-2xl font-bold mb-4">
+            Select Fact
+          </h2>
+
+          <select-vue
+            data-type="fact"
+            search-key="claim"
+            :collection="sourceFacts"
+            @save="saveFact"
+            @select="setSelectedFact"
+            @edit="editFact"
+          />
+        </div>
       </div>
 
       <issue-picker-vue
@@ -84,6 +90,7 @@
             :primary-information="selectedArgument.reason"
             :summary="selectedArgument.summary"
           />
+
           <p
             class="cursor-pointer pb-4 text-center hover:text-blue-300"
             @click="clearArgument"
@@ -91,6 +98,7 @@
             Reset
           </p>
         </div>
+
         <div v-else>
           <h2 class="font-headline text-center text-2xl font-bold mb-4">
             Select Argument
