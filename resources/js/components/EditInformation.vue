@@ -75,8 +75,8 @@ export default {
     },
 
     hasLink: {
-      required: true,
       type: Boolean,
+      default: false,
     },
 
     type: {
