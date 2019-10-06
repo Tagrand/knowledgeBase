@@ -37,13 +37,13 @@
       class="flex mb-2"
     >
       <label
-        for="link"
+        :for="linkName"
         class="mx-2"
-      >Link:</label>
+      >{{ linkName }}:</label>
       <textarea
-        id="link"
+        :id="linkName"
         v-model="informationLink"
-        placeholder="link"
+        :placeholder="linkName"
         class="w-full mx-2 h-1/2 bg-grey_light pl-2"
       />
     </div>
@@ -84,24 +84,29 @@ export default {
       type: String,
     },
 
+    primaryInformation: {
+      required: true,
+      type: String,
+    },
+
     name: {
       type: String,
       default: 'name',
     },
 
     summary: {
-      default: '',
       type: String,
+      default: '',
     },
 
     link: {
-      default: '',
       type: String,
+      default: '',
     },
 
-    primaryInformation: {
+    linkName: {
       type: String,
-      required: true,
+      default: 'link',
     },
   },
 
@@ -140,7 +145,7 @@ export default {
       }
 
       if (this.hasLink) {
-        information.link = this.informationLink;
+        information[this.linkName] = this.informationLink;
       }
 
       if (this.informationName !== this.primaryInformation) {
