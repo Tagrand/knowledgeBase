@@ -51,6 +51,8 @@ However, it's looking quite nice. I've gone for an FT colour background and give
 
 I also tried to start applying some more functional programming style to the filters (just) treating data as immutable and chaining new objects not just mutating the original data.
 
+working
+
 ## Approach
 
 Two key things I'm focusing on developing:
