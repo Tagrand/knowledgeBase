@@ -61,6 +61,25 @@ class SourcesFactsTest extends TestCase
          ]);
     }
 
+    public function test_summary_and_image_are_optional()
+    {
+        $user = factory(User::class)->create();
+        $source = factory(Source::class)->create();
+
+        Passport::actingAs($user);
+        $response = $this->json('POST', "/api/v1/sources/{$source->id}/facts", [
+            'claim' => 'This is a claim',
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('facts', [
+             'source_id' => $source->id,
+             'claim' => 'This is a claim',
+             'summary' => null,
+             'image' => null,
+         ]);
+    }
+
     public function test_guests_cannot_make_facts()
     {
         $source = factory(Source::class)->create();
