@@ -54,7 +54,7 @@ class SourcesTest extends TestCase
         ]);
     }
 
-    public function test_summary_is_optional()
+    public function test_summary_and_link_are_optional()
     {
         $user = factory(User::class)->create();
         factory(Source::class, 2)->create();
