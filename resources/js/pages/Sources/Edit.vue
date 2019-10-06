@@ -205,7 +205,7 @@ export default {
       axios
         .post(`/api/v1/sources/${this.source.id}/facts`, { claim })
         .then(({ data }) => {
-          this.sourceFacts.push(data);
+          this.sourceFacts.unshift(data);
           this.$store.commit('addFact', data);
           this.$store.commit('setSelectedFact', data.id);
         });
@@ -215,7 +215,7 @@ export default {
       axios
         .post(`/api/v1/sources/${this.source.id}/arguments`, { reason })
         .then(({ data }) => {
-          this.sourceArguments.push(data);
+          this.sourceArguments.unshift(data);
           this.$store.commit('addArgument', data);
           this.$store.commit('setPoliticalArgument', data.id);
         });

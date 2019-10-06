@@ -34,7 +34,7 @@ const store = new Vuex.Store({
     },
 
     addSource(state, source) {
-      state.sources.push(source);
+      state.sources.unshift(source);
       state.selectedSource = source;
     },
 
@@ -49,7 +49,7 @@ const store = new Vuex.Store({
     },
 
     addAuthor(state, author) {
-      state.authors.push(author);
+      state.authors.unshift(author);
     },
 
     setIssues(state, issues = []) {
@@ -57,7 +57,7 @@ const store = new Vuex.Store({
     },
 
     addIssue(state, issue) {
-      state.issues.push(issue);
+      state.issues.unshift(issue);
     },
 
     setSelectedIssue(state, id) {
@@ -91,7 +91,7 @@ const store = new Vuex.Store({
     },
 
     addFact(state, facts) {
-      state.facts.push(facts);
+      state.facts.unshift(facts);
     },
 
     setArguments(state, politicalArguments = []) {
@@ -99,7 +99,7 @@ const store = new Vuex.Store({
     },
 
     addArgument(state, argument) {
-      state.politicalArguments.push(argument);
+      state.politicalArguments.unshift(argument);
     },
 
     setSelectedPoliticalArgument(state, id) {
