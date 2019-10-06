@@ -75,13 +75,15 @@
 
     <div class="md:flex w-full justify-between my-4">
       <div class="bg-grey md:w-9/20 p-4 md:mb-0 mb-4">
-        <h2
-          class="font-headline text-center text-2xl font-bold"
-          :class="isArgumentSelected ? 'mb-2' : 'mb-4'"
-          v-text="isArgumentSelected ? 'Argument: ' + selectedArgument.reason : 'Select Argument'"
-        />
-
         <div v-if="isArgumentSelected">
+          <edit-information-vue
+            :id="id"
+            :has-summary="true"
+            name="reason"
+            type="argument"
+            :primary-information="selectedArgument.reason"
+            :summary="selectedArgument.summary"
+          />
           <p
             class="cursor-pointer pb-4 text-center hover:text-blue-300"
             @click="clearArgument"
@@ -89,16 +91,20 @@
             Reset
           </p>
         </div>
+        <div v-else>
+          <h2 class="font-headline text-center text-2xl font-bold mb-4">
+            Select Argument
+          </h2>
 
-        <select-vue
-          v-else
-          data-type="argument"
-          search-key="reason"
-          :collection="sourceArguments"
-          @save="saveArgument"
-          @select="setSelectedArgument"
-          @edit="editArgument"
-        />
+          <select-vue
+            data-type="argument"
+            search-key="reason"
+            :collection="sourceArguments"
+            @save="saveArgument"
+            @select="setSelectedArgument"
+            @edit="editArgument"
+          />
+        </div>
       </div>
 
       <issue-picker-vue

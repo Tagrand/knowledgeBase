@@ -30,7 +30,7 @@
         placeholder="summary"
         class="w-full mx-2 h-1/2 bg-grey_light pl-2"
       />
-      </div>
+    </div>
 
     <div
       v-if="hasLink"
