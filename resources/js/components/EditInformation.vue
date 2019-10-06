@@ -143,7 +143,9 @@ export default {
         information.link = this.informationLink;
       }
 
-      information[this.name] = this.informationName;
+      if (this.informationName !== this.primaryInformation) {
+        information[this.name] = this.informationName;
+      }
 
       return information;
     },

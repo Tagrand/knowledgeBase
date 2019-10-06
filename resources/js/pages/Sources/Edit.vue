@@ -42,10 +42,12 @@
       <div class="bg-grey md:w-9/20 p-4 md:mb-0 mb-4">
         <div v-if="isFactSelected">
           <edit-information-vue
-            :id="id"
+            :id="selectedFact.id"
             name="claim"
+            :has-summary="true"
             type="fact"
             :primary-information="selectedFact.claim"
+            :summary="selectedFact.summary"
           />
 
           <p
@@ -83,7 +85,7 @@
       <div class="bg-grey md:w-9/20 p-4 md:mb-0 mb-4">
         <div v-if="isArgumentSelected">
           <edit-information-vue
-            :id="id"
+            :id="selectedArgument.id"
             :has-summary="true"
             name="reason"
             type="argument"
