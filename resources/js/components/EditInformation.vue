@@ -39,7 +39,7 @@
       <label
         :for="linkName"
         class="mx-2"
-      >{{ linkName }}:</label>
+      >{{ capitalize(linkName) }}:</label>
       <textarea
         :id="linkName"
         v-model="informationLink"

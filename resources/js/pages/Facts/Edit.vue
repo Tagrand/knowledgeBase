@@ -24,7 +24,11 @@
       <div class="bg-grey md:w-9/20 pb-2 md:mb-0 mb-4 pb-2">
         <edit-information-vue
           :id="id"
-          :has-summary="false"
+          :has-summary="true"
+          :summary="fact.summary"
+          :has-link="true"
+          link-name="image"
+          :link="fact.link"
           type="fact"
           :primary-information="fact.claim"
           name="claim"
