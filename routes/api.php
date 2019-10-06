@@ -57,6 +57,7 @@ Route::prefix('v1')->group(function () {
         Route::patch('/sources/{source}', 'SourcesController@update');
 
         Route::get('/sources/{source}/arguments', 'SourcesArgumentsController@index');
+        Route::post('/sources/{source}/arguments', 'SourcesArgumentsController@store');
 
         Route::get('/sources/{source}/facts', 'SourcesFactsController@index');
         Route::post('/sources/{source}/facts', 'SourcesFactsController@store');

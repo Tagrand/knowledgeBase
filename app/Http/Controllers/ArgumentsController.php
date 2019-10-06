@@ -12,18 +12,8 @@ class ArgumentsController extends Controller
         return Argument::with(['issues', 'source'])->get();
     }
 
-    public function store(Request $request)
+    public function update(Argument $argument, Request $request)
     {
-        $validatedData = $request->validate([
-            'reason' => 'required|string|unique:arguments',
-            'source_id' => 'nullable|exists:sources,id',
-            'summary' => 'nullable|string',
-        ]);
-
-        return Argument::create($validatedData);
-    }
-
-    public function update(Argument $argument, Request $request) {
         $validatedData = $request->validate([
             'reason' => 'string|unique:arguments',
            'source_id' => 'integer|exists:sources,id',
